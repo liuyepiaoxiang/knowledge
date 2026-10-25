@@ -238,37 +238,81 @@ function draw() {
   const hlSet = HL ? neighborsOf(HL) : null;
   const focus = HL != null;
 
-  /* 边 */
+  /* 预计算全部节点的屏幕坐标 (避免 sx/sy 万次调用) */
+  const N_ALL = NODES_.length;
+  const SXA = new Float32Array(N_ALL);
+  const SYA = new Float32Array(N_ALL);
+  for (let i = 0; i < N_ALL; i++) {
+    SXA[i] = P.x[i] * S.k + S.tx;
+    SYA[i] = P.y[i] * S.k + S.ty;
+  }
+
+  /* 边合批: 按样式分组 → 每组一次 stroke */
   const vl = -80, vr = W + 80, vt = -80, vb = H + 80;
+  const buckets = new Map();
+  const hiEdges = [];
+
   for (const e of E) {
     const a = byId[e.from], b = byId[e.to];
     if (!shownIdx(a.idx) || !shownIdx(b.idx)) continue;
     const et = EDGE_TYPES[e.type];
-    const isTopicEdge = a.t === "Topic" || b.t === "Topic";
-    if (S.k < 0.45 && isTopicEdge) continue;
+    if (S.k < 0.45 && (a.t === "Topic" || b.t === "Topic")) continue;
     const involved = HL === e.from || HL === e.to;
     let al = et.dim ? 0.13 : 0.28;
     if (focus) al = involved ? 0.85 : 0.05;
-    const x1 = sx(P.x[a.idx]), y1 = sy(P.y[a.idx]);
-    const x2 = sx(P.x[b.idx]), y2 = sy(P.y[b.idx]);
-    /* 视口裁剪: 两端都在画布外则跳过 */
+    const x1 = SXA[a.idx], y1 = SYA[a.idx];
+    const x2 = SXA[b.idx], y2 = SYA[b.idx];
     if ((x1 < vl && x2 < vl) || (x1 > vr && x2 > vr) ||
         (y1 < vt && y2 < vt) || (y1 > vb && y2 > vb)) continue;
-    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+
     const bend = ((hashStr(e.from + e.to) % 9) - 4) * 6;
     const dx = x2 - x1, dy = y2 - y1, len = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-    const cx = mx + (-dy / len) * bend, cy = my + (dx / len) * bend;
+    const mx2 = (x1 + x2) / 2, my2 = (y1 + y2) / 2;
+    const cx2 = mx2 + (-dy / len) * bend, cy2 = my2 + (dx / len) * bend;
+
+    if (involved) {
+      hiEdges.push(x1, y1, cx2, cy2, x2, y2, et);
+      continue;
+    }
+
+    const key = et.color + "|" + (et.dashed ? "d" : "s") + "|" + Math.round(al * 20);
+    let bk = buckets.get(key);
+    if (!bk) {
+      bk = { color: et.color, dashed: et.dashed, al, paths: [] };
+      buckets.set(key, bk);
+    }
+    bk.paths.push(x1, y1, cx2, cy2, x2, y2);
+  }
+
+  /* 逐桶绘制: 每桶一次 beginPath + stroke */
+  ctx.lineWidth = 1;
+  for (const [, bk] of buckets) {
+    ctx.strokeStyle = bk.color;
+    ctx.globalAlpha = bk.al;
+    ctx.setLineDash(bk.dashed ? [4, 4] : []);
+    ctx.beginPath();
+    const pp = bk.paths;
+    for (let i = 0; i < pp.length; i += 6) {
+      ctx.moveTo(pp[i], pp[i + 1]);
+      ctx.quadraticCurveTo(pp[i + 2], pp[i + 3], pp[i + 4], pp[i + 5]);
+    }
+    ctx.stroke();
+  }
+  /* 高亮边最后绘制 */
+  ctx.lineWidth = 1.5;
+  for (let i = 0; i < hiEdges.length; i += 7) {
+    const et = hiEdges[i + 6];
     ctx.strokeStyle = et.color;
-    ctx.globalAlpha = al;
-    ctx.lineWidth = involved ? 1.5 : 1;
+    ctx.globalAlpha = 0.85;
     ctx.setLineDash(et.dashed ? [4, 4] : []);
     ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.quadraticCurveTo(cx, cy, x2, y2);
+    ctx.moveTo(hiEdges[i], hiEdges[i + 1]);
+    ctx.quadraticCurveTo(hiEdges[i + 2], hiEdges[i + 3], hiEdges[i + 4], hiEdges[i + 5]);
     ctx.stroke();
   }
   ctx.setLineDash([]);
   ctx.globalAlpha = 1;
+  ctx.lineWidth = 1;
 
   /* 节点(两遍: 先提取层纹理, 再策展/结构层) */
   ctx.font = '11px "Segoe UI","Microsoft YaHei",sans-serif';
@@ -284,7 +328,7 @@ function draw() {
       ctx.beginPath();
       for (const m of NODES_) {
         if (m.t !== "Topic" || !shownIdx(m.idx)) continue;
-        const bx = sx(P.x[m.idx]), by = sy(P.y[m.idx]);
+        const bx = SXA[m.idx], by = SYA[m.idx];
         if (bx < -30 || bx > W + 30 || by < -30 || by > H + 30) continue;
         const br = Math.max(TYPES.Topic.r * 0.6 * Math.min(S.k * 1.5, 1), 1.4);
         ctx.moveTo(bx + br, by); ctx.arc(bx, by, br, 0, 7);
@@ -294,7 +338,7 @@ function draw() {
       for (const m of NODES_) {
         if (m.t !== "Topic" || !shownIdx(m.idx)) continue;
         if (S.sel !== m.id && S.hov !== m.id) continue;
-        const bx = sx(P.x[m.idx]), by = sy(P.y[m.idx]);
+        const bx = SXA[m.idx], by = SYA[m.idx];
         const br = Math.max(TYPES.Topic.r * 0.6 * Math.min(S.k * 1.5, 1), 2.5);
         ctx.globalAlpha = 1; ctx.fillStyle = "#d9c79a";
         ctx.beginPath(); ctx.arc(bx, by, br, 0, 7); ctx.fill();
@@ -312,7 +356,7 @@ function draw() {
     let r = T.r * (0.78 + 0.30 * Math.log2(1 + deg)) * (n.t === "Domain" ? 1 : 1);
     if (n.t === "Topic") r *= 0.78;
     r = Math.max(r * Math.min(S.k * 1.5, 1), 2.2);
-    const x = sx(P.x[n.idx]), y = sy(P.y[n.idx]);
+    const x = SXA[n.idx], y = SYA[n.idx];
     if (x < -60 || x > W + 60 || y < -60 || y > H + 60) continue;
     const involved = HL === n.id || (hlSet && hlSet.has(n.id));
     let base = S.heat && !fossil ? heatColor(n) : (fossil ? "#4a5468" : T.color);
@@ -448,7 +492,7 @@ function pickNode(mx, my) {
   const R2 = 100;
   for (const n of NODES_) {
     if (!shownIdx(n.idx)) continue;
-    const x = sx(P.x[n.idx]), y = sy(P.y[n.idx]);
+    const x = SXA[n.idx], y = SYA[n.idx];
     const dx = mx - x, dy = my - y;
     const T = TYPES[n.t];
     const r = Math.max(T.r * Math.min(S.k * 1.5, 1), 5) + 4;

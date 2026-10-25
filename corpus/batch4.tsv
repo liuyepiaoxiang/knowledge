@@ -1,0 +1,474 @@
+field	name	year	def	type
+f_physics_persons	费曼	1918	量子电动力学与物理学教学传奇	Person
+f_physics_persons	玻尔	1885	哥本哈根学派的旗手	Person
+f_physics_persons	居里夫人	1867	两获诺奖的放射性先驱	Person
+f_physics_persons	卢瑟福	1871	原子核的发现者	Person
+f_physics_persons	狄拉克	1902	把相对论与量子合并的方程作者	Person
+f_physics_persons	霍金	1942	黑洞辐射的预言者	Person
+f_physics_persons	玻尔兹曼	1844	统计力学与熵的统计诠释	Person
+f_physics_persons	吴健雄	1912	用实验推翻宇称守恒		Person
+f_cs_persons	高德纳	1938	《计算机程序设计艺术》与排版系统	Person
+f_cs_persons	迪杰斯特拉	1930	最短路径算法与结构化编程宣言	Person
+f_cs_persons	汉明	1915	纠错码与“ Numerov ”数值方法	Person
+f_cs_persons	伯纳斯-李	1955	万维网的发明者	Person
+f_cs_persons	姚期智	1946	计算理论与量子信息		Person
+f_bio_persons	巴斯德	1822	微生物学之父与疫苗先驱	Person
+f_bio_persons	科赫	1843	细菌致病与科赫法则	Person
+f_bio_persons	麦克林托克	1902	转座因子的发现者	Person
+f_bio_persons	桑格	1918	两次诺奖：蛋白质与DNA测序	Person
+f_bio_persons	卡尔文	1911	光合作用碳固定路径	Person
+f_med_persons	希波克拉底	-460	医学伦理与体液学说之父	Person
+f_med_persons	盖伦	129	统治医学一千四百年的权威	Person
+f_med_persons	南丁格尔	1820	现代护理与医学统计的开创者	Person
+f_med_persons	科赫	1843	细菌致病理论的确立者	Person
+f_med_persons	班廷	1891	胰岛素的发现者之一	Person
+f_med_persons	张仲景	150	《伤寒杂病论》与辨证论治		中国	Person
+f_chem_persons	鲍林	1901	化学键与分子生物学先驱	Person
+f_chem_persons	伍德沃德	1917	天然产物全合成大师	Person
+f_chem_persons	居里夫人	1867	镭与钋的发现者	Person
+f_chem_persons	李远哲	1936	交叉分子束研究化学反应动力学		中国	Person
+f_math_persons	高斯	1777	数学王子的数论几何统计全才	Person
+f_math_persons	欧拉	1707	史上最多产的数学家	Person
+f_math_persons	拉马努金	1887	直觉惊人的自洽数学天才	Person
+f_math_persons	诺特	1882	抽象代数之母与诺特定理	Person
+f_math_persons	黎曼	1826	黎曼几何与黎曼猜想	Person
+f_math_persons	希尔伯特	1862	二十世纪数学的议程制定者	Person
+f_math_persons	陈省身	1911	整体微分几何之父		中国	Person
+f_math_persons	华罗庚	1910	中国现代数学的奠基者		中国	Person
+f_soc_persons	涂尔干	1858	社会学方法论的确立者	Person
+f_soc_persons	萨缪尔森	1915	新古典综合与教科书经济学	Person
+f_soc_persons	弗里德曼	1912	货币主义与实证方法论	Person
+f_soc_persons	纳什	1928	纳什均衡与非合作博弈	Person
+f_soc_persons	马斯洛	1908	需求层次理论	Person
+f_hum_persons	希罗多德	-484	历史学之父	Person
+f_hum_persons	但丁	1265	《神曲》与民族语言文学	Person
+f_hum_persons	莎士比亚	1564	西方戏剧的高峰	Person
+f_hum_persons	曹雪芹	1715	《红楼梦》与中国小说巅峰		中国	Person
+f_hum_persons	鲁迅	1881	现代中国文学的开创者		中国	Person
+f_hum_persons	歌德	1749	德国古典文学的代表	Person
+f_art_persons	达芬奇	1452	艺术与科学的全才原型	Person
+f_art_persons	梵高	1853	表现主义绘画的先声	Person
+f_art_persons	毕加索	1881	立体主义与二十世纪艺术	Person
+f_art_persons	贝多芬	1770	古典与浪漫之间的交响革命	Person
+f_art_persons	莫扎特	1756	古典主义的完美形式	Person
+f_law_persons	梭伦	-638	雅典改革与法治传统	Person
+f_law_persons	西塞罗	-106	罗马法学的理论化	Person
+f_law_persons	格劳秀斯	1583	国际法之父	Person
+f_law_persons	马歇尔	1755	美国司法审查的确立者	Person
+f_econ_persons	李嘉图	1772	比较优势理论	Person
+f_econ_persons	熊彼特	1883	创新与创造性破坏理论	Person
+f_edu_persons	孔子	-551	有教无类与因材施教		中国	Person
+f_edu_persons	苏格拉底	-470	产婆术与对话教学法	Person
+f_edu_persons	洪堡	1767	研究型大学制度的创立者	Person
+f_eng_persons	爱迪生	1847	发明工厂模式的缔造者	Person
+f_eng_persons	特斯拉	1856	交流电系统的推动者	Person
+f_eng_persons	莱特兄弟	1867	人类首次动力飞行	Person
+f_eng_persons	科罗廖夫	1907	苏联航天计划总设计师	Person
+f_eng_persons	茅以升	1896	现代桥梁工程的中国先驱		中国	Person
+f_earth_persons	洪堡	1769	自然地理与植物地理学奠基	Person
+f_earth_persons	竺可桢	1890	中国现代气象学奠基		中国	Person
+f_prac_persons	贾思勰	533	《齐民要术》——现存最早农学巨著		中国	Person
+f_prac_persons	陆羽	733	《茶经》——世界第一部茶学专著		中国	Person
+f_prac_persons	顾拜旦	1863	现代奥林匹克运动复兴者	Person
+f_astro_events	哥白尼《天球运行论》	1543	日心说的系统论述		Event
+f_astro_events	赫歇尔发现天王星	1781	第一颗望远镜发现的行星		Event
+f_astro_events	海王星的笔尖发现	1846	由计算预言而非肉眼发现		Event
+f_astro_events	哈勃定律	1929	星系退行与宇宙膨胀		Event
+f_astro_events	哈勃太空望远镜发射	1990	大气层外的眼睛		Event
+f_astro_events	引力波多信使天文学	2017	引力波+电磁波同看一个事件		Event
+f_optics_events	牛顿色散实验	1666	白光由七色组成		Event
+f_optics_events	激光测月	1969	用激光往返测地月距离		Event
+f_particle_events	电子的发现	1897	汤姆孙打开原子内部		Event
+f_particle_events	正电子的发现	1932	第一个反物质粒子		Event
+f_particle_events	希格斯机制预言	1964	质量起源的理论		Event
+f_chem_events	波义耳《怀疑派化学家》	1661	化学从炼丹术独立		Event
+f_chem_events	镭的发现	1898	居里夫妇的分离之战		Event
+f_chem_events	人工固氮工业化	1913	博施把哈伯反应放大千倍		Event
+f_chem_events	石墨烯分离	2004	用胶带撕出诺贝尔奖		Event
+f_geology_events	同位素测年确立	1950	地球年龄被推到45亿年		Event
+f_climate_events	基林曲线开始	1958	夏威夷观测站连续记录CO2		Event
+f_climate_events	巴黎气候协定	2015	全球温控目标的政治共识		Event
+f_envir_events	第一次世界气候大会	1979	气候变化进入国际议程		Event
+f_envir_events	京都议定书	1997	第一个有约束力的减排协议		Event
+f_cs_events	电报与摩尔斯电码	1844	信息第一次跑赢马车		Event
+f_cs_events	电话的专利	1876	语音的远距离传输		Event
+f_cs_events	第一台通用电子计算机	1945	ENIAC通电		Event
+f_cs_events	IBM PC发布	1981	个人计算机标准化		Event
+f_cs_events	以太网标准化	1983	局域网的有线标准		Event
+f_cs_events	中国超级计算机	1983	银河一号进入万亿次竞赛		中国	Event
+f_cs_events	深度学习三巨头获图灵奖	2018	神经网络获得最高认可		Event
+f_bio_events	列文虎克看到微生物	1674	人类第一次看见微观生命		Event
+f_bio_events	光合作用机制阐明	1950	卡尔文循环完成		Event
+f_bio_events	胰岛素结构测定	1969	第一个蛋白结构的中国贡献		中国	Event
+f_bio_events	PCR自动化	1988	扩增反应变成机器		Event
+f_bio_events	人类微生物组计划	2008	人体菌群被系统测序		Event
+f_med_events	维萨里解剖学讲席	1537	用尸体直接验证人体		Event
+f_med_events	.clip
+f_med_events	胰岛素用于糖尿病	1922	班廷的第一次救命的注射		Event
+f_med_events	心脏起搏器植入	1958	电子装置植入人体		Event
+f_med_events	首例心脏移植	1967	巴纳德的手术		Event
+f_med_events	青蒿素发现	1972	从中药到抗疟神药		中国	Event
+f_med_events	CT扫描应用于临床	1971	计算机断层成像		Event
+f_agri_events	李比希矿质营养学说	1840	植物从土壤吸收养分		Event
+f_agri_events	杂交水稻三系配套	1973	袁隆平的杂交优势利用		中国	Event
+f_agri_events	国际水稻研究所成立	1960	绿色革命的亚洲引擎		Event
+f_agri_events	诺曼博洛格赴墨西哥	1944	小麦抗病育种的开始		Event
+f_agri_events	 dna双螺旋50周年	2003	基因组时代宣言		Event
+f_soc_events	涂尔干《自杀论》	1897	用统计研究社会问题的范本		Event
+f_soc_events	霍桑实验	1924	组织行为研究的开端		Event
+f_soc_events	行为经济学诺奖	2002	卡尼曼的跨学科认可		Event
+f_soc_events	世界价值调查	1981	全球价值观的系统比较		Event
+f_hum_events	司马迁著《史记》	-91	纪传体通史开创		中国	Event
+f_hum_events	兰克学派确立	1824	基于档案的史学		Event
+f_hum_events	甲骨文的发现	1899	商代信史的门被打开		中国	Event
+f_hum_events	敦煌藏经洞发现	1900	中亚与敦煌学诞生		中国	Event
+f_hum_events	剑桥哲学评论		分析哲学的期刊阵地		Event
+f_art_events	凡高《星夜》	1889	情感色彩的极致		Event
+f_art_events	毕加索《格尔尼卡》	1937	艺术介入政治的巅峰		Event
+f_art_events	披头士席卷美国	1964	英伦入侵与流行乐工业		Event
+f_art_events	皮娜鲍什舞蹈剧场	1975	身体语言的边界		Event
+f_law_events	拿破仑法典生效	1804	民法典的世界模板		Event
+f_law_events	日本明治宪法	1889	亚洲第一部宪法		日本	Event
+f_law_events	联合国海洋法公约	1982	海洋秩序的大宪章		Event
+f_law_events	纽伦堡与东京审判	1946	战争罪的国际追诉		Event
+f_law_events	中国民法典颁布	2020	七编合一的民事基本法		中国	Event
+f_econ_events	阿姆斯特丹证券交易所	1602	第一个现代股票市场		Event
+f_econ_events	1929华尔街股灾	1929	大萧条的开端		Event
+f_econ_events	布雷顿森林会议	1944	战后经济秩序设计		Event
+f_econ_events	中国改革开放	1978	人类史上最大规模的脱贫实验		中国	Event
+f_econ_events	2008全球金融危机	2008	雷曼倒下与系统性风险		Event
+f_edu_events	洪堡大学创立	1810	教学与研究统一的现代大学		Event
+f_edu_events	美国赠地学院法案	1862	高等教育服务社会		Event
+f_edu_events	开放大学成立	1969	远程高等教育的起点		Event
+f_edu_events	慕课元年	2012	顶尖课程向全球开放		Event
+f_eng_events	都江堰系统建成	-256	无坝引水的系统工程		中国	Event
+f_eng_events	富兰克林风筝实验	1752	证明闪电是电		Event
+f_eng_events	交流电系统胜出	1893	特斯拉与西屋点亮世博会		Event
+f_eng_events	哈勃望远镜升空	1990	太空望远镜时代		Event
+f_eng_events	人类基因组测序完成	2003	测读生命的全部字母		Event
+f_eng_events	嫦娥四号月背着陆	2019	人类首次月背软着陆		中国	Event
+f_materials	高强度低合金钢		桥梁与高层建筑的基础	Method
+f_materials	半导体掺杂工艺		精确控制导电类型	Method
+f_materials	高分子合成材料		从尼龙到凯夫拉		T L9
+f_materials	陶瓷基复合材料		耐高温的新一代结构材料	
+f_materials	自愈合材料		仿生微胶囊修复裂纹		实验室
+f_materials	材料基因组计划	2011	用计算加速新材料发现	Method
+f_materials	超材料		负折射率与隐身斗篷		实验室
+f_materials	形状记忆合金		受热恢复原形的金属		T L9
+f_data	数据清洗		垃圾进垃圾出的第一道闸	Method
+f_data	探索性数据分析	1977	图基：先看再算	Method
+f_data	数据可视化		把数字变成图形的语法	Method
+f_data	机器学习流程		特征、训练、评估、部署	Method
+f_data	因果推断		从相关走向因果的统计	Method
+f_data	隐私计算		数据可用不可见		前沿
+f_data	A/B测试		互联网时代的随机实验	Method
+f_energy	电网调度		发供用实时平衡	Method
+f_energy	抽水蓄能		大规模储能的现实答案		T L9
+f_energy	锂离子电池	1991	便携设备的动力之源		T L9
+f_energy	特高压输电	2009	长距离低损耗输电		中国	T L9
+f_energy	智慧电网		双向信息与能量流		前沿
+f_energy	氢能产业链		绿氢的制储运用		前沿
+f_energy	核聚变工程		人造太阳的工程化		实验室
+f_transport	集装箱物流		标准化运输单元		T L9
+f_transport	高速铁路系统		轮轨关系的工程极限		中国	T L9
+f_transport	智能交通系统		信号协同与路径优化	Method
+f_transport	自动驾驶		感知决策执行闭环		前沿
+f_transport	低空经济		无人机与eVTOL		前沿
+f_transport	港口自动化		无人码头的调度	Method
+f_ocean	洋流与温盐环流		全球热量输送带	
+f_ocean	海洋酸化		CO2溶解改变海水pH		前沿
+f_ocean	深海热液生态	1977	不依赖阳光的生态系统		Event
+f_ocean	海洋遥感		卫星观测海面	Method
+f_ocean	蓝碳		海洋生态系统的固碳		前沿
+f_logic	直觉主义逻辑		拒绝排中律的构造性数学	Controversy
+f_logic	二阶逻辑		量化性质与集合的逻辑	
+f_logic	非单调推理		新信息推翻旧结论	Method
+f_prob	随机图论	1959	ER模型与相变	Proposition
+f_prob	贝叶斯深度学习		把不确定性带进神经网络	Method
+f_prob	贝叶斯最优实验设计		主动选择最有信息量的实验	Method
+f_prob	生存分析		事件时间的建模	Method
+f_prob	元分析		综合多项研究的统计	Method
+f_classical	分析力学		拉格朗日与哈密顿形式	Method
+f_classical	非线性振动		自激振动与同步现象	
+f_classical	天体力学		行星轨道的摄动理论	
+f_classical	连续介质力学		把物体当作场来处理	
+f_classical	量纲分析		白金汉π定理	Method
+f_electromag	静电屏蔽		法拉第笼的原理	Proposition
+f_electromag	涡流		变化的磁通感应的环流	
+f_electromag	电磁兼容		设备互不干扰的设计	Method
+f_electromag	天线理论		辐射的方向性与增益	Method
+f_electromag	磁共振成像物理		核自旋在磁场中的行为	Proposition
+f_thermo	热传导		傅里叶定律与热扩散	Proposition
+f_thermo	对流传热		流动带走的热量	
+f_thermo	辐射传热		黑体辐射与斯特藩定律	Proposition
+f_thermo	化学平衡常数		反应限度的定量	Proposition
+f_thermo	相律		自由度与相数的关系	Proposition
+f_condensed	半导体制程物理		掺杂扩散外延与氧化	
+f_condensed	异质结与量子阱		能带工程的基础	Proposition
+f_condensed	激子		电子空穴对的束缚态	
+f_condensed	莫特绝缘体		能带论失效的情形	Controversy
+f_condensed	非晶态物理		没有周期序的固体	
+f_condensed	高分子链动力学		缠结与蠕动模型	
+f_particle	束流物理		带粒子束的聚焦与传输	
+f_particle	亮度与截面		对撞机的两个核心指标	Proposition
+f_particle	顶夸克	1995	第三代夸克的最后一块拼图	Proposition
+f_particle	强子对撞发现新粒子	2012	125GeV处的共振峰	Proposition
+f_particle	宇宙线物理		来自太空的高能粒子	
+f_optics	光学薄膜		增透膜与高反膜的设计	Method
+f_optics	衍射光学元件		用相位结构代替透镜	
+f_optics	光谱成像		每个像素都有光谱	Method
+f_optics	光学原子钟		用光频跃迁计秒		实验室
+f_astro	恒星光谱分类		哈佛分类与赫罗图	Proposition
+f_astro	造父变星与测距		宇宙距离阶梯的第一级	Proposition
+f_astro	活动星系核		吸积超级黑洞的极端亮度	
+f_astro	星系合并		银河系将吞并仙女座	
+f_astro	系外行星凌星法		掩星时亮度微降	Method
+f_astro	射电干涉测量		越大看得越清	Method
+f_astro	原行星盘		行星在盘中形成	
+f_bigbang	宇宙微波背景	宇宙暴胀		比光速更早的生长	Controversy
+f_astro	暗物质探测实验		直接探测地下实验室		实验室
+f_geology	岩石圈分层		地壳地幔的地震学证据	Proposition
+f_geology	火山喷发机制		岩浆上升与爆炸系数	
+f_geology	板块驱动力		地幔对流还是板块拖拽	Controversy
+f_geology	石油地质		生储盖组合	Proposition
+f_meteor	大气分层		对流层到中间层	
+f_meteor	全球环流三圈模型		哈德里环流与信风	Proposition
+f_meteor	厄尔尼诺		海温异常的全球遥相关	Proposition
+f_meteor	极端降水趋势		变暖大气持水能力上升		前沿
+f_climate	温室气体清单		谁在排放多少	Method
+f_climate	气候模型比较		CMIP计划与不确定性	Proposition
+f_climate	城市热岛		城市比郊区热	Proposition
+f_climate	冰川物质平衡		积累与消融的账本	
+f_envir	大气化学		臭氧与自由基的光化学	
+f_envir	持久性有机污染物		DDT之后的持久战场		前沿
+f_envir	环境微生物学		降解污染的微生物	Method
+f_envir	生态修复工程		湿地与矿区的重建		实验室
+f_ocean	物理海洋学		波浪潮汐与环流	Proposition
+f_ocean	海洋地质		海底扩张的直接证据	
+f_ocean	海洋生物		从浮游植物到鲸	
+f_ocean	海气交换		热量气体和动量的界面	
+f_theory_cs	在线算法		输入未到先做决定	Controversy
+f_theory_cs	通信复杂度		两个人要传多少比特	
+f_theory_cs	计算学习理论		可学习的边界	Proposition
+f_theory_cs	游戏AI		从深蓝到AlphaGo	Method
+f_theory_cs	程序合成		让AI写代码		前沿
+f_arch	超标量乱序执行		硬件动态调度	Proposition
+f_arch	缓存一致性		多核如何共享内存	Proposition
+f_arch	指令级并行		分支预测与推测执行	
+f_arch	图形处理器架构		大规模并行的另一种哲学	
+f_arch	领域专用架构		为AI定制的芯片		前沿
+f_ai	迁移学习		把旧知识用到新任务	Method
+f_ai	联邦学习		数据不动模型动	Method
+f_ai	智能体		感知-决策-行动闭环		前沿
+f_ai	世界模型		让AI学习物理直觉		前沿
+f_ai	符号与神经融合		两条路线的和解		前沿
+f_ai	可解释性		打开黑箱的方法		前沿
+f_ai	多智能体系统		合作与竞争的AI社会	
+f_ai	具身智能		机器人学会的智能		前沿
+f_networks	软件定义网络		控制与转发分离		T L9
+f_networks	内容分发网络		把内容搬到用户门口		T L9
+f_networks	网络协议栈分层		OSI七层与TCP/IP	Proposition
+f_networks	拥塞控制		避免网络雪崩	Method
+f_networks	零信任安全		永不信任持续验证	Method
+f_genetics	基因组学		全基因组的研究	Method
+f_genetics	基因敲除		功能研究的反向遗传学	Method
+f_genetics	连锁分析		定位致病基因	Method
+f_genetics	数量性状位点		复杂性状的遗传	Map
+f_molbio	染色质与组蛋白		DNA的包装与调控	
+f_molbio	核糖体结构		翻译机器的原子解析	
+f_molbio	蛋白质降解		泛素-蛋白酶体途径	Proposition
+f_molbio	自噬		细胞吃自己		诺奖2016
+f_molbio	非编码RNA		不翻译但有功能		前沿
+f_structbio	膜蛋白结晶		难结晶的靶点	Method
+f_structbio	蛋白质复合物		相互作用的原子细节	
+f_structbio	结构解析算法		从衍射到密度图	Method
+f_structbio	冷冻电镜断层成像		细胞内的原位结构		前沿
+f_immunology	细胞因子		免疫细胞之间的信使	
+f_immunology	主要组织相容性复合体		自我识别的分子基础	Proposition
+f_immunology	抗体多样性产生		V(D)J重组	Proposition
+f_immunology	疫苗佐剂		增强免疫反应的添加剂	Method
+f_immunology	肿瘤微环境		癌细胞与免疫的拉锯		前沿
+f_bioeng	基因治疗		把正常基因送回去		前沿
+f_bioeng	类器官		迷你器官的培养		前沿
+f_bioeng	细胞治疗		CAR-T与干细胞疗法		前沿
+f_bioeng	生物制造		用细胞工厂造化学品		前沿
+f_bioeng	合成基因回路		细胞里的逻辑电路		实验室
+f_ecology	食物链与营养级		能量沿食物网流动	Proposition
+f_ecology	生态系统多样性		基因物种生态三层	Proposition
+f_ecology	岛屿生物地理学		面积与隔离决定物种数	Proposition
+f_ecology	生态位		物种的生存空间	
+f_ecology	气候变化生态响应		物候迁移与灭绝风险		前沿
+f_anatomy	大脑皮层分区		布罗德曼52区	Map
+f_anatomy	心肌电生理		心脏的自发起搏	Proposition
+f_anatomy	血脑屏障		大脑的选择性海关	
+f_anatomy	肠神经系统		第二大脑		前沿
+f_clinical	循证指南		把证据变成流程	Method
+f_clinical	微创手术		腔镜与机器人手术		T L9
+f_clinical	远程医疗		医疗的数字化转型		T L9
+f_clinical	多学科会诊		肿瘤的MDT模式	Method
+f_clinical	罕见病		每种病都很罕见，加起来不少		前沿
+f_pharm	生物药		大分子药物的时代		T L9
+f_pharm	给药途径		口服注射透皮吸入	Method
+f_pharm	药物相互作用		合并用药的风险	Proposition
+f_pharm	抗生素管理		延缓耐药的策略	Method
+f_epidemi	公共卫生监测		疾病报网的建立	Method
+f_epidemi	疫情建模		预测传播曲线	Method
+f_epidemi	健康传播		怎么说服公众	Method
+f_epidemi	疫苗犹豫		不是无知而是信任问题	Controversy
+f_neuro	神经干细胞		成人大脑也有新生神经元	Controversy
+f_neuro	神经调控		经颅磁刺激与深部脑刺激	Method
+f_neuro	连接组学		绘制大脑的全部线路	Map
+f_neuro	痛觉机制		慢性疼痛的神经基础		前沿
+f_crop	作物基因组		驯化基因与绿色革命基因	Map
+f_crop	抗旱育种		少水也能高产	Method
+f_crop	生物防治		以虫治虫与以菌治菌	Method
+f_crop	农产品品质		外观口感营养的平衡	
+f_soil	土壤有机质		肥力与碳汇的双重角色	Proposition
+f_soil	连作障碍		同地连年种植的减产之谜	
+f_soil	重金属钝化		让污染物失去活性	Method
+f_food	食品添加剂		防腐剂与安全剂量	Controversy
+f_food	食品工程与法规		标注添加剂与健康声称	
+f_food	精深加工		从原料到高附加值产品	Method
+f_food	供应链冷链		全程温度监控		T L9
+f_animal	动物疫苗		口蹄疫与禽流感的防控		T L9
+f_animal	水产营养		饲料系数与蛋白质替代	Method
+f_animal	人畜共患病		新冠之前的一直存在		前沿
+f_animal	养殖智能化		传感器与精准投喂		前沿
+f_econ	信息不对称		柠檬市场与逆向选择	Proposition
+f_econ	外部性		价格没有反映的社会成本	Proposition
+f_econ	公共品		非排他与非竞争	Proposition
+f_econ	搜索与匹配		失业与婚姻的共同数学	Method
+f_sociology	社会网络		强弱关系的力量	Proposition
+f_sociology	社会资本		信任作为经济资源	
+f_sociology	社会不平等再生产		布尔迪厄的文化资本	
+f_sociology	风险社会		贝克：现代性自反	Controversy
+f_psych	注意与执行功能		前额叶的管理能力	Proposition
+f_psych	情绪调节		认知重评与表达抑制	Method
+f_psych	心理韧性		逆境后的恢复	Controversy
+f_psych	跨文化研究		WEIRD样本的局限	Controversy
+f_psych	人格测量大五		开放尽责外向宜人神经质	Proposition
+f_history	历史比较		跨文明的平行与互动	Method
+f_history	计量史学		用统计检验历史叙事	Method
+f_history	物质文化史		从器物看社会	
+f_history	新文化史		微观史与日常生活	Method
+f_phil	分析哲学与欧陆之分		二十世纪哲学的两条路	Controversy
+f_phil	伦理学实验转向		用心理实验检验道德直觉	Controversy
+f_phil	科技哲学		科学是什么技术往哪去	
+f_phil	儒家伦理现代性		仁与正义的对话		中国	Controversy
+f_literature	文学经典化		谁决定什么是名著	Controversy
+f_literature	文学与身份		性别阶级族裔的书写	
+f_literature	世界文学		歌德的世界文学构想	
+f_literature	数字人文		用计算阅读文学	Method
+f_ling	类型学		世界语言的普遍与差异	Method
+f_ling	语言习得		儿童如何学会语言	Proposition
+f_ling	语言濒危		每两周消失一种语言		前沿
+f_ling	语义网		机器可读的意义		前沿
+f_archaeo	考古学理论		过程与后过程之争	Controversy
+f_archaeo	古DNA		提取灭绝人类的基因	Method
+f_archaeo	聚落考古		从单个遗址到区域系统	Method
+f_visual	艺术与权力		赞助人制度与审查	
+f_visual	艺术市场		拍卖行与价格形成		T L9
+f_visual	摄影与真实		纪实与摆拍的边界	Controversy
+f_music	音乐与数学		音程比与律制	Proposition
+f_music	音乐认知		为什么音乐让人感动		前沿
+f_music	音乐治疗		节奏与情绪的临床应用	Controversy
+f_design	设计思维		以用户为中心的创新流程	Method
+f_design	通用设计		为所有人设计	Method
+f_design	材料与感官		触觉温度重量的体验	
+f_media_art	媒体考古学		被遗忘的技术与想象	Method
+f_media_art	交互叙事		观众成为作者	Controversy
+f_media_art	AI影像		文本生成视频		前沿
+f_legaltheory	权利冲突		言论自由vs名誉权	Method
+f_legaltheory	司法独立		裁判者不受干预	Proposition
+f_legaltheory	判例与制定法		英美法系与大陆法系	
+f_constitution	言论自由的边界		仇恨言论与虚假信息	Controversy
+f_constitution	平等保护		歧视的分类审查	Proposition
+f_constitution	数字权利		被遗忘权与数据可携		前沿
+f_intl	国家主权原则		不干涉内政	Proposition
+f_intl	人道主义干预		主权与人权的冲突	Controversy
+f_intl	跨国公司规制		超越国界的权力	
+f_intl	国际法院		和平解决争端的司法	Method
+f_admin	政策评估		成本效益与 unintended 后果	Method
+f_admin	政府间关系		央地博弈与协同	
+f_admin	数字治理		平台时代的行政法		前沿
+f_admin	公共选择		政府失灵的理论	Proposition
+f_private	合同成立与生效		要约承诺与对价	Proposition
+f_private	侵权归责原则		过错无过错与严格责任	Proposition
+f_private	数据财产权		数据到底归谁	Controversy
+f_private	劳动与新业态		零工是雇员吗	Controversy
+f_criminal	刑罚目的		报应预防与修复	Controversy
+f_criminal	正当程序		程序正义独立价值	Proposition
+f_criminal	跨境犯罪		网络犯罪的管辖	Method
+f_finance	有效市场假说		价格反映全部信息	Controversy
+f_finance	资本结构		MM定理与现实修正	Proposition
+f_finance	风险投资条款		对赌与优先清算	Method
+f_finance	中央银行数字货币		数字人民币的实验		中国	前沿
+f_industry	产业升级		从代工到品牌	Method
+f_industry	工业革命与工人		卢德分子砸的是机器吗	Controversy
+f_industry	标准竞争		赢者通吃的技术政治	Controversy
+f_industry	军民融合		技术双向流动		前沿
+f_trade	全球价值链分工		谁赚走了微笑曲线两端	Method
+f_trade	贸易与就业		中国冲击的再评估	Controversy
+f_trade	出口管制		芯片战的贸易武器		前沿
+f_trade	贸易与环境		碳边境调节机制		前沿
+f_pedagogy	教育神经科学误区		神经神话的流行	Controversy
+f_pedagogy	项目式学习效果		证据比口号复杂	Controversy
+f_pedagogy	教师专业发展		刻意练习用于教学	Method
+f_pedagogy	家庭教育		家庭是第一课堂	Controversy
+f_cogsci_edu	认知发展个体差异		因材施教的科学基础	
+f_cogsci_edu	学习的脑机制		突触修剪与敏感期		前沿
+f_cogsci_edu	协作学习		社会建构的证据	Method
+f_cogsci_edu	错误的价值		从错误中学习	Controversy
+f_media	算法推荐		信息茧房是否存在	Controversy
+f_media	媒介即讯息		麦克卢汉的媒介论	Proposition
+f_media	参与式文化		弹幕与二创		中国
+f_media	注意力经济		流量分配的政治经济学	
+f_lis	开放数据		政府与科研数据共享		前沿
+f_lis	数字人文基础设施		图书馆支持研究	Method
+f_lis	知识图谱		从卡片目录到图数据库		中国	前沿
+f_lis	信息过载		过滤失败与对策	Controversy
+f_civil	工程伦理		垮塌与责任	Controversy
+f_civil	建设项目管理		工期成本质量的三角	Method
+f_civil	地下空间开发		向地下要空间	Method
+f_civil	结构健康监测		传感器守护桥梁	Method
+f_mech	工业机器人运动学		正逆解与轨迹规划	Method
+f_mech	精密测量		误差溯源与公差链	Method
+f_mech	绿色制造		能耗与排放的工艺重构	Method
+f_mech	摩擦学		摩擦磨损与润滑	
+f_elec	功率半导体		碳化硅与氮化镓		前沿
+f_elec	电力系统稳定性		故障穿越与频率稳定	Proposition
+f_elec	信号处理		从傅里叶到小波	Method
+f_elec	无线充电		磁共振耦合		实验室
+f_chemeng	化工安全		爆炸极限与本质安全	Method
+f_chemeng	化工放大		从烧瓶到反应釜的陷阱	Method
+f_chemeng	催化反应器设计		固定床流化床浆态床	Method
+f_chemeng	过程系统工程		全流程优化	Method
+f_aero	飞行器气动优化		用CFD吹风洞	Method
+f_aero	航空发动机		工业皇冠上的明珠		中国
+f_aero	卫星遥感应用		从气象到碳监测	Method
+f_aero	商业航天		可回收火箭降低成本		前沿
+f_nucleareng	小型模块化反应堆		核能的工厂化制造		前沿
+f_nucleareng	核聚变燃料循环		氚的自持		实验室
+f_nucleareng	核技术在医学		同位素诊断与治疗		T L9
+f_nucleareng	核退役		拆除一座核电站	Method
+f_indeng	质量管理数字化		从SPC到工业大数据	Method
+f_indeng	运筹优化求解器		工业软件的硬骨头		前沿
+f_indeng	复杂系统建模		涌现与仿真	Method
+f_indeng	人机协作		机器人旁边的人	Method
+f_materials	计算材料学		高通量筛选与AI预测	Method
+f_data	数据治理		质量血缘与合规	Method
+f_data	大数据架构		从Hadoop到湖仓一体	Method
+f_data	时间序列分析		预测与异常检测	Method
+f_data	图数据分析		本站的底层技术		前沿
+f_energy	光伏电池原理		光伏效应与转换效率	Proposition
+f_energy	风电原理		贝茨极限与风轮设计	Proposition
+f_energy	能源转型		从化石到可再生能源		前沿
+f_energy	能源经济学		碳定价与补贴设计	Method
+f_transport	交通与土地利用		通勤半径塑造城市	Proposition
+f_transport	物流网络优化		仓储选址与路径	Method
+f_transport	交通排放		尾气与全生命周期碳	Method
+f_transport	公共交通优先		公交都市的实践	Method
+f_ocean	海洋观测网		海底传感器阵列		前沿
+f_ocean	海洋与气候		海洋吸收九成多余热量	Proposition
+f_ocean	深远海养殖		向深海要蛋白		前沿
+f_ocean	极地科学		南北极的全球意义		前沿

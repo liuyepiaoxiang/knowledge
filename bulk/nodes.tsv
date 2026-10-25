@@ -1,0 +1,167 @@
+id	type	zh	en	domain	parent	born	died	one	status	tradition
+dom_eng	Domain	工程与技术	Engineering	dom_eng				用系统化方法把科学造物化		
+f_civil	Field	土木与结构工程	Civil engineering	dom_eng	f_civil	-256		桥梁、水利与结构物的设计与建造		
+f_mech	Field	机械与动力工程	Mechanical engineering	dom_eng	f_mech	1712		机器与动力的设计制造		
+f_elec	Field	电气与电子工程	Electrical engineering	dom_eng	f_elec	1882		电能与信号的产生和利用		
+f_chemeng	Field	化学工程	Chemical engineering	dom_eng	f_chemeng	1887		把实验室反应放大为工厂		
+f_aero	Field	航空航天工程	Aerospace engineering	dom_eng	f_aero	1903		在大气内外飞行		
+f_nucleareng	Field	核工程	Nuclear engineering	dom_eng	f_nucleareng	1954		核裂变链式反应的受控利用		
+f_indeng	Field	工业与可靠性工程	Industrial engineering	dom_eng	f_indeng	1795		生产系统与质量的设计		
+c_irrigation	Technology	灌溉与水利	Irrigation	dom_eng	f_civil	-6000		引水灌田的沟渠堤坝体系		多文明
+e_dujiangyan	Event	都江堰建成	Dujiangyan	dom_eng	f_civil	-256		无坝引水两千余年仍在灌溉成都平原		中国
+c_aqueduct	Technology	罗马引水道	Roman aqueduct	dom_eng	f_civil	-312		重力自流的城市供水高架渠		罗马
+c_suspension	Technology	现代悬索桥	Modern suspension bridge	dom_eng	f_civil	1883		钢缆悬吊桥面跨越深谷与海峡		
+tech_elevator	Technology	安全电梯	Safety elevator	dom_eng	f_mech	1852		带制动器的载人升降机	TRL9	
+c_skyscraper	Technology	摩天楼	Skyscraper	dom_eng	f_civil	1885		钢骨架+电梯的高层建筑		
+tech_aircondition	Technology	空调与制冷	AC & refrigeration	dom_eng	f_mech	1902		人工控制温度与湿度	TRL9	
+tech_combustion	Technology	内燃机	Internal combustion engine	dom_eng	f_mech	1876		四冲程燃料缸内燃烧做功	TRL9	
+c_car	Technology	汽车	Automobile	dom_eng	f_mech	1886		内燃机驱动的自走车辆	TRL9	
+c_highway	Technology	高速公路网	Highway system	dom_eng	f_civil	1932		汽车专用的封闭快速道路网	TRL9	
+tech_airplane	Technology	飞机	Airplane	dom_eng	f_aero	1903		重于空气的动力飞行器	TRL9	
+tech_rocket	Technology	现代火箭	Modern rocket	dom_eng	f_aero	1926		液体燃料火箭发动机	TRL9	
+tech_satellite	Technology	人造卫星	Artificial satellite	dom_eng	f_aero	1957		进入环绕地球轨道的航天器	TRL9	
+ev_sputnik	Event	斯普特尼克上天	Sputnik 1	dom_eng	f_aero	1957		太空时代开幕，震动西方		
+ev_moon	Event	载人登月	Moon landing	dom_eng	f_aero	1969		阿波罗11号，人类第一次踏上另一个天体		
+tech_gps	Technology	GPS与卫星导航	GPS navigation	dom_eng	f_aero	1995		卫星定位全球可用	TRL9	
+tech_nuclearplant	Technology	核电站	Nuclear power plant	dom_eng	f_nucleareng	1954		受控链式反应并网发电	TRL9	
+cv_nuclear	Controversy	核能的争议	Nuclear debate	dom_eng	f_nucleareng	1986		切尔诺贝利与福岛之后：安全、废料与气候取舍		争议
+tech_dye	Technology	合成染料	Synthetic dye	dom_eng	f_chemeng	1856		珀金偶然合成的苯胺紫开创化学工业		
+tech_oil_refining	Technology	石油炼化	Petroleum refining	dom_eng	f_chemeng	1913		催化裂化把原油变成燃料与材料	TRL9	
+tech_robot	Technology	工业机器人	Industrial robot	dom_eng	f_indeng	1961		可编程的通用操作机械臂	TRL9	
+tech_cnc	Technology	数控机床	CNC machine tool	dom_eng	f_indeng	1952		用程序指令控制刀具轨迹	TRL9	
+c_interchangeable	Method	可互换零件与标准化	Interchangeable parts	dom_eng	f_indeng	1795		零件按公差统一，任意互换		
+c_metric	Proposition	公制度量衡	Metric system	dom_eng	f_indeng	1795		十进制全球统一单位		法国
+c_spc	Method	统计过程控制	Statistical process control	dom_eng	f_indeng	1924		用控制图把质量造进产品而不是挑出来		
+pr_infrastructure	Problem	老化基础设施	Aging infrastructure	dom_eng	f_civil	2007		桥梁道路管网超期服役的维护欠账		前沿
+ev_brooklyn	Event	布鲁克林大桥通车	Brooklyn Bridge	dom_eng	f_civil	1883		钢缆悬索时代的开幕		
+f_algebra	Field	代数与数论	Algebra & number theory	dom_form	f_algebra	-1800		方程、结构整数与它们的规律		
+f_geometry	Field	几何学	Geometry	dom_form	f_geometry	-300		空间与形状的科学		
+f_topology	Field	拓扑学	Topology	dom_form	f_topology	1895		橡皮膜上的几何：只管连通与连续		
+f_foundations	Field	数理逻辑与基础	Foundations of mathematics	dom_form	f_foundations	1874		数学自身的地基与边界		
+c_nonEuclid	Proposition	非欧几何	Non-Euclidean geometry	dom_form	f_geometry	1829		放弃第五公设后自洽的新几何		
+c_groups	Concept	群论	Group theory	dom_form	f_algebra	1832		对称性的数学——伽罗瓦用20岁生命换来		
+c_sets	Concept	集合论	Set theory	dom_form	f_foundations	1874		把数学建筑在集合之上（康托尔的无穷战斗）		
+t_godel	Proposition	哥德尔不完备定理	Gödel incompleteness	dom_form	f_foundations	1931		足够强的数学系统必有不可证的真命题		
+c_fermat	Proposition	费马大定理	Fermat's Last Theorem	dom_form	f_numbertheory	1637		358年悬案的最终证明(怀尔斯1995)		
+c_crt	Proposition	中国剩余定理	Chinese remainder theorem	dom_form	f_numbertheory	1247		同余方程组的解法		中国
+t_topology	Theory	拓扑学理论	Topological methods	dom_form	f_topology	1895		庞加莱与同调——现代数学的公共语言		
+t_volta	Technology	伏打电堆	Voltaic pile	dom_chem	f_physchem	1800		第一个持续电流源	TRL9	
+c_electrolysis	Concept	电解	Electrolysis	dom_chem	f_physchem	1800		用电流分解与沉积物质		
+tech_aluminum	Technology	霍尔-埃鲁炼铝法	Hall–Héroult process	dom_chem	f_physchem	1886		让铝从贵金属变成易拉罐	TRL9	
+t_stereo	Theory	立体化学	Stereochemistry	dom_chem	f_organic	1848		分子镜像手性决定性质（巴斯德酒石酸实验）		
+t_quantum_chem	Theory	量子化学	Quantum chemistry	dom_chem	f_physchem	1927		用薛定谔方程计算化学键		
+c_catalysis	Concept	催化	Catalysis	dom_chem	f_physchem	1835		少量物质改变化学反应速度而不消耗		
+t_polymer	Theory	高分子学说	Polymer hypothesis	dom_chem	f_organic	1920		塑料是长链大分子而非胶体聚集体		
+f_envir	Field	环境科学	Environmental science	dom_earth	f_envir	1962		人类活动与生态系统的相互作用		
+t_carbon_ccs	Technology	碳捕集与封存	CCS	dom_earth	f_climate	1996		把CO₂从烟气或空气里捉住埋存		实验室
+c_ozone	Event	臭氧空洞与蒙特利尔议定书	Ozone hole & Montreal	dom_earth	f_climate	1985		发现空洞两年内全球禁用氟氯烃——治理成功的世界样本		
+t_icecore	Dataset	冰芯与古气候	Ice core records	dom_earth	f_climate	1966		80万年的大气档案封存在南极冰里		
+c_drug_reg	Method	药品审评制度	Drug regulation	dom_med	f_pharm	1962		疗效+安全双标准才准上市（Kefauver修正案）		
+ev_thalidomide	Event	反应停悲剧	Thalidomide tragedy	dom_med	f_pharm	1961		一万名海豹肢婴儿换来的药政革命		
+tech_transplant	Technology	器官移植	Organ transplantation	dom_med	f_clinical	1954		默里完成首例肾移植手术	TRL9	
+ev_smallpox	Event	天花根除	Smallpox eradicated	dom_med	f_epidemi	1980		人类第一次主动消灭一种传染病		
+tech_ivf	Technology	体外受精	IVF	dom_med	f_clinical	1978		试管里孕育生命，已诞生千万婴儿	TRL9	
+t_ebm	Method	循证医学	Evidence-based medicine	dom_med	f_clinical	1992		临床决策必须基于系统评价的证据		
+t_homeostasis	Theory	内稳态	Homeostasis	dom_med	f_anatomy	1854		生命靠内部环境的动态稳定维系（贝尔纳/坎农）		
+pr_pandemic	Problem	大流行防范	Pandemic preparedness	dom_med	f_epidemi	2015		下一次X疾病只是时间问题		前沿
+tech_plow	Technology	犁与曲辕犁	Plough	dom_agri	f_crop	-3500		翻土深耕的畜力农具；唐代曲辕犁定型		两河/中国
+c_domestication	Technology	动植物驯化	Domestication	dom_agri	f_animal	-15000		把狼变成狗、把草变成麦——人类最早的生命工程		多文明
+tech_greenhouse	Technology	温室	Greenhouse	dom_agri	f_crop	-100		透光围护里人造小气候		汉代/欧洲近代
+t_pesticide	Technology	化学农药	Chemical pesticides	dom_agri	f_crop	1939		DDT开启的合成农药时代	TRL9	
+cv_ddt	Controversy	DDT之争	DDT controversy	dom_agri	f_crop	1962		灭蚊神药与生态灾难的世纪拉锯		争议
+ev_spring	Event	《寂静的春天》出版	Silent Spring	dom_agri	f_crop	1962		现代环境运动的第一声警报		
+t_aquaculture	Technology	水产养殖	Aquaculture	dom_agri	f_animal	-475		范蠡《养鱼经》以来的可控渔业		中国
+pr_bees	Problem	蜜蜂与授粉危机	Pollinator decline	dom_agri	f_animal	2006		蜂群崩溃威胁依赖昆虫授粉的三成作物		前沿
+c_network	Method	社会网络分析	Social network analysis	dom_soc	f_sociology	1930		把社会画成点与边来研究（六度分隔）		
+t_piaget	Theory	皮亚杰发生认识论	Piaget's constructivism	dom_soc	f_psych	1923		儿童心智分阶段建构（发展心理学奠基）		
+t_institution	Theory	制度经济学	Institutional economics	dom_soc	f_econ	1990		制度是长期繁荣的隐形基础设施（诺斯/奥斯特罗姆）		
+c_tragedy	Concept	公地悲剧	Tragedy of the commons	dom_soc	f_sociology	1968		无人所有的资源被过度使用		
+t_behavioral	Theory	行为经济学	Behavioral economics	dom_soc	f_econ	1979		前景理论：人不是理性经济人（卡尼曼/特沃斯基）		
+t_weber	Theory	新教伦理与资本主义	The Protestant Ethic	dom_soc	f_sociology	1905		观念如何塑造经济行为的经典研究（韦伯）		
+c_milgram	Event	米尔格拉姆服从实验	Milgram experiment	dom_soc	f_psych	1961		普通人会服从权威作恶到什么程度		
+f_literature	Field	文学与文学研究	Literature	dom_hum	f_literature	-750		用语言创造的世界		
+t_historiography	Theory	兰克史学	Rankean historiography	dom_hum	f_history	1824		如实直书：让证据说话的职业史学（兰克）		
+t_popper	Theory	证伪主义	Falsificationism	dom_hum	f_phil	1934		科学命题必须可能被证明为错（波普尔）		
+t_existential	Theory	存在主义	Existentialism	dom_hum	f_phil	1943		存在先于本质——自由与责任的哲学（萨特）		
+ev_shiji	Event	《史记》与纪传体	Records of the Grand Historian	dom_hum	f_history	-91		司马迁开创的通史范式		中国
+ev_homer	Event	荷马史诗定型	Homeric epics	dom_hum	f_literature	-750		西方叙事文学的原点		
+ev_shijing	Event	《诗经》编定	Book of Songs	dom_hum	f_literature	-600		中国最早的诗歌总集——诗言志		中国
+ev_tangshi	Event	唐诗的高峰	Tang poetry	dom_hum	f_literature	700		李白与杜甫——汉语诗歌的巅峰		中国
+ev_genji	Event	《源氏物语》	Tale of Genji	dom_hum	f_literature	1008		世界最早的长篇小说		日本
+t_opera	Event	歌剧的诞生	Birth of opera	dom_art	f_music	1600		戏剧与音乐合一的新体裁（佛罗伦萨卡梅拉塔）		
+t_symphony	Method	奏鸣曲式与交响乐	Sonata form & symphony	dom_art	f_music	1750		海顿奠定的器乐大结构		
+t_jazz	Event	爵士乐的诞生	Birth of jazz	dom_art	f_music	1917		即兴、摇摆与蓝音——美国对音乐的最大贡献		
+t_rock	Event	摇滚乐	Rock and roll	dom_art	f_media_art	1954		电声乐器+青年文化的全球浪潮		
+t_hiphop	Event	嘻哈与采样	Hip-hop & sampling	dom_art	f_media_art	1973		布朗克斯街角的拼贴美学——全球最有影响力的青年文化		
+t_impressionism	Event	印象派	Impressionism	dom_art	f_visual	1874		落选者沙龙：光与色对学院派的胜利		
+t_cubism	Event	立体主义	Cubism	dom_art	f_visual	1907		毕加索把多视角同时画进一张画		
+t_digitalphoto	Technology	数码摄影	Digital photography	dom_art	f_media_art	1975		感光胶片变成感光芯片	TRL9	
+t_games	Technology	电子游戏	Video games	dom_art	f_media_art	1962		可交互的虚拟世界——第九艺术	TRL9	
+c_oilpaint	Technology	油画技法	Oil painting	dom_art	f_visual	1410		凡艾克兄弟完善的多层透明罩染		尼德兰
+f_private	Field	民商法	Private law	dom_law	f_private	1804		平等主体间的财产与人身规则		
+f_criminal	Field	刑法与司法	Criminal law	dom_law	f_criminal	1764		犯罪、刑罚与程序正义		
+t_napoleon	Proposition	拿破仑法典	Napoleonic Code	dom_law	f_private	1804		大陆法系民法典的世界模板		
+t_beccaria	Proposition	《论犯罪与刑罚》	Beccaria's treatise	dom_law	f_criminal	1764		罪刑法定、废除酷刑——现代刑法的起点		
+c_wto	Event	WTO与多边贸易体系	WTO & GATT	dom_law	f_intl	1995		把全球贸易装进规则里(关贸总协定1947起)		
+c_eu	Event	欧盟与区域一体化	European Union	dom_law	f_intl	1993		让主权国家自愿共享主权的实验		
+c_antitrust	Proposition	反垄断法	Antitrust law	dom_law	f_admin	1890		谢尔曼法：市场权力也要被约束		
+c_gdpr	Proposition	GDPR与数据保护	GDPR	dom_law	f_admin	2018		个人数据主权立法的全球样板		
+c_human_rights	Proposition	世界人权宣言	Universal Declaration	dom_law	f_constitution	1948		全人类共同的权利底线		
+c_sharia	Method	伊斯兰法系	Islamic law	dom_law	f_legaltheory	620		与大陆/普通法并立的第三大法系传统		伊斯兰
+c_commonlaw	Method	普通法与判例	English common law	dom_law	f_legaltheory	1189		判例先例约束下生长的法律		英格兰
+c_insurance	Technology	保险与精算	Insurance & actuarial science	dom_econ	f_finance	1347		热那亚海事保单——风险第一次被定价		
+t_scientific_mgmt	Method	科学管理	Scientific management	dom_econ	f_industry	1911		泰勒制：用测量优化劳动		
+c_assembly_line	Method	流水线	Assembly line	dom_econ	f_industry	1913		福特让汽车从奢侈品变成日用品		
+t_kaizen	Method	精益生产	Lean production	dom_econ	f_industry	1950		丰田改善：消除浪费的持续小步迭代		日本
+c_welfare	Event	福利国家	Welfare state	dom_econ	f_finance	1883		俾斯麦社保——用再分配买稳定		
+c_dotcom	Event	互联网泡沫	Dot-com bubble	dom_econ	f_finance	2000		热潮与崩塌都为宽带时代铺了路		
+c_gig	Technology	平台经济与零工	Platform & gig economy	dom_econ	f_industry	2010		算法匹配的即时劳动市场		争议
+c_index_fund	Method	指数化投资	Index investing	dom_econ	f_finance	1976		伯格：战胜市场不如拥有市场		
+c_silkroad	Event	丝绸之路与欧亚商路	Silk Road	dom_econ	f_trade	-130		张骞凿空——商品、技术信仰与疾病的欧亚动脉		中国
+t_comenius	Theory	夸美纽斯《大教学论》	Comenius' Didactica	dom_edu	f_pedagogy	1658		班级授课制的理论奠基——把一切知识教给一切人		
+t_montessori	Method	蒙台梭利法	Montessori method	dom_edu	f_pedagogy	1907		预备好的环境里让儿童自我建构		
+c_literacy	Method	扫盲运动	Literacy campaigns	dom_edu	f_pedagogy	1950		1949年后中国扫盲约一亿人——人类最大规模的教育工程		中国
+c_openaccess	Method	开放获取运动	Open access	dom_edu	f_lis	2002		布达佩斯倡议：公共资助的论文应公共可读		
+c_factcheck	Problem	事实核查与信息失真	Truth decay	dom_edu	f_media	2016		后真相时代： misinformation 的规模化		前沿
+c_radio_tv	Technology	广播与电视	Radio & television	dom_edu	f_media	1920		电磁波把同一信息送进千家万户	TRL9	
+c_printing_china	Technology	雕版印刷	Woodblock printing	dom_edu	f_lis	700		唐代雕版佛经与868年金刚经——现存最早有明确纪年的印刷书		中国
+c_textile	Technology	纺织与纺轮	Textile spinning	dom_prac	f_craft	-6000		把纤维捻成线织成布——最早的持续工业		
+c_horse	Technology	马的驯化与骑乘	Horse domestication	dom_agri	f_animal	-3500		草原速度革命：骑兵、驿路与贸易（波泰文化）		
+c_bread	Technology	面包与啤酒	Bread & beer	dom_prac	f_cooking	-3000		埃及人把发酵变成日常主食工艺		
+c_tea	Technology	茶与茶道	Tea culture	dom_prac	f_cooking	-200		从药到饮到道：陆羽《茶经》立茶学		中国
+c_martial	Method	传统武术与身体技艺	Traditional martial arts	dom_prac	f_sport	-500		最典型的隐性知识：能做不能写尽		中国
+c_navigation	Technology	观星导航与远洋航海	Wayfinding & seamanship	dom_prac	f_craft	-1000		波利尼西亚人不靠仪器横跨太平洋		波利尼西亚
+t_relational	Theory	关系模型与数据库	Relational model & SQL	dom_cs	f_arch	1970		科德：数据即表，查询即代数		
+t_compiler	Method	编译器	The compiler	dom_cs	f_arch	1952		霍普A-0：让人类写人话，机器翻译（格雷斯·霍珀）		
+per_hopper	Person	格雷斯·霍珀	Grace Hopper	dom_cs	f_arch	1906		编译器之母与"千年虫"调试传说		
+t_unix	Technology	UNIX与操作系统	UNIX & operating systems	dom_cs	f_arch	1969		一切现代系统的老祖先	TRL9	
+ev_linux	Event	Linux与开源运动	Linux & open source	dom_cs	f_arch	1991		托瓦兹的业余项目成为全球基础设施		
+c_hci	Event	恩格尔巴特"所有演示之母"	Mother of All Demos	dom_cs	f_arch	1968		鼠标、超文本、视频会议——1968年一次演完		
+t_softeng	Method	软件工程	Software engineering	dom_cs	f_arch	1968		NATO会议承认：写大程序是工程不是艺术		
+pr_digitaldivide	Problem	数字鸿沟	Digital divide	dom_cs	f_networks	1995		接入与素养的不平等复制了旧不平等		前沿
+tech_bitcoin	Technology	比特币与区块链	Bitcoin & blockchain	dom_cs	f_networks	2009		无中介的分布式账本		争议
+f_ecology	Field	生态学	Ecology	dom_bio	f_ecology	1866		生物与环境相互作用的科学（海克尔1866命名）		
+c_photosynthesis	Concept	光合作用	Photosynthesis	dom_bio	f_molbio	1779		把光能变成化学能的地球发动机		
+t_synthetic_genome	Technology	合成生物学	Synthetic biology	dom_bio	f_bioeng	2010		人工合成细菌基因组并让它存活		
+t_clonal	Theory	克隆选择学说	Clonal selection	dom_bio	f_immunology	1957		伯内特解释抗体多样性——单抗的学理前提		
+c_endosymbiosis	Theory	内共生学说	Endosymbiotic theory	dom_bio	f_molbio	1967		线粒体曾是自由细菌——马古利斯被拒15次的论文		
+pr_biodiversity	Problem	生物多样性危机	Biodiversity crisis	dom_bio	f_ecology	1992		第六次大灭绝正在人类手里发生		前沿
+c_microbiome	Concept	微生物组	Microbiome	dom_bio	f_molbio	2000		人体里生活的100万亿个邻居——第二个基因组		前沿
+c_radioactivity	Concept	放射性	Radioactivity	dom_physics	f_modern	1896		贝克勒尔与居里夫妇发现的自发辐射		
+c_nucleus	Concept	原子核	Atomic nucleus	dom_physics	f_modern	1911		卢瑟福散射轰出来的行星模型		
+c_neutron	Concept	中子	Neutron	dom_physics	f_modern	1932		查德威克找到的关键拼图		
+c_fission	Concept	核裂变	Nuclear fission	dom_physics	f_particle	1938		哈恩-斯特拉斯曼的实验，迈特纳给出解释		
+t_fluid	Theory	流体力学	Fluid dynamics	dom_physics	f_classical	1738		伯努利与欧拉建立的连续介质力学		
+t_chaos	Theory	混沌理论	Chaos theory	dom_physics	f_classical	1963		洛伦兹：初值敏感的确定性系统——蝴蝶效应		
+tech_xray	Technology	X射线	X-rays	dom_physics	f_modern	1895		伦琴照亮了看不见的人体内部	TRL9	
+pr_darkmatter	Problem	暗物质与暗能量	Dark matter & energy	dom_physics	f_astro	1933		宇宙95%的成分至今不知道是什么	前沿	
+ev_hertz	Event	电磁波的验证	Hertz's waves	dom_physics	f_modern	1887		赫兹用实验兑现麦克斯韦的预言		
+ev_gravitational	Event	引力波直接探测	Gravitational waves detected	dom_physics	f_modern	2015		LIGO听到十亿年前两个黑洞合并的涟漪		
+t_env_law	Method	环境立法与环评	Environmental law & EIA	dom_law	f_admin	1970		NEPA与EPA：把生态成本计入决策		美国
+f_numbertheory	Field	数论	Number theory	dom_form	f_numbertheory	-300		整数的深层规律——数学皇后		中国/希腊/印度并立
+f_animal	Field	畜牧与水产	Animal husbandry & fisheries	dom_agri	f_animal	-15000		驯养动物与水产品的生产		
+f_materials	Field	材料科学	Materials science	dom_eng	f_materials	1950		研究成分-结构-加工-性能关系		
+f_data	Field	数据科学	Data science	dom_cs	f_data	2008		从数据中提取知识的交叉方法		
+f_energy	Field	能源科学	Energy systems	dom_eng	f_energy	1882		能源的转换、储存与系统		
+f_transport	Field	交通运输工程	Transportation engineering	dom_eng	f_transport	1863		人与货的空间移动系统		
+f_ocean	Field	海洋科学	Ocean science	dom_earth	f_ocean	1872		洋流、生态与海底的科学	挑战者号航行1872

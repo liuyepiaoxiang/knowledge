@@ -1,0 +1,257 @@
+field	name	year	def	type
+f_econ	微观经济学		个体选择与市场均衡	
+f_econ	宏观经济学		总量视角下的增长与波动	
+f_econ	计量经济学		经济数据的统计推断	Method
+f_econ	博弈论应用		拍卖、定价与产业组织	
+f_econ	国际贸易理论		比较优势的现代表述	
+f_econ	发展经济学		贫困陷阱与增长路径	
+f_econ	劳动经济学		工资、就业与人力资本	
+f_econ	环境经济学		外部性内部化的机制设计	
+f_econ	货币经济学		利率、通胀与央行工具	
+f_econ	实验经济学		用受控实验检验经济理论	Method
+f_sociology	社会分层		阶层结构与流动	
+f_sociology	社会运动理论		集体行动如何发生	
+f_sociology	城市社会学		城市化与社区研究	
+f_sociology	人口学		生育、死亡与迁移的统计	
+f_sociology	工作与组织		劳动过程与组织行为	
+f_sociology	家庭社会学		婚姻家庭变迁	
+f_sociology	宗教社会学		信仰的社会功能	
+f_sociology	计算社会科学		用大数据研究社会	Method
+f_psych	人格心理学		稳定的个体差异结构	
+f_psych	社会心理学		情境如何塑造行为	
+f_psych	发展心理学		毕生认知与社会性发展	
+f_psych	临床心理学		心理障碍的评估与干预	Method
+f_psych	认知心理学		注意、记忆与思维的信息加工	
+f_psych	积极心理学		幸福感与优势的科学	
+f_psych	心理测量		量表信度与效度	Method
+f_psych	文化心理学		文化对心智的塑造	
+f_psych	进化心理学		心智的适应功能解释	Controversy
+f_psych	工业组织心理		人事选拔与团队动力	Method
+f_history	全球史		跨文明互联的历史书写	Method
+f_history	经济史		长期增长与制度变迁	
+f_history	社会史		自下而上的日常生活史	
+f_history	科技史		技术与科学如何改变社会	
+f_history	环境史		人与自然互动的长时段	
+f_history	口述史		普通人的记忆作为史料	Method
+f_history	史料考证		文献辨伪与辑佚	Method
+f_history	公共历史		博物馆、纪录片与公众记忆	
+f_phil	形而上学		存在与实在的研究	
+f_phil	认识论		知识何以可能	
+f_phil	伦理学		善与正当的理论	
+f_phil	政治哲学		正义与权力的规范理论	
+f_phil	美学		审美经验的哲学	
+f_phil	心灵哲学		意识与身心问题	Controversy
+f_phil	语言哲学		意义与指称	
+f_phil	应用伦理学		生命、科技与商业伦理	Method
+f_literature	诗学		诗歌形式与韵律理论	
+f_literature	叙事学		故事结构的分析框架	Method
+f_literature	比较文学		跨语言的文学对话	Method
+f_literature	文学批评		阐释与评价的理论武器库	
+f_literature	戏剧研究		舞台文本与表演	
+f_literature	科幻研究		想象力与未来叙事	
+f_literature	儿童文学		成长与启蒙的叙事	
+f_literature	翻译文学		二次创作的跨语旅行	
+f_ling	语音学与音系学		声音的产生与系统	
+f_ling	形态学		词的内部结构	
+f_ling	句法学		短语的生成规则	
+f_ling	语义学		意义的组合系统	
+f_ling	语用学		语境中的意义	
+f_ling	历史比较语言学		语系的构拟与分化	Method
+f_ling	社会语言学		语言变体与社会身份	
+f_ling	计算语言学		语言的统计与神经建模	Method
+f_archaeo	田野考古		探方、地层与测绘	Method
+f_archaeo	科技考古		测年、同位素与残留物	Method
+f_archaeo	史前考古		文字出现之前的人类	
+f_archaeo	历史时期考古		与文献互证的发掘	
+f_archaeo	水下考古		沉船与淹没的遗址	Method
+f_archaeo	文化遗产管理		保护、修复与活化	Method
+f_archaeo	古人类学		人类演化的化石证据	
+f_archaeo	考古天文学		古代的天文观测遗迹	
+f_visual	文艺复兴绘画	1400	人文主义与透视法的胜利	
+f_visual	中国山水画		散点透视与笔墨体系		中国
+f_visual	书法		汉字书写的艺术传统		中国
+f_visual	版画		可复制的图像艺术	
+f_visual	雕塑		三维空间的造型传统	
+f_visual	抽象艺术	1910	放弃再现之后绘画何为	
+f_visual	装置与观念艺术	1960	观念优先于物件	Controversy
+f_visual	美术馆学		展示、策展与公共教育	Method
+f_music	和声学		和弦纵向的逻辑	Method
+f_music	对位法		多声部独立线条的织体	Method
+f_music	音乐分析		曲式与主题的解读	Method
+f_music	民族音乐学		文化语境中的音乐	Method
+f_music	音乐声学		乐器的物理与心理声学	
+f_music	电子音乐	1948	磁带与合成器开启的新声源	
+f_music	歌剧与戏剧音乐		音乐中的戏剧表达	
+f_music	流行音乐产业		唱片、版权与流媒体		T L9
+f_design	工业设计		大批量产品的美学与可用性	
+f_design	平面设计		版式、字体与视觉传达	
+f_design	交互设计		人与系统的对话设计	Method
+f_design	建筑设计		空间、结构与场所	
+f_design	城市规划		土地利用与公共空间	Method
+f_design	服务设计		端到端体验的系统设计	Method
+f_design	可持续设计		全生命周期的环境考量	
+f_design	人体工学		按身体数据设计工具	Method
+f_media_art	电影语言		蒙太奇与场面调度	Method
+f_media_art	纪录片		非虚构影像的伦理	
+f_media_art	动画		逐帧与计算机动画	
+f_media_art	游戏设计		机制、叙事与心流	Method
+f_media_art	虚拟现实		沉浸式合成环境		T L9
+f_media_art	生成艺术		算法作为创作伙伴	Controversy
+f_media_art	数字策展		线上展览与交互叙事	Method
+f_media_art	声音艺术		声音作为雕塑与空间	
+f_legaltheory	自然法		超越实在法的普遍原则	Controversy
+f_legaltheory	法律实证主义		法律与道德的分离命题	Controversy
+f_legaltheory	法律解释		文义、体系与目的	Method
+f_legaltheory	法的经济分析		用效率评价规则	Method
+f_legaltheory	比较法		跨法系的结构比较	Method
+f_legaltheory	法律社会学		法在行动中的实效	
+f_constitution	司法审查		违宪审查制度	Method
+f_constitution	基本权利体系		自由权与社会权	
+f_constitution	权力分立		立法行政司法的制衡	Proposition
+f_constitution	联邦制		央地权限的宪法安排	
+f_constitution	紧急状态法治		例外状态的规则化	
+f_constitution	数字权利	2010	网络时代的表达、隐私与结社
+f_intl	条约法		条约的缔结与效力	Proposition
+f_intl	海洋法		领海、专属经济区与公海	
+f_intl	国际经济法		贸易投资的规则体系	
+f_intl	国际人权法		人权公约与条约机构	
+f_intl	国际环境法		跨境环境责任的规则	
+f_intl	仲裁与争端解决		和平解决国际争端	Method
+f_admin	公共政策分析		问题界定与政策工具	Method
+f_admin	公共财政与预算		税收与支出决策	
+f_admin	政府治理		透明、问责与绩效	
+f_admin	应急治理		风险沟通与危机响应	Method
+f_admin	公共服务创新		数字政府与服务设计	Method
+f_admin	监管科学		新技术的规则制定	Method
+f_private	合同法		契约自由与信守	Proposition
+f_private	物权法		财产归属与利用	
+f_private	侵权法		过错与损害赔偿	
+f_private	公司法		法人治理与股东权利	
+f_private	知识产权法		著作权专利商标体系	
+f_private	劳动法		雇佣关系的底线保护	
+f_criminal	罪刑法定		法无明文不为罪	Proposition
+f_criminal	刑事程序		侦查、审判与辩护权	
+f_criminal	证据法		证据能力与证明力	Method
+f_criminal	刑罚学		威慑、矫正与复归	Controversy
+f_criminal	犯罪学		犯罪原因的社会科学	
+f_criminal	国际刑事司法		种族灭绝与战争罪追诉	
+f_finance	投资组合理论	1952	马科维茨的分散化数学	Proposition
+f_finance	资本资产定价	1964	风险溢价的均衡模型	Proposition
+f_finance	衍生品与对冲		期权期货与风险管理	Method
+f_finance	公司金融		融资、资本结构与股利	
+f_finance	行为金融		非理性投资者的系统模式	Controversy
+f_finance	金融监管		巴塞尔协议与系统性风险	
+f_finance	金融科技		支付、信贷与征信的技术重构		T L9
+f_finance	绿色金融		气候风险进入定价		T L9
+f_industry	制造工艺		铸造、切削、成型与增材	Method
+f_industry	供应链管理		计划、采购与物流	Method
+f_industry	质量管理		ISO体系与六西格玛	Method
+f_industry	运营管理		产能、库存与排程	Method
+f_industry	产业政策		政府与市场的关系	Controversy
+f_industry	全球价值链		微笑曲线与升级路径	
+f_industry	智能制造		工业4.0与数字孪生		T L9
+f_industry	精益创业		快速假设验证	Method
+f_trade	比较优势与要素禀赋		贸易格局的理论基础	Proposition
+f_trade	关税与非关税壁垒		贸易政策工具箱	
+f_trade	汇率与国际收支		货币价格与外部平衡	
+f_trade	自由贸易协定		区域一体化的规则网	
+f_trade	服务贸易		跨境交付的新规则	
+f_trade	贸易与供应链安全		地缘政治下的再平衡	Controversy
+f_trade	跨境电商		数字平台重塑外贸		T L9
+f_trade	贸易与发展		贸易得益的分配	
+f_pedagogy	课程设计		目标、内容与评价对齐	Method
+f_pedagogy	教学评价		形成性与终结性评价	Method
+f_pedagogy	教育技术		工具如何改变教学		T L9
+f_pedagogy	教师教育		师范培养与专业发展	
+f_pedagogy	教育心理学		动机与学习差异	
+f_pedagogy	教育公平		起点、过程与结果公平	Controversy
+f_pedagogy	高等教育		研究型大学的制度	
+f_pedagogy	终身学习		正式与非正式学习的贯通	
+f_cogsci_edu	工作记忆		容量限制与教学设计	Proposition
+f_cogsci_edu	认知负荷理论		挤占心智资源的朴素设计会失败	Method
+f_cogsci_edu	元认知		对思考的思考	Method
+f_cogsci_edu	动机科学		自主、胜任与归属	Proposition
+f_cogsci_edu	学习分析		教育数据的挖掘与反馈	Method
+f_cogsci_edu	游戏化学习		机制移植与效果边界	Controversy
+f_media	传播效果理论		从魔弹到有限效果	Proposition
+f_media	新闻专业主义		客观、核实与公共性	
+f_media	舆论学		公共意见的形成与操纵	
+f_media	平台治理		内容审核与算法责任	Controversy
+f_media	媒介史		口语到算法的媒介革命	
+f_media	数据新闻		用数据讲故事	Method
+f_lis	信息组织		分类、元数据与本体	Method
+f_lis	信息检索		从卡片目录到向量检索	Method
+f_lis	数字图书馆		馆藏的数字化与长期保存	
+f_lis	科学计量		引用网络与期刊评价	Method
+f_lis	档案学		凭证性记录的长效管理	
+f_lis	信息素养		检索、评估与伦理使用	Method
+f_civil	结构力学		荷载下的内力与变形	Proposition
+f_civil	岩土工程		土力学与地基基础	
+f_civil	桥梁工程		梁拱斜拉悬索的力学选型	
+f_civil	水利工程		大坝、河道与水资源	
+f_civil	交通工程		道路网络的规划与设计	Method
+f_civil	抗震工程		结构延性与隔震减震	Proposition
+f_civil	隧道与地下工程		盾构与暗挖的时空竞赛	Method
+f_civil	工程材料		混凝土、钢材与新材料	
+f_mech	机械设计		机构、传动与零件	Method
+f_mech	热流机械		泵、压缩机与换热器	
+f_mech	车辆工程		动力总成与底盘	
+f_mech	精密加工		公差、表面与装配工艺	Method
+f_mech	振动与噪声		模态分析与减振	Method
+f_mech	机电一体化		机械+电子+控制的融合	
+f_elec	电机与电力拖动		发电机与电动机原理	Proposition
+f_elec	电力系统		发输配用的实时平衡	
+f_elec	电力电子		半导体变流与高效用电	Method
+f_elec	高电压技术		绝缘、放电与过电压保护	
+f_elec	信号与系统		时域频域的统一语言	Proposition
+f_elec	通信原理		调制、编码与信道容量	Proposition
+f_elec	控制理论		反馈让不稳定变稳定	Method
+f_elec	集成电路设计		模拟与数字芯片设计	Method
+f_chemeng	传递过程		动量热量质量的类比	Proposition
+f_chemeng	分离工程		精馏、萃取与膜分离	Method
+f_chemeng	反应工程		反应器设计与放大	Method
+f_chemeng	化工热力学		相平衡与过程能量分析	
+f_chemeng	过程控制		化工装置的自动控制	Method
+f_chemeng	绿色工艺		替代高污染路线	Method
+f_aero	空气动力学		升力与阻力的物理	Proposition
+f_aero	飞行力学与控制		稳定性与自动驾驶仪	Method
+f_aero	推进系统		涡轮喷气与冲压发动机	
+f_aero	航天器轨道		轨道力学与机动	Method
+f_aero	飞行器结构		轻量化与疲劳寿命	
+f_aero	航天任务设计		从载荷到发射窗口	Method
+f_nucleareng	反应堆物理		链式反应与临界控制	Proposition
+f_nucleareng	反应堆热工		冷却与传热的安全裕度	
+f_nucleareng	辐射防护		剂量限值与屏蔽	Method
+f_nucleareng	核燃料循环		从铀矿到乏燃料	
+f_nucleareng	核安全文化		纵深防御与应急预案	Proposition
+f_nucleareng	聚变工程		托卡马克到商用发电的路	Controversy
+f_indeng	运筹学		线性规划与整数规划	Method
+f_indeng	人因工程		人的能力与界面设计	Method
+f_indeng	可靠性工程		故障率与寿命分布	Method
+f_indeng	系统仿真		离散事件与数字孪生	Method
+f_indeng	项目管理		范围、进度与成本	Method
+f_indeng	标准化工程		标准如何形成与扩散	Method
+f_craft	陶瓷工艺		选料、成型与窑变	Method
+f_craft	金属工艺		锻造、錾刻与铸造	Method
+f_craft	木作工艺		榫卯与传统木构		中国
+f_craft	纺织印染		纺、织、染、绣的全链	Method
+f_craft	漆艺		大漆的层叠与打磨		中国
+f_craft	玻璃工艺		吹制与窑铸	
+f_craft	纸艺与装帧		纸的折叠、装订与修复	Method
+f_craft	数字工艺		CNC与手工艺的融合	Method
+f_cooking	烹饪化学		美拉德反应与乳化	Proposition
+f_cooking	刀工与火候		中式烹饪的核心技艺		中国
+f_cooking	发酵食品工艺		酱、醋、酒、奶酪		多文明
+f_cooking	烘焙科学		面筋、气体与焦糖化	
+f_cooking	分子料理		物理化学重构食感	Controversy
+f_cooking	中餐菜系		八大菜系的风土地理		中国
+f_cooking	咖啡与茶饮工艺		萃取参数的风味学	Method
+f_cooking	餐桌与礼仪		饮食的社会编码	
+f_sport	运动生理		能量系统与适应	Proposition
+f_sport	运动训练学		周期化与负荷管理	Method
+f_sport	运动生物力学		动作的力学优化	Method
+f_sport	运动医学		损伤预防与康复	Method
+f_sport	体育社会学		竞技、身份与国家	
+f_sport	电竞		数字竞技的项目化		T L9
+f_sport	传统体育		武术、摔跤与地域球类		多文明
+f_sport	户外运动		登山、航海与耐力运动	

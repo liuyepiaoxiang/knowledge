@@ -1,0 +1,164 @@
+field	name	year	def	type
+f_theory_cs	计算复杂性理论		问题需要多少计算资源	
+f_theory_cs	自动机理论		有限状态机与文法的机器模型	
+f_theory_cs	算法设计与分析		分治、贪心、动态规划的普适范式	Method
+f_theory_cs	数据结构		组织数据以高效访问的方式	
+f_theory_cs	密码学理论		单向函数与零知识证明	
+f_theory_cs	随机化算法		用掷硬币换速度的算法	
+f_theory_cs	近似算法		难解问题的近似保证	
+f_theory_cs	量子算法		肖尔与格罗弗：量子加速的来源	
+f_theory_cs	程序验证		用数学证明程序正确	Method
+f_theory_cs	分布式一致性		 CAP 三角的取舍	Controversy
+f_arch	逻辑门与数字电路		布尔代数的物理实现	
+f_arch	指令集架构		软件与硬件的契约	
+f_arch	流水线与超标量		让CPU每拍吞吐多条指令	
+f_arch	存储层次		寄存器到磁盘的速度金字塔	
+f_arch	总线与互联		部件之间的高速公路	
+f_arch	嵌入式系统		藏在设备里的计算机		T L9
+f_arch	芯片设计流程		从Verilog到流片的工程	Method
+f_arch	先进制程		3纳米竞赛与物理极限	
+f_arch	量子比特硬件		超导/离子阱/光量子路线	Controversy
+f_arch	存算一体		打破冯诺依曼瓶颈的新架构	Controversy
+f_ai	搜索与规划		状态空间中找路径	Method
+f_ai	知识表示与推理		用符号编码世界与规则	
+f_ai	机器学习		从数据中自动归纳	Method
+f_ai	监督学习		带标注数据的模式学习	
+f_ai	无监督学习		无标注数据的结构发现	
+f_ai	强化学习		试错与奖励驱动的学习	
+f_ai	卷积神经网络	1998	视觉任务的层级特征提取	
+f_ai	循环神经网络		处理序列的记忆网络	
+f_ai	生成模型		学习数据分布并采样	
+f_ai	多模态学习		图文声音的联合理解	
+f_ai	大模型对齐技术		RLHF与安全微调	Method
+f_ai	模型压缩与推理优化		让大模型跑进终端	Method
+f_ai	AI伦理		偏见、透明与问责	Controversy
+f_networks	分组交换	1961	把消息切碎再重组的通信革命	
+f_networks	路由算法		网络中找最短路径	Method
+f_networks	DNS与寻址		域名到地址的全球目录	
+f_networks	无线网络		WiFi与蜂窝的空口技术	
+f_networks	网络安全		攻防、加密与认证的持续战争	
+f_networks	分布式系统		多机协同的拜占庭现实	
+f_networks	云计算		算力变成水电煤		T L9
+f_networks	边缘计算		把算力推向数据源头	
+f_networks	物联网		万物联网的传感与控制		T L9
+f_networks	社交网络计算		在线社会的结构挖掘	
+f_genetics	孟德尔定律	1865	分离与自由组合定律	Proposition
+f_genetics	连锁与交换		染色体上的基因重组	
+f_genetics	表观遗传学		不改变序列的遗传	
+f_genetics	群体遗传学		种群中基因频率的演化	
+f_genetics	数量遗传学		连续性状的遗传基础	
+f_genetics	基因突变		遗传物质的改变及其效应	
+f_genetics	基因调控网络		基因之间开关的逻辑	
+f_genetics	人类遗传学		家系、图谱与遗传病	
+f_molbio	蛋白质合成		核糖体上的翻译过程	
+f_molbio	酶与催化		酶加速反应的机制	
+f_molbio	生物膜		磷脂双分子层与膜蛋白	
+f_molbio	细胞信号转导		细胞间对话的分子线路	
+f_molbio	细胞周期与凋亡		分裂的程序与自杀的程序	
+f_molbio	基因表达调控		从DNA到RNA的选择性读写	
+f_molbio	分子克隆		目的基因的复制与表达	Method
+f_molbio	组学与多组学		基因组转录组蛋白组的整合	
+f_molbio	病毒学		病毒的复制策略与防控	
+f_molbio	干细胞		能分化为多种细胞的原始细胞	
+f_structbio	X射线晶体学		用衍射推算原子坐标	Method
+f_structbio	核磁共振结构		溶液中的蛋白构象	Method
+f_structbio	膜蛋白结构		药物靶点最多的结构难题	
+f_structbio	蛋白质设计		按功能倒推全新序列	Method
+f_structbio	分子对接		小分子与靶点的计算机模拟	Method
+f_structbio	冷冻电镜分辨率革命	2013	近原子分辨率成为常规	Proposition
+f_immunology	先天免疫		快速泛用的第一道防线	
+f_immunology	适应性免疫		T细胞与抗体的精准记忆	
+f_immunology	免疫耐受		为什么免疫系统不攻击自己	
+f_immunology	疫苗学		减毒、灭活、亚单位到mRNA的平台演进	
+f_immunology	肿瘤免疫		让免疫系统识别癌细胞	
+f_immunology	自身免疫病		免疫系统的误伤与治疗	
+f_immunology	过敏反应		过度防卫的免疫病理	
+f_immunology	免疫检查点		刹车分子与癌症免疫治疗	Proposition
+f_bioeng	生物反应器		细胞与酶的工业化培养		T L9
+f_bioeng	发酵工程		微生物的规模化培养		T L9
+f_bioeng	酶工程		固定化酶与定向进化	Method
+f_bioeng	组织工程		人工支架上再造组织	Controversy
+f_bioeng	生物传感器		把生物识别变成电信号	
+f_bioeng	合成代谢流		改造代谢通量生产化学品	
+f_bioeng	生物信息学		用计算机读生命	
+f_bioeng	生物安全		实验室等级与两用研究监管	
+f_ecology	种群生态学		种群增长与调节的规律	
+f_ecology	群落生态学		物种共存的网络结构	
+f_ecology	生态系统生态学		能量流与物质循环	
+f_ecology	行为生态学		觅食、繁殖与合作的策略	
+f_ecology	保护生态学		最小存活种群与栖息地	
+f_ecology	入侵生态学		外来物种的扩张机制	
+f_ecology	恢复生态学		退化生态系统的重建	Method
+f_ecology	城市生态学		城市作为生态系统	
+f_anatomy	神经解剖		脑区与传导通路图谱	
+f_anatomy	心脏解剖与血流动力学		腔室、瓣膜与压力	
+f_anatomy	呼吸生理		气体交换与氧运输	
+f_anatomy	消化与代谢生理		吸收、肝糖与能量平衡	
+f_anatomy	肾脏与体液调节		滤过重排与电解质平衡	
+f_anatomy	内分泌系统		激素网络与反馈调节	
+f_anatomy	生殖生理		配子发生与妊娠	
+f_anatomy	免疫解剖		淋巴器官与免疫细胞驻留	
+f_clinical	诊断学		问诊查体与鉴别诊断	Method
+f_clinical	影像诊断		X/CT/MRI/超声的读片	Method
+f_clinical	外科手术学		无菌、麻醉与微创的演进	Method
+f_clinical	重症医学		生命支持与多器官监护	
+f_clinical	急诊医学		黄金时间与分诊体系	
+f_clinical	麻醉学		术中生理的精细控制	
+f_clinical	精神医学		精神障碍的诊断与治疗	
+f_clinical	康复医学		功能恢复与辅助技术	
+f_clinical	全科医学		初级保健与连续照护	
+f_clinical	姑息医学		生命末期的舒适与尊严	
+f_pharm	药代动力学		吸收分布代谢排泄的数学	Method
+f_pharm	药效学		剂量-效应关系与受体理论	
+f_pharm	抗生素药物		β内酰胺到大环内酯的武器库	
+f_pharm	抗肿瘤药物		化疗、靶向与免疫治疗药物	
+f_pharm	心血管药物		降压、抗凝与调脂	
+f_pharm	神经精神药物		抗抑郁与抗精神病药	
+f_pharm	药物设计		基于结构的理性设计	Method
+f_pharm	中药与现代药理		传统经验的物质基础研究		中国
+f_epidemi	队列研究		跟踪人群找病因	Method
+f_epidemi	病例对照研究		回溯比较找风险因素	Method
+f_epidemi	传染病动力学		SIR模型与群体免疫阈值	Proposition
+f_epidemi	疫苗流行病学		效力、效果与群体屏障	
+f_epidemi	健康统计		死亡率、伤残调整生命年	
+f_epidemi	卫生政策		医保、分级诊疗与公卫体系	
+f_epidemi	全球卫生		跨境传染病与卫生公平	
+f_epidemi	卫生经济学		健康干预的成本效益	
+f_neuro	突触传递		神经递质与受体	
+f_neuro	脑成像		fMRI/PET/脑电图	Method
+f_neuro	视觉神经科学		从视网膜到视皮层	
+f_neuro	记忆的神经基础		海马与长时程增强	
+f_neuro	运动控制		运动皮层与小脑	
+f_neuro	脑机接口	2010s	电极与大脑的直接对话		实验室
+f_neuro	神经退行机制		蛋白聚集与神经死亡	
+f_neuro	意识研究		意识的神经相关物	Controversy
+f_crop	育种学		杂交、纯系到分子标记	Method
+f_crop	种子科学		种子的活力与处理	Method
+f_crop	作物栽培生理		密度、水肥与群体结构	
+f_crop	植保学		病、虫、草害的综合防治	
+f_crop	精准农业		遥感与变量投入	Method
+f_crop	农艺与气候适应		品种与农期随气候调整	
+f_crop	有机农业		少投入依赖的耕作体系	Controversy
+f_crop	都市农业		垂直农场与屋顶菜园	
+f_soil	土壤物理		水分运移与结构	
+f_soil	土壤化学		阳离子交换与酸碱缓冲	
+f_soil	土壤微生物		根际微生物与固氮	
+f_soil	肥料科学		氮磷钾的供给与效率	
+f_soil	水土保持		侵蚀控制与梯田系统		中国
+f_soil	土壤碳库		土壤固碳与气候	
+f_food	食品化学		风味、质构与褐变	
+f_food	食品微生物		致病菌与益生菌	
+f_food	食品保鲜		冷链、气调与辐照		T L9
+f_food	食品加工		分离、混合与挤压熟化		T L9
+f_food	食品安全		HACCP与从农田到餐桌的追溯	
+f_food	营养学		宏量与微量营养素	Proposition
+f_food	功能食品		益生菌与膳食补充	Controversy
+f_food	未来食物		细胞培养肉与替代蛋白	Controversy
+f_animal	动物营养		饲料配方与转化效率	
+f_animal	动物育种		数量遗传到基因组选择	Method
+f_animal	动物福利		人道养殖的标准	Controversy
+f_animal	兽医科学		动物疾病诊断与防治	Method
+f_animal	渔业资源管理		配额与可持续捕捞	
+f_animal	蜜蜂养殖		蜂群管理与授粉服务	
+f_animal	养殖废水		粪污资源化与减排	
+f_animal	宠物医学		伴侣动物的健康照护	

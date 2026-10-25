@@ -1,0 +1,192 @@
+field	name	year	def	type
+f_classical	刚体力学		研究不可形变物体的转动与平衡	
+f_classical	拉格朗日力学	1788	用广义坐标与能量重写牛顿力学	
+f_classical	哈密顿力学	1833	以哈密顿量为核心的正则形式	
+f_classical	分析力学		从变分原理统一导出运动方程	
+f_classical	振动与波		简谐振动、共振与波的传播	
+f_classical	多体问题		三个以上引力体的运动无解析解	
+f_classical	角动量守恒		旋转体系的守恒量	
+f_classical	最小作用量原理		自然沿作用量极值的路径演化	
+f_classical	开普勒三定律	1609	行星椭圆轨道的经验定律	Proposition
+f_classical	潮汐理论		月球与太阳引力引起的海面涨落	
+f_electromag	库仑定律	1785	点电荷间作用力与距离平方成反比	Proposition
+f_electromag	安培定律	1820	电流产生磁场的定量规律	Proposition
+f_electromag	法拉第电磁感应	1831	变化的磁场产生电场	Proposition
+f_electromag	欧姆定律	1827	电压等于电流乘电阻	Proposition
+f_electromag	基尔霍夫电路定律	1845	电路中电流与电压的守恒规则	Proposition
+f_electromag	电磁波谱		从无线电到伽马射线的全频段	
+f_electromag	超导电磁学		超导体内的完全抗磁与磁通量子化	
+f_electromag	等离子体物理		电离气体的集体行为	
+f_thermo	卡诺循环	1824	热机效率的理论上限	Proposition
+f_thermo	玻尔兹曼分布	1868	粒子处于能级的概率分布	Proposition
+f_thermo	麦克斯韦速率分布	1859	气体分子速度的统计规律	Proposition
+f_thermo	相变与临界点		物质三态转变与临界现象	
+f_thermo	熵增原理		孤立系统熵不减的统计解释	Proposition
+f_thermo	非平衡态热力学		远离平衡的耗散结构	
+f_thermo	低温物理		接近绝对零度的物质行为	
+f_thermo	信息热力学		信息与能量耗散的深层联系	
+f_modern	光电效应	1905	光子打出电子的量子现象	
+f_modern	康普顿散射	1923	光子与电子碰撞的波长偏移	
+f_modern	玻色-爱因斯坦凝聚	1995	低温下原子集体落入同一量子态	
+f_modern	量子隧穿		粒子穿过经典禁区	
+f_modern	同位素		同元素不同中子数的变体	
+f_modern	粒子加速器物理		带电粒子被电磁场加速的科学与工程	
+f_modern	中微子振荡	1998	中微子在三种味道间转化	
+f_modern	量子退相干		量子叠加因环境相互作用而消失	
+f_modern	量子纠缠实验	1972	贝尔不等式的逐代检验	
+f_modern	希格斯机制	1964	粒子通过与场耦合获得质量	
+f_condensed	半导体物理		掺杂与PN结的电子行为	
+f_condensed	磁性材料		铁磁、反铁磁与自旋有序	
+f_condensed	液晶		兼具流动性与有序性的物态	
+f_condensed	拓扑绝缘体	2007	体内绝缘表面导电的新物态	
+f_condensed	二维材料		石墨烯之外的原子层世界	
+f_condensed	超材料		设计出自然界不存在的电磁性质	
+f_condensed	准晶	1982	具有五重对称的非周期晶体	
+f_condensed	半导体激光器	1962	PN结受激辐射的微型光源	
+f_condensed	量子霍尔效应	1980	低温强磁场下的量子化电导	Proposition
+f_condensed	声子晶体		周期结构中传播的弹性波	
+f_particle	夸克	1964	质子中子内部的基本粒子	
+f_particle	轻子		电子与中微子所在的家族	
+f_particle	强相互作用		把夸克束缚在核子内的力	
+f_particle	弱相互作用		负责放射性衰变的短程力	
+f_particle	正电子	1932	狄拉克预言并发现的反物质粒子	
+f_particle	缪子	1936	比电子重的第二代轻子	
+f_particle	中微子质量		超出标准模型的最轻粒子质量	
+f_particle	大型强子对撞机	2008	人类建造的最大实验装置	
+f_particle	粒子探测器		径迹、量能与时间投影室	
+f_particle	超对称		每个粒子都有超伙伴的假说	Controversy
+f_optics	几何光学		光线传播与成像定律	
+f_optics	波动光学		干涉、衍射与偏振	
+f_optics	傅里叶光学		用频谱语言处理光场	
+f_optics	非线性光学		强光下介质响应进入非线性区	
+f_optics	光纤通信	1966	光在玻璃纤维中的低损耗传输	
+f_optics	自适应光学		实时变形镜补偿大气扰动	
+f_optics	量子光学		单光子与压缩光的操控	
+f_optics	成像系统		从显微镜到望远镜的统一设计	
+f_astro	恒星演化		从星云到白矮星/中子星/黑洞的一生	
+f_astro	系外行星	1995	绕其他恒星运行的行星	
+f_astro	脉冲星	1967	快速旋转的中子星灯塔	
+f_astro	类星体	1963	活动星系核的高光度核心	
+f_astro	暗能量	1998	驱动宇宙加速膨胀的神秘组分	Controversy
+f_astro	星系形成与演化		暗物质骨架上的发光结构	
+f_astro	宇宙微波背景各向异性	1992	原初密度涨落的照片	
+f_astro	引力透镜		大质量天体弯曲背景光线	
+f_astro	射电天文学	1932	用无线电波看宇宙	
+f_astro	快速射电暴	2007	毫秒级河外射电暴发的谜题	
+f_logic	亚里士多德三段论	-350	前提与结论的形式规则	Proposition
+f_logic	弗雷格谓词逻辑	1879	量词与变元进入逻辑	
+f_logic	罗素悖论	1901	包含自身的集合引发的基础危机	
+f_logic	公理化集合论	1908	用公理规避悖论重建数学基础	
+f_logic	模型论		形式语言与其解释的关系	
+f_logic	递归论		可计算函数的精确定义	
+f_logic	证明论		把证明本身作为数学对象	
+f_logic	模态逻辑		研究必然与可能的形式系统	
+f_logic	非经典逻辑		直觉主义、模糊与多值逻辑	
+f_logic	哥德尔完备性定理	1930	一阶逻辑的可证性与真相等	Proposition
+f_prob	大数定律	1713	频率依概率收敛于概率	Proposition
+f_prob	中心极限定理		独立随机变量和趋于正态	Proposition
+f_prob	条件概率与贝叶斯公式		新证据下的概率更新	Proposition
+f_prob	随机过程		随时间演化的随机系统	
+f_prob	马尔可夫链	1906	无记忆的随机状态转移	
+f_prob	鞅与停时		公平赌博的数学化	
+f_prob	蒙特卡洛积分		用随机采样算高维积分	
+f_prob	假设检验		用数据拒绝统计假设的规则	Method
+f_prob	回归分析	1885	拟合变量间关系的统计方法	Method
+f_prob	极大似然估计	1912	让数据出现概率最大的参数估计	Method
+f_prob	贝叶斯网络		条件依赖关系的有向图模型	
+f_algebra	线性代数		向量空间与矩阵的普适语言	
+f_algebra	多项式与方程求解		从求根公式到伽罗瓦理论	
+f_algebra	域论		四则运算封闭的代数结构	
+f_algebra	环与理想		整数性质的抽象推广	
+f_algebra	李群与李代数		连续对称性的代数	
+f_algebra	表示论		用矩阵实现抽象代数结构	
+f_algebra	同调代数		用代数不变量研究形状	
+f_algebra	交换代数		交换环上的模论——代数几何的语言	
+f_geometry	欧氏几何		公理化的平面与空间几何	
+f_geometry	解析几何	1637	用坐标把几何变成方程	
+f_geometry	射影几何		研究投影不变性的几何	
+f_geometry	微分几何		用微积分研究弯曲空间	
+f_geometry	黎曼流形	1854	带度量的弯曲空间——广义相对论的舞台	
+f_geometry	代数几何		用多项式方程研究形状	
+f_geometry	离散与组合几何		有限点集与铺砌问题	
+f_geometry	凸优化几何		凸集上的最优化景观	
+f_topology	同伦论		连续变形下的不变量	
+f_topology	同调论		用代数捕捉洞的数量	
+f_topology	纽结理论		绳结的数学分类	
+f_topology	流形分类		曲面的完整拓扑分类	
+f_topology	庞加莱猜想	1900	三维单连通闭流形同胚于球面（佩雷尔曼2003证明）	Problem
+f_topology	持续同调		数据的拓扑特征提取	Method
+f_foundations	选择公理		无限选择的合理性之争	Controversy
+f_foundations	连续统假设	1878	实数有多少个——被证明不可判定	Problem
+f_foundations	构造主义数学		数学对象必须可构造吗	Controversy
+f_foundations	类型论		规避悖论的分层集合	
+f_foundations	范畴论	1945	箭头与对象的普适语言	
+f_foundations	数学证明助手		Lean/Coq中的机器检验证明	Method
+f_numbertheory	素数定理	1896	素数分布的渐近规律	Proposition
+f_numbertheory	欧几里得素数无穷	-300	素数有无穷多个的第一个证明	Proposition
+f_numbertheory	解析数论		用微积分研究整数的性质	
+f_numbertheory	代数数论		用代数结构研究整数解	
+f_numbertheory	椭圆曲线		连接数论与密码学的曲线	
+f_numbertheory	朗兰兹纲领	1967	数论与表示论的大统一猜想	Controversy
+f_inorganic	配位化学		中心金属与配体的化学	
+f_inorganic	金属有机化学		含金属-碳键的化合物	
+f_inorganic	固相化学		固体材料的合成与反应	
+f_inorganic	生物无机化学		生命体内的金属元素	
+f_inorganic	稀土化学		镧系元素的分离与应用		中国
+f_inorganic	主族元素化学		硼族到卤族的化学	
+f_inorganic	纳米材料化学		纳米尺度的合成与表征	
+f_inorganic	水溶液化学		酸碱、沉淀与络合平衡	
+f_inorganic	晶体工程		按目标性质设计晶体	
+f_inorganic	放射化学		放射性核素的化学行为	
+f_organic	反应机理		电子箭头背后的化学步骤	
+f_organic	立体选择性合成		定向造出单一手性分子	
+f_organic	天然产物全合成		人工复制复杂自然分子	
+f_organic	芳香化学		苯环带来的稳定性与反应性	
+f_organic	杂环化学		含氮氧硫的环系——药物化学主战场	
+f_organic	糖化学		糖链的复杂语言	
+f_organic	氨基酸与肽		蛋白质的构件化学	
+f_organic	有机金属催化		钯催化偶联等变革性反应	
+f_organic	绿色化学		原子经济与环境友好的设计原则	
+f_organic	药物化学		小分子与靶点的结合艺术	
+f_organic	逆合成分析		从目标分子倒推原料的规划法	Method
+f_organic	有机波谱解析		用NMR/MS/IR读懂分子结构	Method
+f_physchem	化学热力学		反应能否发生与进行多远	
+f_physchem	化学动力学		反应进行多快及其机理	
+f_physchem	量子化学计算		用计算机求解分子薛定谔方程	Method
+f_physchem	表面与界面化学		界面处的特殊物理化学	
+f_physchem	电化学动力学		电极反应的速率与机理	
+f_physchem	胶体与分散		纳米颗粒的稳定与聚集	
+f_physchem	光化学		光引发的化学过程——光合作用的原理	
+f_physchem	统计热力学		从分子性质预测宏观性质	
+f_physchem	分子模拟		分子动力学与蒙特卡洛模拟	Method
+f_physchem	化学平衡		正逆反应速率相等的动态	Proposition
+f_geology	板块构造理论		岩石圈板块的运动学	Proposition
+f_geology	矿物学		矿物的晶体化学与鉴定	
+f_geology	岩石学		火成、沉积与变质岩的成因	
+f_geology	地层与古生物		用化石层序读地球历史	
+f_geology	构造地质学		断层、褶皱与造山带	
+f_geology	地震学		地震波与地球内部成像	
+f_geology	水文地质		地下水的赋存与流动	
+f_geology	行星地质学		用地球科学方法研究其他行星	
+f_meteor	大气环流		全球风带与气压系统的形成	
+f_meteor	台风与飓风		热带气旋的生成与路径	
+f_meteor	云物理		云滴形成与降水过程	
+f_meteor	雷达气象		用雷达回波监测降水	Method
+f_meteor	中小尺度天气		雷暴、龙卷与强对流	
+f_meteor	天气预报业务		从经验外推到集合预报	Proposition
+f_climate	全球变暖		温室气体驱动的系统性升温	
+f_climate	气候模型		耦合大气海洋的数值模拟	Method
+f_climate	古气候学		冰芯树纹沉积里的过去气候	
+f_climate	碳循环		碳在大气海洋陆地间的流动	
+f_climate	海平面上升		热膨胀与冰盖消融的累积效应	
+f_climate	气候临界点		不可逆突变的阈值之争	Controversy
+f_climate	极端天气归因		把单个事件归因于气候变化	Method
+f_climate	气候适应		在变化中重建韧性	
+f_envir	大气污染		雾霾、酸雨与臭氧的成因治理	
+f_envir	水污染与治理		污水处理的物理生化过程	
+f_envir	土壤污染修复		重金属与有机物的土地修复	Method
+f_envir	固废与循环经济		从填埋到资源化	
+f_envir	生态系统服务		自然对人类福祉的贡献核算	
+f_envir	环境影响评价		建设项目前置的环境账	Method
+f_envir	生物多样性保护		就地保护与迁地保护体系	
+f_envir	环境监测		遥感与传感网的地球体检	Method

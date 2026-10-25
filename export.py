@@ -82,13 +82,13 @@ def main():
                 for e in edges if e["from"] in cn_ids or e["to"] in cn_ids]
 
     with open("js/data_full.js", "w", encoding="utf-8") as f:
-        f.write("/* 核心(策展)+扩展(ConceptNet), 边为元组格式 */\n")
+        f.write("/* 核心策展层(同步加载), 边为元组格式 */\n")
         f.write("window.GRAPH_CORE = ")
         f.write(json.dumps({"domains": domains, "nodes": core_nodes, "edges": core_edges,
                             "stories": story_list}, ensure_ascii=False))
-        f.write(";\nwindow.GRAPH_EXT = ")
-        f.write(json.dumps({"nodes": cn_nodes, "edges": cn_edges}, ensure_ascii=False))
         f.write(";\n")
+    with open("js/data_ext.json", "w", encoding="utf-8") as f:
+        json.dump({"nodes": cn_nodes, "edges": cn_edges}, f, ensure_ascii=False)
 
     files = ["meta.json", "nodes.json", "edges.json", "graph.json", "stories.json"]
     manifest = {"generated": meta["generated"], "files": []}

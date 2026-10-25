@@ -12,18 +12,19 @@ const DOMAINS_ = FULL ? FULL.domains : DOMAINS;
 const STORIES_ = FULL ? FULL.stories : STORIES;
 /* ConceptNet 扩展层延迟合并: boot 后 1s 注入, 不阻塞首帧 */
 function mergeExt() {
-  const ext = window.GRAPH_EXT;
-  if (!ext) return;
-  for (const n of ext.nodes) { n.deg = 0; n.out = []; n.in = []; n.idx = NODES_.length; NODES_.push(n); byId[n.id] = n; }
-  for (const e of ext.edges) {
-    const edge = { from: e[0], to: e[1], type: e[2], w: e[3] == null ? 0.5 : e[3],
-                   since: e[4] == null ? null : e[4], grade: e[2] === "marks" ? "A" : "B",
-                   ctx: e.length > 5 ? e[5] : null };
-    byId[e[0]].out.push(edge); byId[e[1]].in.push(edge);
-    byId[e[0]].deg++; byId[e[1]].deg++;
-    E.push(edge);
-  }
-  reheat(0.15);
+  fetch("js/data_ext.json").then(r => r.json()).then(ext => {
+    for (const n of ext.nodes) { n.deg = 0; n.out = []; n.in = []; n.idx = NODES_.length; NODES_.push(n); byId[n.id] = n; }
+    for (const e of ext.edges) {
+      const edge = { from: e[0], to: e[1], type: e[2], w: e[3] == null ? 0.5 : e[3],
+                     since: e[4] == null ? null : e[4], grade: e[2] === "marks" ? "A" : "B",
+                     ctx: e.length > 5 ? e[5] : null };
+      byId[e[0]].out.push(edge); byId[e[1]].in.push(edge);
+      byId[e[0]].deg++; byId[e[1]].deg++;
+      E.push(edge);
+    }
+    reheat(0.15);
+    forceDraw = true;
+  }).catch(() => {});
 }
 const byId = {};
 NODES_.forEach((n, i) => { n.idx = i; byId[n.id] = n; n.deg = 0; n.out = []; n.in = []; });
@@ -1459,6 +1460,6 @@ function boot() {
   else { S.year = YEAR_MIN; syncTimeUI(); startPlay(6500); }   /* 开幕: 地图按年代生长 */
   if (deepLink) route(); else switchView("map", { silent: true });
   tick();
-  setTimeout(mergeExt, 1200);
+  setTimeout(mergeExt, 1500);
 }
 boot();

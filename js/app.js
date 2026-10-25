@@ -115,31 +115,40 @@ function reheat(a) { alpha = Math.max(alpha, a); }
 function step() {
   const nodes = NODES_;
   const shown = [];
-  for (let i = 0; i < nodes.length; i++) if (shownIdx(i)) shown.push(i);
-  /* 斥力 O(n²) */
-  for (let a = 0; a < shown.length; a++) {
-    const i = shown[a];
-    if (nodes[i].t === "Topic") continue;
-    for (let b = a + 1; b < shown.length; b++) {
-      const j = shown[b];
-      if (nodes[j].t === "Topic") continue;
-      let dx = P.x[i] - P.x[j], dy = P.y[i] - P.y[j];
-      let d2 = dx * dx + dy * dy; if (d2 < 1) d2 = 1;
-      if (d2 > 1000 * 1000) continue;
-      const d = Math.sqrt(d2);
-      /* Topic(提取层背景纹理) 斥力降权: 不参与挤占, 停留在所属大陆内 */
-      const w = (nodes[i].t === "Topic" || nodes[j].t === "Topic") ? 0.3 : 1;
-      const f = Math.min(5200 / d2, 2.6) * alpha * w;
-      dx /= d; dy /= d;
-      P.vx[i] += dx * f; P.vy[i] += dy * f;
-      P.vx[j] -= dx * f; P.vy[j] -= dy * f;
+  for (let i = 0; i < nodes.length; i++) {
+    if (!shownIdx(i)) continue;
+    if (nodes[i].t === "Topic") continue;   /* Topic 静态, 不进模拟 */
+    shown.push(i);
+  }
+  /* 斥力: 按域分组, 仅同域内互斥 (跨域由锚点分离) */
+  const byDom = {};
+  for (const i of shown) {
+    const d = nodes[i].dom || "_";
+    if (!byDom[d]) byDom[d] = [];
+    byDom[d].push(i);
+  }
+  for (const d in byDom) {
+    const arr = byDom[d];
+    for (let a = 0; a < arr.length; a++) {
+      const i = arr[a];
+      for (let b = a + 1; b < arr.length; b++) {
+        const j = arr[b];
+        let dx = P.x[i] - P.x[j], dy = P.y[i] - P.y[j];
+        let d2 = dx * dx + dy * dy; if (d2 < 1) d2 = 1;
+        if (d2 > 660 * 660) continue;
+        const dd = Math.sqrt(d2);
+        const f = Math.min(5200 / d2, 2.6) * alpha;
+        dx /= dd; dy /= dd;
+        P.vx[i] += dx * f; P.vy[i] += dy * f;
+        P.vx[j] -= dx * f; P.vy[j] -= dy * f;
+      }
     }
   }
   /* 弹簧 */
   for (const e of E) {
     const i = byId[e.from].idx, j = byId[e.to].idx;
-    if (!shownIdx(i) || !shownIdx(j)) continue;
     if (nodes[i].t === "Topic" || nodes[j].t === "Topic") continue;
+    if (!shownIdx(i) || !shownIdx(j)) continue;
     const rest = e.type === "part_of" ? 105 : (e.type === "marks" || e.type === "did" ? 95 : 175);
     const k = e.type === "part_of" ? 0.014 : (e.type === "marks" || e.type === "did" ? 0.016 : 0.03);
     let dx = P.x[j] - P.x[i], dy = P.y[j] - P.y[i];
@@ -230,16 +239,21 @@ function draw() {
   const focus = HL != null;
 
   /* 边 */
+  const vl = -80, vr = W + 80, vt = -80, vb = H + 80;
   for (const e of E) {
     const a = byId[e.from], b = byId[e.to];
     if (!shownIdx(a.idx) || !shownIdx(b.idx)) continue;
     const et = EDGE_TYPES[e.type];
-    if (S.k < 0.45 && (a.t === "Topic" || b.t === "Topic")) continue;
+    const isTopicEdge = a.t === "Topic" || b.t === "Topic";
+    if (S.k < 0.45 && isTopicEdge) continue;
     const involved = HL === e.from || HL === e.to;
     let al = et.dim ? 0.13 : 0.28;
     if (focus) al = involved ? 0.85 : 0.05;
     const x1 = sx(P.x[a.idx]), y1 = sy(P.y[a.idx]);
     const x2 = sx(P.x[b.idx]), y2 = sy(P.y[b.idx]);
+    /* 视口裁剪: 两端都在画布外则跳过 */
+    if ((x1 < vl && x2 < vl) || (x1 > vr && x2 > vr) ||
+        (y1 < vt && y2 < vt) || (y1 > vb && y2 > vb)) continue;
     const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
     const bend = ((hashStr(e.from + e.to) % 9) - 4) * 6;
     const dx = x2 - x1, dy = y2 - y1, len = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
@@ -424,12 +438,15 @@ function flyTo(id, targetK) {
 let drag = null;   /* {mode:'pan'|'node', idx, ox, oy, moved} */
 let lastHov = null, lastSel = null, forceDraw = true;   /* 脏标记: 无变化不重绘 */
 function pickNode(mx, my) {
+  const R2 = 100;
   for (const n of NODES_) {
     if (!shownIdx(n.idx)) continue;
     const x = sx(P.x[n.idx]), y = sy(P.y[n.idx]);
+    const dx = mx - x, dy = my - y;
     const T = TYPES[n.t];
     const r = Math.max(T.r * Math.min(S.k * 1.5, 1), 5) + 4;
-    if ((mx - x) * (mx - x) + (my - y) * (my - y) < r * r) return n;
+    if (dx * dx + dy * dy < r * r) return n;
+    if (dx > R2 || dy > R2) continue;   /* 粗略远距跳过 */
   }
   return null;
 }

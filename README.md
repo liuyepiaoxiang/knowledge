@@ -27,6 +27,19 @@ python -m http.server 8123
 - **跨域奠基链**（SQLite 实测可查）：`火的使用→冶铜→冶铁→工业革命→蒸汽机→热力学→统计力学→蒙特卡洛→蛋白质折叠→AlphaFold→Transformer→ChatGPT`（12 跳横跨 40 万年）；最长的单条时间边"轮子(前3500)→铁路(1825)"
 - **多文明**：中国、印度、阿拉伯、希腊化、两河、罗马、波利尼西亚、日本各有传统标注
 
+## 开放数据源
+
+| 数据集 | 下载地址 | 许可 | 用途 |
+|---|---|---|---|
+| **ConceptNet 5.7** | `https://hf-mirror.com/datasets/conceptnet5/conceptnet5/resolve/main/conceptnet5/train-*.parquet` | CC BY-SA 4.0 | 48 万中文断言 → 21k 概念节点 / 84k 类型边 |
+| **Wikimedia Wikipedia 中文** | `https://hf-mirror.com/datasets/wikimedia/wikipedia/resolve/main/20231101.zh/train-*.parquet` | CC BY-SA 3.0 | 23 万篇文章 → 摘要/年份补全 + 1200 条真实共现边 + 600 新概念 |
+| **OpenAlex**（规划中） | `https://openalex.org` · 2.5 亿论文 | CC0 | 引用网络→奠基边 |
+| **Wikidata**（规划中） | `https://dumps.wikimedia.org/wikidatawiki/entities` · 1 亿实体 | CC0 | 类型体系→骨架 |
+
+> 维基百科 / Wikidata 原始站点在本网络不可达，通过 **hf-mirror.com**（HuggingFace 国内镜像）下载 parquet 分片后本地处理。
+> ConceptNet 原始下载（S3）：`https://s3.amazonaws.com/conceptnet/downloads/5.7.0/conceptnet-assertions-5.7.0.csv.gz`（350MB gz）
+> 使用任何数据时保留证据溯源字段，即可满足 CC BY-SA 的署名要求。
+
 ## 数据管线（v0.3 架构）
 
 ```

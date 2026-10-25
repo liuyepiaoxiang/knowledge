@@ -7,7 +7,7 @@ import json, os, sqlite3
 from collections import defaultdict
 from datetime import date
 
-EDITION = "v0.6"
+EDITION = "v0.9"
 
 def main():
     con = sqlite3.connect("file:atlas.db?mode=ro", uri=True)
@@ -70,13 +70,24 @@ def main():
     w("api/graph.json", dict(meta, nodes=nodes, edges=edges))
     w("api/stories.json", story_list)
 
+    # 核心 = 非 cn_ 节点; 扩展 = cn_ 层 (ConceptNet 导入, 延迟合并)
+    cn_ids = {n["id"] for n in nodes if n["id"].startswith("cn_")}
+    core_nodes = [n for n in nodes if n["id"] not in cn_ids]
+    core_edges = [[e["from"], e["to"], e["type"], e["weight"], e["since"]] +
+                  ([e["ctx"]] if e.get("ctx") else [])
+                  for e in edges if e["from"] not in cn_ids and e["to"] not in cn_ids]
+    cn_nodes = [n for n in nodes if n["id"] in cn_ids]
+    cn_edges = [[e["from"], e["to"], e["type"], e["weight"], e["since"]] +
+                ([e["ctx"]] if e.get("ctx") else [])
+                for e in edges if e["from"] in cn_ids or e["to"] in cn_ids]
+
     with open("js/data_full.js", "w", encoding="utf-8") as f:
-        f.write("/* 由 export.py 生成 — 全量图(种子策展层+批量骨架层), 边为元组格式 */\n")
-        f.write("window.GRAPH_FULL = ")
-        edge_tuples = [[e["from"], e["to"], e["type"], e["weight"], e["since"]] +
-                       ([e["ctx"]] if e.get("ctx") else []) for e in edges]
-        f.write(json.dumps({"domains": domains, "nodes": nodes, "edges": edge_tuples,
+        f.write("/* 核心(策展)+扩展(ConceptNet), 边为元组格式 */\n")
+        f.write("window.GRAPH_CORE = ")
+        f.write(json.dumps({"domains": domains, "nodes": core_nodes, "edges": core_edges,
                             "stories": story_list}, ensure_ascii=False))
+        f.write(";\nwindow.GRAPH_EXT = ")
+        f.write(json.dumps({"nodes": cn_nodes, "edges": cn_edges}, ensure_ascii=False))
         f.write(";\n")
 
     files = ["meta.json", "nodes.json", "edges.json", "graph.json", "stories.json"]

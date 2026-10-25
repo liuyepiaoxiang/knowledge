@@ -202,6 +202,12 @@ body {
 }
 .p-rel a:hover { color: var(--brass); border-color: var(--brass-dim); }
 .p-rel a .dot { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+.p-ext { display: flex; flex-wrap: wrap; gap: 6px; }
+.p-ext a {
+  font-size: 11.5px; color: var(--dim); text-decoration: none;
+  border: 1px solid var(--line); border-radius: 3px; padding: 3px 9px;
+}
+.p-ext a:hover { color: var(--brass); border-color: var(--brass-dim); }
 .p-actions { margin-top: 18px; display: flex; gap: 8px; }
 .p-actions button {
   flex: 1; background: none; border: 1px solid var(--brass-dim); color: var(--brass);

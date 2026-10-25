@@ -1,15 +1,15 @@
 {
  "name": "知识大地 Terra Cognita · 人类知识与技术底图",
- "edition": "v0.6",
+ "edition": "v0.9",
  "generated": "2026-10-26",
  "counts": {
-  "nodes": 1888,
-  "edges": 8125,
-  "domains": 16
+  "nodes": 23035,
+  "edges": 92902,
+  "domains": 17
  },
  "layers": {
   "B": 389,
-  "C": 4785
+  "C": 25932
  },
  "license": "来源数据遵循其原始许可(Wikipedia 内容 CC BY-SA, 需署名+相同方式共享); 请保留证据溯源字段",
  "domains": [
@@ -92,6 +92,11 @@
    "id": "dom_prac",
    "zh": "实践技艺与生活",
    "en": "Crafts & Life"
+  },
+  {
+   "id": "dom_extern",
+   "zh": "开放图谱导入层",
+   "en": "Open KG import"
   }
  ]
 }

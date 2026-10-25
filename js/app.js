@@ -5,11 +5,26 @@
 "use strict";
 
 /* ---------- 数据准备(优先加载全量图: 种子策展层 + 批量骨架层) ---------- */
-const FULL = window.GRAPH_FULL || null;
+const FULL = window.GRAPH_CORE || null;
 const NODES_ = FULL ? FULL.nodes : NODES;
 const EDGES_ = FULL ? FULL.edges : EDGES;
 const DOMAINS_ = FULL ? FULL.domains : DOMAINS;
 const STORIES_ = FULL ? FULL.stories : STORIES;
+/* ConceptNet 扩展层延迟合并: boot 后 1s 注入, 不阻塞首帧 */
+function mergeExt() {
+  const ext = window.GRAPH_EXT;
+  if (!ext) return;
+  for (const n of ext.nodes) { n.deg = 0; n.out = []; n.in = []; n.idx = NODES_.length; NODES_.push(n); byId[n.id] = n; }
+  for (const e of ext.edges) {
+    const edge = { from: e[0], to: e[1], type: e[2], w: e[3] == null ? 0.5 : e[3],
+                   since: e[4] == null ? null : e[4], grade: e[2] === "marks" ? "A" : "B",
+                   ctx: e.length > 5 ? e[5] : null };
+    byId[e[0]].out.push(edge); byId[e[1]].in.push(edge);
+    byId[e[0]].deg++; byId[e[1]].deg++;
+    E.push(edge);
+  }
+  reheat(0.15);
+}
 const byId = {};
 NODES_.forEach((n, i) => { n.idx = i; byId[n.id] = n; n.deg = 0; n.out = []; n.in = []; });
 const E = EDGES_.map(function (e) {
@@ -32,7 +47,7 @@ const S = {
   year: YEAR_MAX,
   playing: false, playT0: 0, playDur: 0,
   sel: null, hov: null,
-  k: 0.2, tx: 0, ty: 0,
+  k: 0.13, tx: 0, ty: 0,
   typeOff: new Set(), domOff: new Set(),
   story: null, storyTimer: null,
   cam: null          /* 相机动画状态 */
@@ -66,7 +81,7 @@ const DOM_ANCHOR = {};
 (function initPositions() {
   const angle = {};
   DOMAIN_IDS.forEach((id, i) => { angle[id] = -Math.PI / 2 + i * (Math.PI * 2 / DOMAIN_IDS.length); });
-  const anchor = DOM_ANCHOR;
+  const anchor = Object.assign({ dom_extern: { x: 0, y: -3900 } }, DOM_ANCHOR);
   const fieldCount = {};
   NODES_.forEach(n => {
     let ax, ay;
@@ -74,6 +89,11 @@ const DOM_ANCHOR = {};
     else if (n.t === "Field") {
       const a = angle[n.dom] + (hash(n.id) % 100 / 100 - 0.5) * 0.9;
       ax = anchor[n.dom].x + Math.cos(a) * 150; ay = anchor[n.dom].y + Math.sin(a) * 150;
+    } else if (n.t === "Topic" && n.dom === "dom_extern") {
+      /* 开放图谱导入层: 环绕全部大陆的光晕 */
+      const a = hash(n.id) % 6283 / 1000;
+      const r = 2350 + (hash(n.id + "r") % 100 / 100) * 950;
+      ax = Math.cos(a) * r; ay = Math.sin(a) * r;
     } else if (n.t === "Topic") {
       /* 提取层背景纹理: 固定盘面布点, 不参与模拟 */
       const a = hash(n.id) % 6283 / 1000;
@@ -242,6 +262,35 @@ function draw() {
   for (const n of NODES_) {
     if ((n.t === "Topic") !== topicPass) continue;
     if (!shownIdx(n.idx)) continue;
+    /* 批量背景纹理: 无高亮时万级 Topic 单路径一次填充 */
+    if (topicPass && !focus) {
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = "#d9c79a";
+      ctx.beginPath();
+      for (const m of NODES_) {
+        if (m.t !== "Topic" || !shownIdx(m.idx)) continue;
+        const bx = sx(P.x[m.idx]), by = sy(P.y[m.idx]);
+        if (bx < -30 || bx > W + 30 || by < -30 || by > H + 30) continue;
+        const br = Math.max(TYPES.Topic.r * 0.6 * Math.min(S.k * 1.5, 1), 1.4);
+        ctx.moveTo(bx + br, by); ctx.arc(bx, by, br, 0, 7);
+      }
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      for (const m of NODES_) {
+        if (m.t !== "Topic" || !shownIdx(m.idx)) continue;
+        if (S.sel !== m.id && S.hov !== m.id) continue;
+        const bx = sx(P.x[m.idx]), by = sy(P.y[m.idx]);
+        const br = Math.max(TYPES.Topic.r * 0.6 * Math.min(S.k * 1.5, 1), 2.5);
+        ctx.globalAlpha = 1; ctx.fillStyle = "#d9c79a";
+        ctx.beginPath(); ctx.arc(bx, by, br, 0, 7); ctx.fill();
+        ctx.strokeStyle = "#d9b36c"; ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.arc(bx, by, br + 3, 0, 7); ctx.stroke();
+        ctx.font = '11px "Segoe UI","Microsoft YaHei",sans-serif';
+        ctx.fillStyle = "#cfd6e0"; ctx.fillText(m.zh, bx, by + br + 13);
+        ctx.lineWidth = 1;
+      }
+      continue;
+    }
     const fossil = isFossil(n);
     const T = TYPES[n.t];
     const deg = Math.min(n.deg, 14);
@@ -316,7 +365,7 @@ function tick() {
     const wasZero = W === 0;
     resize();
     if (wasZero && !S.userMoved) {
-      S.k = 0.2; S.tx = W / 2; S.ty = H / 2;
+      S.k = 0.13; S.tx = W / 2; S.ty = H / 2;
       if (S.sel) S.needFly = S.sel;
     }
   }
@@ -565,6 +614,14 @@ function select(id) {
     }
     html += '<div class="p-conf"><div class="bar"><i style="width:' + Math.round((n.conf || 0.5) * 100) + '%"></i></div><span>综合置信度 ' + Math.round((n.conf || 0.5) * 100) + "%</span></div></div>";
   }
+  const q = encodeURIComponent(n.zh);
+  html += '<div class="p-sec"><h4>外 部 索 引</h4><div class="p-ext">' +
+    '<a href="https://zh.wikipedia.org/wiki/' + q + '" target="_blank" rel="noopener">维基百科</a>' +
+    '<a href="https://baike.baidu.com/item/' + q + '" target="_blank" rel="noopener">百度百科</a>' +
+    '<a href="https://www.bing.com/search?q=' + q + '" target="_blank" rel="noopener">必应搜索</a>' +
+    '<a href="https://xueshu.baidu.com/s?wd=' + q + '" target="_blank" rel="noopener">学术搜索</a>' +
+    '<a href="https://scholar.google.com/scholar?q=' + q + '" target="_blank" rel="noopener">Google Scholar</a>' +
+    '</div></div>';
   html += '<div class="p-actions"><button id="pFocus">聚 焦</button>' +
     (n.t === "Domain" ? '<button id="pDomain">进入领域</button>' : '<button id="pTimeline">在时间轴中查看</button>') + "</div>";
   panel.innerHTML = html;
@@ -1392,7 +1449,7 @@ function boot() {
   stamp.textContent = "第一版次 · " + NODES_.length + " 节点 · " + E.length + " 边";
   document.getElementById("stampNo").textContent = "底图 · 第一版次 · " + NODES_.length + " 节点 / " + E.length + " 边";
   document.getElementById("stampDate").textContent = "绘于 2026 年 10 月";
-  S.k = 0.2; S.tx = W / 2; S.ty = H / 2;
+  S.k = 0.13; S.tx = W / 2; S.ty = H / 2;
   buildMetrics();
   const warm = NODES_.length > 800 ? 80 : 240;   /* 大图降预热, 避免启动长阻塞 */
   for (let i = 0; i < warm; i++) step();   /* 预热布局, 防止 rAF 节流时开幕松散 */
@@ -1402,5 +1459,6 @@ function boot() {
   else { S.year = YEAR_MIN; syncTimeUI(); startPlay(6500); }   /* 开幕: 地图按年代生长 */
   if (deepLink) route(); else switchView("map", { silent: true });
   tick();
+  setTimeout(mergeExt, 1200);
 }
 boot();

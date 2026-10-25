@@ -32,9 +32,15 @@ def main():
             "ev": evs if evs else ["C", "未标注"],
             "conf": round(r["confidence"], 2), "status": r["status"], "tr": r["tradition"],
         })
-    edges = [{"from": r["src"], "to": r["dst"], "type": r["type"],
-              "weight": r["weight"], "since": r["since"]}
-             for r in cur.execute("SELECT src,dst,type,weight,since FROM edges")]
+    ctx = {}
+    for r in cur.execute("SELECT src,dst,sentence FROM edge_context"):
+        key = tuple(sorted((r["src"], r["dst"])))
+        ctx.setdefault(key, r["sentence"])
+    edges = []
+    for r in cur.execute("SELECT src,dst,type,weight,since FROM edges"):
+        c = ctx.get(tuple(sorted((r["src"], r["dst"]))))
+        edges.append({"from": r["src"], "to": r["dst"], "type": r["type"],
+                      "weight": r["weight"], "since": r["since"], "ctx": c})
     stories = defaultdict(lambda: {"steps": []})
     for r in cur.execute("""SELECT story_id,story_zh,story_desc,step,node_id,text
                             FROM story_steps ORDER BY story_id,step"""):
@@ -67,7 +73,8 @@ def main():
     with open("js/data_full.js", "w", encoding="utf-8") as f:
         f.write("/* 由 export.py 生成 — 全量图(种子策展层+批量骨架层), 边为元组格式 */\n")
         f.write("window.GRAPH_FULL = ")
-        edge_tuples = [[e["from"], e["to"], e["type"], e["weight"], e["since"]] for e in edges]
+        edge_tuples = [[e["from"], e["to"], e["type"], e["weight"], e["since"]] +
+                       ([e["ctx"]] if e.get("ctx") else []) for e in edges]
         f.write(json.dumps({"domains": domains, "nodes": nodes, "edges": edge_tuples,
                             "stories": story_list}, ensure_ascii=False))
         f.write(";\n")

@@ -1,6 +1,6 @@
 /* 由 export.py 生成 */
 window.API_MANIFEST = {
- "generated": "2026-10-25",
+ "generated": "2026-10-26",
  "files": [
   {
    "file": "meta.json",
@@ -17,14 +17,14 @@ window.API_MANIFEST = {
   {
    "file": "edges.json",
    "desc": "全部边",
-   "kb": 940.8,
-   "bytes": 963379.2
+   "kb": 2108.8,
+   "bytes": 2159411.2
   },
   {
    "file": "graph.json",
    "desc": "全图一次拉取",
-   "kb": 3357.3,
-   "bytes": 3437875.2
+   "kb": 4533.2,
+   "bytes": 4641996.8
   },
   {
    "file": "stories.json",

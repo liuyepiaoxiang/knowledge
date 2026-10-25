@@ -42,6 +42,8 @@ js/data_full.js(前端全量层) <──python export.py────────
 
 - **三层信任模型**：种子层 B（人工校订）→ 批量层 C（`bulk/*.tsv`，conf 0.7）→ 抽取层 C（`corpus/*.tsv` LLM 语料经 `extract.py` 规范化：按名去重、年份提取、共现自动连边，conf 0.6）
 - **策展队列**：`python curate.py stats|pending|promote|promote-domain|reject` —— 把 C 逐条/批量复核为 B（已演示复核 52 条），复核后 `export.py` 同步全站
+- **策展工作台（v0.7 新增）**：`python serve.py` 启动本地服务后，访问 `#/curate` —— 网页界面批量复核节点（通过/剔除）、依据**维基原文证据句**判读共现边（奠基/使能/应用/解释/启发/保留/删除），写回 SQLite 后一键重新导出。概念卡的"关联"边下方会直接显示原文共现引文
+- **构建一体化（v0.7 新增）**：`python make_all.py` 一条命令编排全部管线（含每步断言与终检），`--fresh` 全重建
 - **共现边语义升级（v0.6 新增）**：`corpus/pending_semantic.tsv`（待判读对导出）→ 人工/LLM 判读 `corpus/semantic.tsv`（升级为带方向类型边 或 判噪声删除）→ `python semantic.py` 应用 → `export.py` 同步。首轮：560 对判读，88 条升级（半导体→使能集成电路/微处理器/智能手机/激光器…），295 条同域垃圾边清理
 - **维基开放数据本地管线（v0.5 新增）**：`wiki_extract.py` —— 下载→本地解析→三类提取（既有节点年份补全 / 文本共现边按计数取优 / 高关联新概念），全部 C 级标注溯源"维基语料本地提取 (CC BY-SA)"；可用 `curate.py reject` 剔除质量差的列表页混入项
 - **扩数据只需**：往 `corpus/` 加批次或再下载一个 parquet 分片 → `python wiki_extract.py corpus/dump/zh-part4.parquet` → `python export.py`

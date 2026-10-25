@@ -14,8 +14,9 @@ const byId = {};
 NODES_.forEach((n, i) => { n.idx = i; byId[n.id] = n; n.deg = 0; n.out = []; n.in = []; });
 const E = EDGES_.map(function (e) {
   const [from, to, type, w, since] = e;
+  const ctx = e.length > 5 ? e[5] : null;
   const edge = { from, to, type, w: w == null ? 0.5 : w, since: since == null ? null : since,
-                 grade: type === "marks" ? "A" : "B" };
+                 grade: type === "marks" ? "A" : "B", ctx: ctx || null };
   byId[from].out.push(edge); byId[to].in.push(edge);
   byId[from].deg++; byId[to].deg++;
   return edge;
@@ -488,6 +489,11 @@ function relHTML(edges, dir, selfId) {
       const n = byId[id]; if (!n) continue;
       html += '<a data-go="' + id + '"><i class="dot" style="background:' + (isFossil(n) ? "#4a5468" : TYPES[n.t].color) + '"></i>' + n.zh + "</a>";
     }
+    if (t === "relates_to") {
+      for (const e of (dir === "in" ? edges : edges).filter(x => x.ctx).slice(0, 2)) {
+        html += '<div class="r-ctx">原文共现：' + e.ctx.slice(0, 80) + "…</div>";
+      }
+    }
   }
   return html ? '<div class="p-rel">' + html + "</div>" : "";
 }
@@ -908,9 +914,9 @@ window.addEventListener("resize", () => { if (tlBuilt) sizeTl(); });
 function updateTimelineCursor() { if (tlBuilt) queueTlDraw(); }
 
 /* ---------- 视图切换与哈希路由 ---------- */
-const VIEW_SECTIONS = { map: "view-map", flow: "view-flow", frontier: "view-frontier", timeline: "view-timeline", about: "view-about", api: "view-api", domain: "view-domain" };
-const VIEW_HASH = { map: "atlas", flow: "flow", frontier: "frontier", timeline: "timeline", about: "about", api: "api", domain: "domain" };
-const VIEW_TITLE = { map: "星图", flow: "河流 · 成熟度管道", frontier: "前沿", timeline: "时间轴", about: "图志", api: "开放 API", domain: "领域" };
+const VIEW_SECTIONS = { map: "view-map", flow: "view-flow", frontier: "view-frontier", timeline: "view-timeline", about: "view-about", api: "view-api", domain: "view-domain", curate: "view-curate" };
+const VIEW_HASH = { map: "atlas", flow: "flow", frontier: "frontier", timeline: "timeline", about: "about", api: "api", domain: "domain", curate: "curate" };
+const VIEW_TITLE = { map: "星图", flow: "河流 · 成熟度管道", frontier: "前沿", timeline: "时间轴", about: "图志", api: "开放 API", domain: "领域", curate: "策展台" };
 function setHash(h) { if (location.hash !== h) history.replaceState(null, "", h); }
 function switchView(v, opts) {
   opts = opts || {};
@@ -923,6 +929,7 @@ function switchView(v, opts) {
   if (v === "flow") buildFlow();
   if (v === "frontier") buildFrontier();
   if (v === "api") buildApi();
+  if (v === "curate") buildCurate();
   if (v === "domain" && opts.domain) { S.domainId = opts.domain; renderDomain(opts.domain); }
   const h = v === "domain" ? "#/domain/" + (opts.domain || S.domainId) : "#/" + VIEW_HASH[v];
   setHash(h);
@@ -1227,6 +1234,82 @@ function buildApi() {
   });
 }
 
+
+
+/* ---------- 策展台 ---------- */
+function buildCurate() {
+  const st = document.getElementById("curateStatus");
+  fetch("/api2/stats").then(r => r.json()).then(m => {
+    st.innerHTML = "本地服务已连接 ✓ · 版次 " + m.edition + " · " + m.nodes + " 节点 / " + m.edges +
+      " 边 · 待策展 <b>" + m.pending + "</b> · 右侧为待判读共现对";
+    loadCurNodes();
+    loadCurPairs();
+    const sel = document.getElementById("curDom");
+    if (sel && !sel.options.length) {
+      sel.innerHTML = DOMAINS_.map(d => '<option value="' + d.id + '">' + d.zh + "</option>").join("");
+      sel.onchange = () => loadCurNodes();
+    }
+  }).catch(() => {
+    st.innerHTML = "⚠ 需要本地服务支持：请用 <b>python serve.py</b> 启动后访问本页。直接双击打开的 file:// 模式下策展写回不可用，浏览功能不受影响。";
+  });
+}
+function loadCurNodes() {
+  const dom = document.getElementById("curDom").value;
+  fetch("/api2/pending?limit=25" + (dom ? "&domain=" + encodeURIComponent(dom) : ""))
+    .then(r => r.json()).then(list => {
+      document.getElementById("curNodeN").textContent = "· 显示 " + list.length + " 条";
+      document.getElementById("curNodes").innerHTML = list.map(n =>
+        '<div class="cur-item"><b>' + n.zh + '</b> <span style="color:var(--dim)">' + n.type +
+        ' · ' + n.dzh + '</span><div class="ci-meta">' + (n.born != null ? n.born + " 年 · " : "") +
+        "置信度 " + Math.round(n.confidence * 100) + "%</div><div style=\"color:#9aa5b5;margin-bottom:5px\">" +
+        (n.one_liner || "").slice(0, 70) + "</div><div class='ci-btns'>" +
+        '<button class="primary" data-act="promote" data-id="' + n.id + '">✓ 复核为B</button>' +
+        '<button data-act="reject" data-id="' + n.id + '">✕ 标记剔除</button>' +
+        '<button data-act="open" data-id="' + n.id + '">◎ 查看卡片</button></div></div>').join("") ||
+        "<div class='cur-hint'>该域暂无待策展节点</div>";
+      bindCur(document.getElementById("curNodes"));
+    });
+}
+function loadCurPairs() {
+  fetch("/api2/pairs?limit=25").then(r => r.json()).then(list => {
+    document.getElementById("curPairN").textContent = "· 显示 " + list.length + " 条";
+    document.getElementById("curPairs").innerHTML = list.map(p =>
+      '<div class="cur-item"><b>' + p.zha + '</b> <span style="color:var(--dim)">× ' + p.zbb + "</span>" +
+      '<div class="ci-meta">' + p.ta + " × " + p.tb + "</div>" +
+      (p.ctx ? '<div class="ci-ctx">原文：' + p.ctx.slice(0, 90) + "…</div>" : "") +
+      "<div class=ci-btns data-pair='" + p.zha + "|" + p.zbb + "'>" +
+      '<button class="primary" data-t="depends_on">奠基</button>' +
+      '<button data-t="enables">使能</button>' +
+      '<button data-t="applied_in">应用</button>' +
+      '<button data-t="explains">解释</button>' +
+      '<button data-t="inspired_by">启发</button>' +
+      '<button data-t="relates_to">保留</button>' +
+      '<button data-t="DROP">删除</button></div></div>').join("") ||
+      "<div class='cur-hint'>暂无待判读共现对</div>";
+    document.querySelectorAll("#curPairs .ci-btns").forEach(box => {
+      const pair = box.dataset.pair.split("|");
+      box.querySelectorAll("button").forEach(b => {
+        b.onclick = () => {
+          fetch("/api2/semantic", { method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ zh1: pair[0], zh2: pair[1], type: b.dataset.t, weight: 0.5 }) })
+            .then(() => loadCurPairs());
+        };
+      });
+    });
+  });
+}
+function bindCur(root) {
+  root.querySelectorAll("button[data-act]").forEach(b => {
+    b.onclick = () => {
+      const act = b.dataset.act, id = b.dataset.id;
+      if (act === "open") { select(id); flyTo(id); return; }
+      const url = act === "promote" ? "/api2/promote" : "/api2/reject";
+      const body = act === "promote" ? { ids: [id] } : { id };
+      fetch(url, { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body) }).then(() => loadCurNodes());
+    };
+  });
+}
 
 function boot() {
   resize();

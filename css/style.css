@@ -270,6 +270,29 @@ body {
 #tlPop a .tl-grad { margin-left: auto; color: #5a6678; font-size: 10px; font-family: var(--serif); }
 #tlPop .tl-more { color: #5a6678; padding: 4px 2px; font-size: 11px; }
 
+
+/* ---------- 策展台 ---------- */
+#view-curate { position: absolute; inset: 54px 0 0 0; overflow-y: auto; padding-bottom: 40px; }
+#curateWrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 14px 26px 0; align-items: start; }
+.cur-col { border: 1px solid var(--line); border-radius: 4px; padding: 14px 16px; background: rgba(17,26,41,.55); }
+.cur-col h3 { font-family: var(--serif); font-weight: normal; font-size: 14px; letter-spacing: 1px; color: var(--brass); margin-bottom: 10px; }
+.cur-toolbar { display: flex; gap: 8px; margin-bottom: 10px; }
+.cur-toolbar select { background: var(--bg2); color: var(--ink); border: 1px solid var(--line); border-radius: 3px; padding: 4px 8px; font-size: 12px; }
+.cur-hint { color: var(--dim); font-size: 11.5px; line-height: 1.6; margin-bottom: 10px; }
+.cur-item { border: 1px solid var(--line); border-radius: 4px; padding: 8px 11px; margin-bottom: 7px; background: rgba(23,33,52,.4); font-size: 12.5px; }
+.cur-item b { color: var(--ink); font-weight: normal; }
+.cur-item .ci-meta { color: var(--dim); font-size: 11px; margin: 2px 0 4px; }
+.cur-item .ci-ctx { color: #7d8aa0; font-size: 11px; line-height: 1.5; border-left: 2px solid #26344c; padding-left: 7px; margin: 5px 0 6px; }
+.cur-item .ci-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.cur-item .ci-btns button {
+  background: none; border: 1px solid var(--line); color: var(--dim); border-radius: 3px;
+  padding: 2.5px 8px; cursor: pointer; font-size: 11px; font-family: var(--sans);
+}
+.cur-item .ci-btns button:hover { color: var(--brass); border-color: var(--brass-dim); }
+.cur-item .ci-btns button.primary { border-color: var(--brass-dim); color: var(--brass); }
+.r-ctx { font-size: 10.5px; color: #7d8aa0; line-height: 1.5; margin: 3px 0 4px; border-left: 2px solid #26344c; padding-left: 7px; }
+@media (max-width: 1000px) { #curateWrap { grid-template-columns: 1fr; } }
+
 /* ---------- 图志 ---------- */
 #view-about { position: absolute; inset: 54px 0 0 0; overflow-y: auto; }
 .about-wrap { max-width: 1060px; margin: 0 auto; padding: 40px 30px 80px; }

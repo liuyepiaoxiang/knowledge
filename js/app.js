@@ -20,12 +20,20 @@ function mergeExt() {
                      ctx: e.length > 5 ? e[5] : null };
       byId[e[0]].out.push(edge); byId[e[1]].in.push(edge);
       byId[e[0]].deg++; byId[e[1]].deg++;
-      E.push(edge);
+      const na = byId[e[0]], nb = byId[e[1]];
+      if (na.t === "Topic" && nb.t === "Topic") {
+        CN_TOPIC_EDGES.push(edge);
+      } else {
+        E.push(edge);
+      }
     }
+    CN_ALL_EDGES = E.concat(CN_TOPIC_EDGES);
     reheat(0.15);
     forceDraw = true;
   }).catch(() => {});
 }
+const CN_TOPIC_EDGES = [];
+let CN_ALL_EDGES = [];
 const byId = {};
 NODES_.forEach((n, i) => { n.idx = i; byId[n.id] = n; n.deg = 0; n.out = []; n.in = []; });
 const E = EDGES_.map(function (e) {
@@ -252,7 +260,10 @@ function draw() {
   const buckets = new Map();
   const hiEdges = [];
 
-  for (const e of E) {
+  /* 低倍只画策展边(~8k); 高倍追加 CN 边(~85k) */
+  const edgeList = (S.k >= 0.45 && CN_ALL_EDGES.length) ? CN_ALL_EDGES : E;
+
+  for (const e of edgeList) {
     const a = byId[e.from], b = byId[e.to];
     if (!shownIdx(a.idx) || !shownIdx(b.idx)) continue;
     const et = EDGE_TYPES[e.type];

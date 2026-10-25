@@ -373,8 +373,15 @@ function draw() {
 }
 
 /* ---------- 主循环 ---------- */
+let _fpsN = 0, _fpsT = 0;
 function tick() {
   requestAnimationFrame(tick);
+  _fpsN++;
+  const now = performance.now();
+  if (now - _fpsT > 2000) {
+    if (_fpsT) console.log("FPS:", Math.round(_fpsN / (now - _fpsT) * 1000), "nodes:", NODES_.length);
+    _fpsN = 0; _fpsT = now;
+  }
   /* 自愈: 布局尺寸与记录不符时重测(启动时序/窗口变化) */
   if (cv.clientWidth !== W || cv.clientHeight !== H) {
     const wasZero = W === 0;

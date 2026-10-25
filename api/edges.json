@@ -11704,14 +11704,6 @@
   "ctx": "【Β粒子】β衰變的形式β−衰變（發射電子）一個擁有過量中子的不穩定原子核可能發生β−衰變，使中子轉變成質子、電子和反电中微子（微中子的反粒子）：→++這個過程由弱相互作用產生。"
  },
  {
-  "from": "x_e8b38d6c14",
-  "to": "x_48c8d770d0",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1936,
-  "ctx": null
- },
- {
   "from": "x_1be5de9979",
   "to": "c_neutron",
   "type": "relates_to",
@@ -11856,14 +11848,6 @@
   "ctx": "【平顶 (临界组件)】平顶的主要任务包括基础反应堆的物理研究、样品辐照的放射化学研究、锕系元素最小临界质量研究、检测器校准和调试。"
  },
  {
-  "from": "x_c5f496fd1e",
-  "to": "x_ceb0b7c57e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_da82066255",
   "to": "c_catalysis",
   "type": "relates_to",
@@ -11882,14 +11866,6 @@
  {
   "from": "x_fe7befffe5",
   "to": "t_quantum_chem",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_11253b0e73",
-  "to": "x_6f0c60f2b8",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -11978,14 +11954,6 @@
  {
   "from": "x_01209bb714",
   "to": "boolean_algebra",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_b280064d56",
-  "to": "c_assembly_line",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -12160,14 +12128,6 @@
   "ctx": "在卫生经济学研究中，发现政府在农村医疗、公共卫生服务和农民工医疗保护等领域有责任缺失；"
  },
  {
-  "from": "x_56f7c29e14",
-  "to": "x_906163e500",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_87b8e181a3",
   "to": "c_agriculture",
   "type": "relates_to",
@@ -12202,14 +12162,6 @@
  {
   "from": "x_4a24a5c432",
   "to": "game_theory",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_af6f7b8a53",
-  "to": "x_c69a1c5423",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -25856,14 +25808,6 @@
   "ctx": "【謝爾賓斯基空間】范畴论的描述上述的結構可以用范畴论的語言很好地表達。"
  },
  {
-  "from": "x_37aeb207a0",
-  "to": "x_98b924bd67",
-  "type": "relates_to",
-  "weight": 0.5,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "c_agriculture",
   "to": "w_2cddf7c4d1",
   "type": "relates_to",
@@ -29798,14 +29742,6 @@
   "weight": 0.5,
   "since": null,
   "ctx": "【乔治·弗雷德里克·沃茨】1853年，他一度返回意大利（包括威尼斯，在那里从提香获得了更多的灵感），并于1856年至1857年与查尔斯·托马斯·牛顿一起，途径君士坦丁堡和希腊岛屿，去哈利卡那索斯发掘。"
- },
- {
-  "from": "w_19fcb9eb25",
-  "to": "w_c827d8dbb7",
-  "type": "relates_to",
-  "weight": 0.5,
-  "since": null,
-  "ctx": "【希尔德布兰德号岸防舰】服役历史1893－1900年1893年10月28日，希尔德布兰德号得以首次投入使用，以进行。"
  },
  {
   "from": "tech_railway",
@@ -36432,14 +36368,6 @@
   "ctx": "【阿卜杜拉·沙希德】政治生涯沙希德在2009年至2014年擔任第十七任馬爾代夫人民議會議長，並於2007年8月23日至2008年11月11日期間擔任該國的外交部長。"
  },
  {
-  "from": "w_4a27f6167d",
-  "to": "w_5b8d906b6f",
-  "type": "relates_to",
-  "weight": 0.5,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "tech_airplane",
   "to": "w_e3253f0ac7",
   "type": "relates_to",
@@ -37638,14 +37566,6 @@
   "weight": 0.5,
   "since": null,
   "ctx": "【前深水埗配水庫】到1905年，當局提交予立法局的報告《》指出，該配水庫落成日期為1904年8月10日，也是九龍半島現存第二古老的蓄水池，僅次於1895落成的京士柏油麻地配水庫。"
- },
- {
-  "from": "w_5b8d906b6f",
-  "to": "w_c827d8dbb7",
-  "type": "relates_to",
-  "weight": 0.5,
-  "since": null,
-  "ctx": null
  },
  {
   "from": "f_envir",
@@ -47406,14 +47326,6 @@
   "weight": 0.5,
   "since": null,
   "ctx": "参考资料Xie眉山人国立武汉大学校友爱丁堡大学校友中华人民共和国历史学家南开大学教授广西大学教授中国民主同盟盟员"
- },
- {
-  "from": "w_19fcb9eb25",
-  "to": "w_5b8d906b6f",
-  "type": "relates_to",
-  "weight": 0.5,
-  "since": null,
-  "ctx": null
  },
  {
   "from": "w_9298b0e194",
@@ -62776,14 +62688,6 @@
   "ctx": null
  },
  {
-  "from": "x_d2d79b5000",
-  "to": "w_6d020f8e10",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1844,
-  "ctx": null
- },
- {
   "from": "x_d67f72db97",
   "to": "c_algorithm",
   "type": "relates_to",
@@ -62834,14 +62738,6 @@
  {
   "from": "x_2d50357b7f",
   "to": "c_photosynthesis",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1911,
-  "ctx": null
- },
- {
-  "from": "x_2d50357b7f",
-  "to": "w_f90a76ca3a",
   "type": "relates_to",
   "weight": 0.4,
   "since": 1911,
@@ -63048,22 +62944,6 @@
   "ctx": "【乔治·勒梅特】他在《原始原子的假設》首先提出了宇宙大爆炸起源論，指出宇宙學紅移可通過宇宙膨脹來解釋，並於1927年估算了哈勃常數。"
  },
  {
-  "from": "x_318fe2fbf1",
-  "to": "w_a74d10e387",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 2017,
-  "ctx": null
- },
- {
-  "from": "x_318fe2fbf1",
-  "to": "w_4628c7ed90",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 2017,
-  "ctx": null
- },
- {
   "from": "x_021ee31c41",
   "to": "per_newton",
   "type": "relates_to",
@@ -63088,30 +62968,6 @@
   "ctx": null
  },
  {
-  "from": "x_5b4ee9c7c6",
-  "to": "x_3b54d91029",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1932,
-  "ctx": null
- },
- {
-  "from": "x_3cec19c6f9",
-  "to": "x_3065300433",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1964,
-  "ctx": null
- },
- {
-  "from": "x_3cec19c6f9",
-  "to": "w_3a7170b92e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1964,
-  "ctx": null
- },
- {
   "from": "x_ccf8129eaa",
   "to": "dom_chem",
   "type": "relates_to",
@@ -63121,34 +62977,10 @@
  },
  {
   "from": "x_e3c44484f3",
-  "to": "w_4f5df662e2",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 2004,
-  "ctx": null
- },
- {
-  "from": "x_e3c44484f3",
   "to": "m_graphene",
   "type": "relates_to",
   "weight": 0.4,
   "since": 2004,
-  "ctx": null
- },
- {
-  "from": "x_2fe9124f0c",
-  "to": "x_5221aa0e9b",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1950,
-  "ctx": null
- },
- {
-  "from": "x_2fe9124f0c",
-  "to": "w_1f02f411cf",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1950,
   "ctx": null
  },
  {
@@ -63165,14 +62997,6 @@
   "type": "relates_to",
   "weight": 0.4,
   "since": 1979,
-  "ctx": null
- },
- {
-  "from": "x_4c5ce91258",
-  "to": "w_d8c7e04c8e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1844,
   "ctx": null
  },
  {
@@ -63200,14 +63024,6 @@
   "ctx": null
  },
  {
-  "from": "x_6b623f4fe8",
-  "to": "w_8c5f70f85d",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 2018,
-  "ctx": null
- },
- {
   "from": "x_3b13355012",
   "to": "c_photosynthesis",
   "type": "relates_to",
@@ -63221,14 +63037,6 @@
   "type": "relates_to",
   "weight": 0.4,
   "since": 1950,
-  "ctx": null
- },
- {
-  "from": "x_c58d18c9b8",
-  "to": "w_4c65b7cd7d",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1988,
   "ctx": null
  },
  {
@@ -63336,22 +63144,6 @@
   "ctx": null
  },
  {
-  "from": "x_74c2e59477",
-  "to": "x_7c29f75518",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1982,
-  "ctx": null
- },
- {
-  "from": "x_3f446fd728",
-  "to": "w_b0bcabbfdb",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1946,
-  "ctx": null
- },
- {
   "from": "x_b11bd14dba",
   "to": "ev_1929_crash",
   "type": "relates_to",
@@ -63376,22 +63168,6 @@
   "ctx": null
  },
  {
-  "from": "x_171a5a7f2b",
-  "to": "x_66f04025c2",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1862,
-  "ctx": null
- },
- {
-  "from": "x_277bafb555",
-  "to": "x_66f04025c2",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 1969,
-  "ctx": null
- },
- {
   "from": "x_ac87249108",
   "to": "x_9edef009c2",
   "type": "relates_to",
@@ -63405,14 +63181,6 @@
   "type": "relates_to",
   "weight": 0.4,
   "since": 2003,
-  "ctx": null
- },
- {
-  "from": "x_cf1b2aa1d7",
-  "to": "w_cf2b979135",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": 2019,
   "ctx": null
  },
  {
@@ -63440,32 +63208,8 @@
   "ctx": null
  },
  {
-  "from": "x_871dda4f7c",
-  "to": "w_d8c7e04c8e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_28adbbff37",
-  "to": "x_b78c37cbfb",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_4f6e74e25c",
   "to": "tech_railway",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_d23ba306b0",
-  "to": "w_4c65b7cd7d",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -63504,22 +63248,6 @@
   "ctx": null
  },
  {
-  "from": "x_b0cf535006",
-  "to": "w_8c5f70f85d",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_795f8d3ed5",
-  "to": "w_d8c7e04c8e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_0c45f929b6",
   "to": "w_19fcb9eb25",
   "type": "relates_to",
@@ -63552,14 +63280,6 @@
   "ctx": null
  },
  {
-  "from": "x_a582708593",
-  "to": "w_1fb9ff218d",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_912ac81b4b",
   "to": "x_5b83904dab",
   "type": "relates_to",
@@ -63584,108 +63304,12 @@
   "ctx": null
  },
  {
-  "from": "x_df23d59336",
-  "to": "w_6d020f8e10",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_b3b1a68b84",
   "to": "x_c982e6f74c",
   "type": "relates_to",
   "weight": 0.4,
   "since": 1995,
   "ctx": "超夸克分为标量上夸克、标量下夸克、标量粲夸克、标量奇夸克、标量顶夸克和标量底夸克。"
- },
- {
-  "from": "x_732a483e3b",
-  "to": "w_348838ac03",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_b9bb55461e",
-  "to": "w_ad6a23efb7",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_b9bb55461e",
-  "to": "w_6f157325c0",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_26be4901f3",
-  "to": "w_ad6a23efb7",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_5cc99d1ba2",
-  "to": "w_f2c10c1c5f",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_5cc99d1ba2",
-  "to": "w_ad6a23efb7",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_330aae0855",
-  "to": "w_348838ac03",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_c2fe440e39",
-  "to": "x_dc5d3ca824",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_90850c60e7",
-  "to": "w_1c00b55e6c",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_90850c60e7",
-  "to": "w_ddd4b41707",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_cb349551a0",
-  "to": "x_773ae0cb12",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
  },
  {
   "from": "x_79c3a612be",
@@ -63712,14 +63336,6 @@
   "ctx": null
  },
  {
-  "from": "x_5af0bd3204",
-  "to": "w_ddd4b41707",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_ceccc1aefb",
   "to": "x_e7cf7ed028",
   "type": "relates_to",
@@ -63734,14 +63350,6 @@
   "weight": 0.4,
   "since": null,
   "ctx": "28日保罗·克鲁岑（荷兰语：PaulJozefCrutzen），87岁，荷兰大气化学家，1995年共享诺贝尔化学奖。"
- },
- {
-  "from": "x_63ee03c3f0",
-  "to": "w_e5cd8b0f51",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
  },
  {
   "from": "x_24161bcf5a",
@@ -63770,14 +63378,6 @@
  {
   "from": "x_d504a51b9c",
   "to": "f_phil",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_3e4ffef0e5",
-  "to": "x_72fbb9b58d",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -63944,14 +63544,6 @@
   "ctx": null
  },
  {
-  "from": "x_bf1aa8b432",
-  "to": "w_e5cd8b0f51",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_2a44438f80",
   "to": "f_food",
   "type": "relates_to",
@@ -63966,14 +63558,6 @@
   "weight": 0.4,
   "since": null,
   "ctx": "有一种是超低温冷链，也就是深冻冷链，对于疫苗的要求是-70摄氏度，埃博拉疫苗就需要这个温度，一些动物疫苗也需要这个温度，比如鸡的疫苗。"
- },
- {
-  "from": "x_e43c30f6d6",
-  "to": "w_d8c7e04c8e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
  },
  {
   "from": "x_1052dcfd4e",
@@ -63992,22 +63576,6 @@
   "ctx": null
  },
  {
-  "from": "x_c97c6d71a1",
-  "to": "w_138a676635",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_bb4e8bb41d",
-  "to": "w_c827d8dbb7",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_c24b71ebd8",
   "to": "w_c827d8dbb7",
   "type": "relates_to",
@@ -64016,24 +63584,8 @@
   "ctx": "【约翰·科姆洛什】20世纪80年代，他推動了计量史学的發展，並且還研究经济发展对人体生理（如身高）的影响。"
  },
  {
-  "from": "x_c6c6bf401e",
-  "to": "w_ddd4b41707",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_095671093c",
   "to": "f_phil",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_4dc3101beb",
-  "to": "x_3b4df44d5b",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -64168,14 +63720,6 @@
   "ctx": null
  },
  {
-  "from": "x_f87bf526e2",
-  "to": "x_71b4f0ca4b",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_6dc724f9e4",
   "to": "f_neuro",
   "type": "relates_to",
@@ -64184,40 +63728,8 @@
   "ctx": null
  },
  {
-  "from": "x_6dc724f9e4",
-  "to": "w_4a27f6167d",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_aedae3651c",
-  "to": "w_4a27f6167d",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_4a05822188",
   "to": "c_algorithm",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_4a05822188",
-  "to": "w_d8c7e04c8e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_f56528d42d",
-  "to": "w_4c76c58bad",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -64234,14 +63746,6 @@
  {
   "from": "x_6ceda78517",
   "to": "x_e75f3e1b5c",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_066c660554",
-  "to": "w_d8c7e04c8e",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -64280,32 +63784,8 @@
   "ctx": "光隔离探头主要应用于新能源及功率半导体领域，例如逆变器、开关电源、电机驱动、IGBT半/全桥电路、第三代半导体氮化镓（GaN）及碳化硅（SiC）器件及所组成的电路测试，也可用于高压浮地测试场合，实现电气安全隔离。"
  },
  {
-  "from": "x_79cb86f0cc",
-  "to": "x_9af2217610",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
   "from": "x_37809fd4f0",
   "to": "c_catalysis",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_f58eb585d9",
-  "to": "x_5221aa0e9b",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_f58eb585d9",
-  "to": "w_57406b30a8",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,
@@ -64322,30 +63802,6 @@
  {
   "from": "x_c0ae1507fd",
   "to": "x_054f5e7756",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_c0ae1507fd",
-  "to": "w_3a7170b92e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_7f27a0b68c",
-  "to": "w_3a7170b92e",
-  "type": "relates_to",
-  "weight": 0.4,
-  "since": null,
-  "ctx": null
- },
- {
-  "from": "x_c277967014",
-  "to": "w_19fcb9eb25",
   "type": "relates_to",
   "weight": 0.4,
   "since": null,

@@ -293,6 +293,15 @@ body {
 .r-ctx { font-size: 10.5px; color: #7d8aa0; line-height: 1.5; margin: 3px 0 4px; border-left: 2px solid #26344c; padding-left: 7px; }
 @media (max-width: 1000px) { #curateWrap { grid-template-columns: 1fr; } }
 
+
+/* 完备度指标 */
+.mx-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; font-size: 12px; }
+.mx-row .mx-label { width: 150px; color: var(--dim); flex: none; }
+.mx-row .mx-bar { flex: 1; height: 6px; background: #26344c; border-radius: 3px; overflow: hidden; }
+.mx-row .mx-bar i { display: block; height: 100%; border-radius: 3px; }
+.mx-row .mx-val { width: 60px; text-align: right; color: var(--ink); font-family: var(--serif); flex: none; }
+.mx-note { color: var(--dim); font-size: 11px; margin-top: 8px; line-height: 1.6; }
+
 /* ---------- 图志 ---------- */
 #view-about { position: absolute; inset: 54px 0 0 0; overflow-y: auto; }
 .about-wrap { max-width: 1060px; margin: 0 auto; padding: 40px 30px 80px; }
@@ -348,7 +357,7 @@ body {
 
 /* ---------- 前沿 ---------- */
 #view-frontier { position: absolute; inset: 54px 0 0 0; overflow-y: auto; padding-bottom: 40px; }
-#frCols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 14px 26px 0; align-items: start; }
+#frCols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 14px 26px 0; align-items: start; }
 .fr-col h3 { font-family: var(--serif); font-weight: normal; font-size: 14px; letter-spacing: 1.5px; color: var(--brass); margin: 6px 0 10px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 .fr-list { display: flex; flex-direction: column; gap: 7px; }
 .fr-item {

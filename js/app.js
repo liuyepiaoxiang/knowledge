@@ -1115,27 +1115,60 @@ flowCv.addEventListener("mouseleave", () => { flowHover = null; document.getElem
 flowCv.addEventListener("click", () => { if (flowHover) { select(flowHover); flyTo(flowHover); } });
 
 /* ---------- 前沿视图 ---------- */
+const TYPED_EDGE_TYPES = new Set(["depends_on", "enables", "applied_in", "explains",
+  "inspired_by", "composes_of", "solves", "transfers_to", "supersedes", "refines",
+  "feeds_back", "formalizes", "engineers", "productizes", "accelerated"]);
+
 function jaccardPairs() {
-  const pool = NODES_.filter(n => n.deg >= 5 && !["Domain", "Field", "Event", "Person"].includes(n.t));
+  /* v2: 邻域只计类型化语义边(奠基/使能/应用...), 共现纹理不参与 */
+  const pool = NODES_.filter(n => n.deg >= 3 && !["Domain", "Field", "Event", "Person", "Topic"].includes(n.t));
   const nb = {};
   pool.forEach(n => { nb[n.id] = new Set(); });
   for (const e of E) {
+    if (!TYPED_EDGE_TYPES.has(e.type)) continue;
     if (nb[e.from] && nb[e.to]) { nb[e.from].add(e.to); nb[e.to].add(e.from); }
   }
-  const hasEdge = new Set(E.map(e => e.from + "|" + e.to));
+  const hasEdge = new Set(E.filter(e => TYPED_EDGE_TYPES.has(e.type) || e.type === "relates_to")
+                          .map(e => e.from + "|" + e.to));
   const out = [];
   for (let i = 0; i < pool.length; i++) for (let j = i + 1; j < pool.length; j++) {
     const a = pool[i], b = pool[j];
     if (hasEdge.has(a.id + "|" + b.id) || hasEdge.has(b.id + "|" + a.id)) continue;
-    let common = 0;
-    nb[a.id].forEach(x => { if (nb[b.id].has(x)) common++; });
-    if (common < 1) continue;
-    const uni = nb[a.id].size + nb[b.id].size - common;
-    let score = common / uni;
-    if (a.dom !== b.dom) score += 0.12;   /* 跨域候选加成 */
-    out.push({ a, b, common, score });
+    let common = [];
+    nb[a.id].forEach(x => { if (nb[b.id].has(x)) common.push(x); });
+    if (common.length < 1) continue;
+    const uni = new Set([...nb[a.id], ...nb[b.id]]).size;
+    let score = common.length / uni;
+    if (a.dom !== b.dom) score += 0.15;
+    out.push({ a, b, common: common.length, score, via: common.slice(0, 3).map(id => byId[id].zh) });
   }
   return out.sort((x, y) => y.score - x.score).slice(0, 12);
+}
+function bottleneckImpact() {
+  /* 瓶颈传导: 该堵点若解除, 沿奠基/组合方向两跳内有多少节点受益 */
+  const out = [];
+  for (const e of E) if (e.type === "blocked_by") {
+    const tech = byId[e.from];
+    const seen = new Set([e.from]);
+    let frontier = [e.from], impact = 0;
+    for (let d = 0; d < 2; d++) {
+      const next = [];
+      for (const id of frontier)
+        for (const ee of byId[id].out)
+          if ((ee.type === "enables" || ee.type === "composes_of" || ee.type === "productizes") &&
+              !seen.has(ee.to)) { seen.add(ee.to); next.push(ee.to); impact++; }
+      frontier = next;
+    }
+    out.push({ a: byId[e.from], b: byId[e.to], impact });
+  }
+  return out;
+}
+function growthRank() {
+  return DOMAINS_.map(d => {
+    const all = NODES_.filter(n => n.dom === d.id);
+    const recent = all.filter(n => (n.born || 0) >= 2005).length;
+    return { zh: d.zh, recent, total: all.length };
+  }).filter(x => x.recent > 0).sort((a, b) => b.recent - a.recent);
 }
 function buildFrontier() {
   if (document.getElementById("frActive").childElementCount) return;
@@ -1149,7 +1182,7 @@ function buildFrontier() {
   for (const e of E) if (e.type === "blocked_by") blocks.push({ a: byId[e.from], b: byId[e.to] });
   const openPr = NODES_.filter(n => n.t === "Problem" && (n.status === "前沿" || n.status === "争议"));
   document.getElementById("frBlock").innerHTML =
-    blocks.map(x => '<div class="fr-item" data-go="' + x.a.id + '"><div class="fr-names"><i class="dot" style="background:' + TYPES[x.a.t].color + '"></i>' +
+    blocks.map(x => '<div class="fr-item" data-imp="' + x.a.id + '" data-go="' + x.a.id + '"><div class="fr-names"><i class="dot" style="background:' + TYPES[x.a.t].color + '"></i>' + x.a.zh + '<span class="x">受制于</span><i class="dot" style="background:' + TYPES[x.b.t].color + '"></i>' + x.b.zh + "</div>" +
       x.a.zh + '<span class="x">受制于</span><i class="dot" style="background:' + TYPES[x.b.t].color + '"></i>' + x.b.zh + "</div>" +
       "<div class='fr-sub'>" + (x.a.one || "") + "</div></div>").join("") +
     openPr.map(n => '<div class="fr-item" data-go="' + n.id + '"><div class="fr-names"><i class="dot" style="background:' + TYPES[n.t].color + '"></i>' +
@@ -1158,14 +1191,30 @@ function buildFrontier() {
   document.getElementById("frPairs").innerHTML = pairs.map(p =>
     '<div class="fr-item"><div class="fr-names"><span data-go="' + p.a.id + '" style="cursor:pointer"><i class="dot" style="background:' + TYPES[p.a.t].color + '"></i>' + p.a.zh + "</span>" +
     '<span class="x">×</span><span data-go="' + p.b.id + '" style="cursor:pointer"><i class="dot" style="background:' + TYPES[p.b.t].color + '"></i>' + p.b.zh + "</span></div>" +
-    "<div class='fr-sub'>共同邻居 " + p.common + " 个 · 结构相似度 " + p.score.toFixed(2) + " — 尚无边直接相连</div>" +
-    '<div class="fr-bar"><i style="width:' + Math.round(p.score * 100) + '%"></i></div></div>').join("");
+    "<div class='fr-sub'>经 " + (p.via.join("、") || "共同邻居") + " 传递 · 相似度 " + p.score.toFixed(2) + " — 尚无边直接相连</div>" +
+    '<div class="fr-bar"><i style="width:' + Math.round(Math.min(1, p.score) * 100) + '%"></i></div></div>').join("");
   document.querySelectorAll("#view-frontier [data-go]").forEach(el => {
     el.addEventListener("click", () => {
       const id = el.getAttribute("data-go");
       switchView("map"); select(id); flyTo(id);
     });
   });
+  /* 生长大陆榜 */
+  const gr = growthRank();
+  const grBox = document.getElementById("frGrowth");
+  if (grBox) grBox.innerHTML = gr.map(g =>
+    '<div class="fr-item"><div class="fr-names">' + g.zh + '</div><div class="fr-sub">2005 年以来新增 ' +
+    g.recent + ' 节点 / 全域 ' + g.total + '</div><div class="fr-bar"><i style="width:' +
+    Math.round(g.recent / Math.max(1, gr[0].recent) * 100) + '%"></i></div></div>').join("");
+  /* 瓶颈影响面 */
+  const bl = bottleneckImpact();
+  const blBox = document.getElementById("frBlock");
+  if (blBox && bl.length) {
+    bl.forEach(x => {
+      const first = blBox.querySelector('[data-imp="' + x.a.id + '"] .fr-sub');
+      if (first && x.impact > 0) first.textContent += " · 若解除, 两跳内受益节点 " + x.impact + " 个";
+    });
+  }
   document.getElementById("heatBtn").onclick = () => {
     S.heat = !S.heat;
     document.getElementById("heatBtn").classList.toggle("on", S.heat);
@@ -1235,6 +1284,30 @@ function buildApi() {
 }
 
 
+
+/* ---------- 完备度指标 ---------- */
+function buildMetrics() {
+  const box = document.getElementById("metricsBox");
+  if (!box) return;
+  const per = DOMAINS_.map(d => {
+    const all = NODES_.filter(n => n.dom === d.id && n.t !== "Domain");
+    const graded = all.filter(n => n.ev && n.ev[0] && n.ev[0] !== "C").length;
+    return { zh: d.zh, total: all.length, graded };
+  });
+  const orphan = NODES_.filter(n => n.deg <= 1 && !["Domain", "Event", "Person"].includes(n.t)).length;
+  const semE = E.filter(e => TYPED_EDGE_TYPES.has(e.type)).length;
+  const rows = per.map(p => {
+    const pct = Math.round(p.graded / Math.max(1, p.total) * 100);
+    return '<div class="mx-row"><span class="mx-label">' + p.zh + '</span><span class="mx-bar"><i style="width:' +
+      pct + '%;background:' + (pct >= 60 ? "#5fd68a" : pct >= 30 ? "#d9b36c" : "#e2606b") + '"></i></span><span class="mx-val">' +
+      pct + '% · ' + p.total + '节点</span></div>';
+  }).join("");
+  const totalPct = Math.round(per.reduce((a, p) => a + p.graded, 0) / Math.max(1, NODES_.length) * 100);
+  box.innerHTML = rows +
+    '<div class="mx-note">彩色条 = 各域已复核(A/B级)节点占比: <b style="color:#5fd68a">绿≥60%</b> / 黄 30-60% / <b style="color:#e2606b">红&lt;30%</b>。' +
+    '全图: ' + NODES_.length + " 节点 · 孤岛(≤1边) " + orphan + " · 语义类型边 " + semE + " / " + E.length +
+    " · 总复核率 " + totalPct + "%。红线最长的域 = 下一批语料的优先目标。</div>";
+}
 
 /* ---------- 策展台 ---------- */
 function buildCurate() {
@@ -1320,6 +1393,7 @@ function boot() {
   document.getElementById("stampNo").textContent = "底图 · 第一版次 · " + NODES_.length + " 节点 / " + E.length + " 边";
   document.getElementById("stampDate").textContent = "绘于 2026 年 10 月";
   S.k = 0.2; S.tx = W / 2; S.ty = H / 2;
+  buildMetrics();
   const warm = NODES_.length > 800 ? 80 : 240;   /* 大图降预热, 避免启动长阻塞 */
   for (let i = 0; i < warm; i++) step();   /* 预热布局, 防止 rAF 节流时开幕松散 */
   const h0 = location.hash.replace(/^#\/?/, "");

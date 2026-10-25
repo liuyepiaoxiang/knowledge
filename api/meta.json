@@ -3,13 +3,13 @@
  "edition": "v0.6",
  "generated": "2026-10-26",
  "counts": {
-  "nodes": 5174,
-  "edges": 8193,
+  "nodes": 1888,
+  "edges": 8125,
   "domains": 16
  },
  "layers": {
-  "B": 388,
-  "C": 4786
+  "B": 389,
+  "C": 4785
  },
  "license": "来源数据遵循其原始许可(Wikipedia 内容 CC BY-SA, 需署名+相同方式共享); 请保留证据溯源字段",
  "domains": [

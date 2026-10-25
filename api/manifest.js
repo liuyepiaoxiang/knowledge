@@ -11,20 +11,20 @@ window.API_MANIFEST = {
   {
    "file": "nodes.json",
    "desc": "全部节点(含证据/置信度)",
-   "kb": 2262.7,
-   "bytes": 2317004.8
+   "kb": 686.1,
+   "bytes": 702566.4
   },
   {
    "file": "edges.json",
    "desc": "全部边",
-   "kb": 2108.8,
-   "bytes": 2159411.2
+   "kb": 2099.5,
+   "bytes": 2149888.0
   },
   {
    "file": "graph.json",
    "desc": "全图一次拉取",
-   "kb": 4533.2,
-   "bytes": 4641996.8
+   "kb": 2886.0,
+   "bytes": 2955264.0
   },
   {
    "file": "stories.json",

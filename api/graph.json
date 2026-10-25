@@ -1,10 +1,10 @@
 {
  "name": "知识大地 Terra Cognita · 人类知识与技术底图",
- "edition": "v0.5",
+ "edition": "v0.6",
  "generated": "2026-10-25",
  "counts": {
   "nodes": 5174,
-  "edges": 8189,
+  "edges": 8193,
   "domains": 16
  },
  "layers": {
@@ -151051,1007 +151051,6 @@
    "since": 1883
   },
   {
-   "from": "x_0fa5e63607",
-   "to": "f_physics_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_48447b8621",
-   "to": "f_physics_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_9f1f50c5c3",
-   "to": "f_physics_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d216b166ad",
-   "to": "f_physics_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4fcd0f74ad",
-   "to": "f_physics_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_731979efa4",
-   "to": "f_physics_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d2d79b5000",
-   "to": "f_physics_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_7086c376ac",
-   "to": "f_cs_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d67f72db97",
-   "to": "f_cs_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_b20e0f4ede",
-   "to": "f_cs_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_7ae9854f13",
-   "to": "f_cs_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_9b10813e1b",
-   "to": "f_cs_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_e784a4e45c",
-   "to": "f_bio_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_6cddbfe559",
-   "to": "f_bio_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_856412b136",
-   "to": "f_bio_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4a04b1e919",
-   "to": "f_bio_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_2d50357b7f",
-   "to": "f_bio_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d08c6cb5fa",
-   "to": "f_med_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_8c725103a5",
-   "to": "f_med_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_3ec4385544",
-   "to": "f_med_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_04c95e8e9f",
-   "to": "f_med_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_8092a8130c",
-   "to": "f_med_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_26f140203f",
-   "to": "f_chem_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_bbd22f1037",
-   "to": "f_chem_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_784322580e",
-   "to": "f_chem_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_45b185f0ae",
-   "to": "f_math_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f4c4b83a58",
-   "to": "f_math_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_1184254b17",
-   "to": "f_math_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c650000ad1",
-   "to": "f_math_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c10c6b3c93",
-   "to": "f_math_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_2128ce92dc",
-   "to": "f_math_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_23939d649f",
-   "to": "f_math_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_cbb6c76a37",
-   "to": "f_soc_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_74d1862a40",
-   "to": "f_soc_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_25726c7bf2",
-   "to": "f_soc_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_bb7a6dc68f",
-   "to": "f_soc_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f71f91163d",
-   "to": "f_soc_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_7a27379460",
-   "to": "f_hum_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_49b874fa7b",
-   "to": "f_hum_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4c7a0697c7",
-   "to": "f_hum_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_04427be646",
-   "to": "f_hum_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f9c56b1fab",
-   "to": "f_hum_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_65c92fbdda",
-   "to": "f_hum_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4166f9cb36",
-   "to": "f_art_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_7f55399534",
-   "to": "f_art_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d63b2528b5",
-   "to": "f_art_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_1cd7cd4ad5",
-   "to": "f_art_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_aebb4128c0",
-   "to": "f_art_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_ea75f86d46",
-   "to": "f_law_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_a547471a3e",
-   "to": "f_law_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_088e6d3cb1",
-   "to": "f_law_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_43de635b94",
-   "to": "f_law_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_891777dad3",
-   "to": "f_econ_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_53cd1acd0f",
-   "to": "f_econ_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_1c9d468e19",
-   "to": "f_edu_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4c377441f4",
-   "to": "f_edu_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_de36bc875c",
-   "to": "f_edu_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c26c79f04c",
-   "to": "f_eng_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_9edef009c2",
-   "to": "f_eng_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_5a30d4d379",
-   "to": "f_eng_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_3ce9663af0",
-   "to": "f_eng_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c313cd1232",
-   "to": "f_eng_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_765ecab372",
-   "to": "f_earth_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f61a18c8e3",
-   "to": "f_prac_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f847ec6ff0",
-   "to": "f_prac_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_0b83ff2aeb",
-   "to": "f_prac_persons",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_205e276a72",
-   "to": "f_astro_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4f40e1e02f",
-   "to": "f_astro_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_372bebbed3",
-   "to": "f_astro_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_0a9bb16c0b",
-   "to": "f_astro_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4047e5f9fb",
-   "to": "f_astro_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_318fe2fbf1",
-   "to": "f_astro_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_021ee31c41",
-   "to": "f_optics_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c0c8b9298a",
-   "to": "f_optics_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d5dac639af",
-   "to": "f_particle_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_5b4ee9c7c6",
-   "to": "f_particle_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_3cec19c6f9",
-   "to": "f_particle_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_ccf8129eaa",
-   "to": "f_chem_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_fe036f9ad7",
-   "to": "f_chem_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_51f173802d",
-   "to": "f_chem_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_e3c44484f3",
-   "to": "f_chem_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_2fe9124f0c",
-   "to": "f_geology_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d979e0353b",
-   "to": "f_climate_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_0a1e29d373",
-   "to": "f_climate_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_fdebf6de0e",
-   "to": "f_envir_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_39d8e0491b",
-   "to": "f_envir_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4c5ce91258",
-   "to": "f_cs_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_cc39a0862a",
-   "to": "f_cs_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_1738850215",
-   "to": "f_cs_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_cf76b399d9",
-   "to": "f_cs_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_9bbf6313bb",
-   "to": "f_cs_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_bb22025ac6",
-   "to": "f_cs_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_6b623f4fe8",
-   "to": "f_cs_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c8dbbc0c9e",
-   "to": "f_bio_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_3b13355012",
-   "to": "f_bio_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_40d41a2537",
-   "to": "f_bio_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c58d18c9b8",
-   "to": "f_bio_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_e35131964f",
-   "to": "f_bio_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_804fe88e8b",
-   "to": "f_med_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_bc829b4cfc",
-   "to": "f_med_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_1d983f8879",
-   "to": "f_med_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_502bff877f",
-   "to": "f_med_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f49c2d7e5a",
-   "to": "f_med_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_5aad55e921",
-   "to": "f_med_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_e4f26271d8",
-   "to": "f_med_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_8f3cbe1afe",
-   "to": "f_agri_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d2509e3199",
-   "to": "f_agri_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_37c1eeaaa7",
-   "to": "f_agri_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_cf60d41b8e",
-   "to": "f_agri_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_1d91910f35",
-   "to": "f_agri_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_4e487fb2f4",
-   "to": "f_soc_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_6d5db68e7d",
-   "to": "f_soc_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d3c4434bb9",
-   "to": "f_soc_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_2c78490590",
-   "to": "f_soc_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_b6886093fd",
-   "to": "f_hum_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f0488094ea",
-   "to": "f_hum_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_04de9cc704",
-   "to": "f_hum_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_efbe255fa1",
-   "to": "f_hum_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_05c52cd9c4",
-   "to": "f_hum_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_dc8c3a84c4",
-   "to": "f_art_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_6a62cd3287",
-   "to": "f_art_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_b4186548d0",
-   "to": "f_art_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_0a3f2b313d",
-   "to": "f_art_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_9646f9b124",
-   "to": "f_law_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_179bd0aaa8",
-   "to": "f_law_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_74c2e59477",
-   "to": "f_law_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_3f446fd728",
-   "to": "f_law_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f2ccb527ad",
-   "to": "f_law_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_f2d9a98c5d",
-   "to": "f_econ_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_b11bd14dba",
-   "to": "f_econ_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_7f99c46ffb",
-   "to": "f_econ_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c13e179fd7",
-   "to": "f_econ_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_ecfc63978e",
-   "to": "f_econ_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_c30b449e3f",
-   "to": "f_edu_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_171a5a7f2b",
-   "to": "f_edu_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_277bafb555",
-   "to": "f_edu_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_267487387d",
-   "to": "f_edu_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_a480d91452",
-   "to": "f_eng_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_d2735e845b",
-   "to": "f_eng_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_ac87249108",
-   "to": "f_eng_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_8e719b7bfe",
-   "to": "f_eng_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_aa0b506d8f",
-   "to": "f_eng_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
-   "from": "x_cf1b2aa1d7",
-   "to": "f_eng_events",
-   "type": "part_of",
-   "weight": 1.0,
-   "since": null
-  },
-  {
    "from": "x_b0050e798e",
    "to": "f_materials",
    "type": "part_of",
@@ -155724,6 +154723,1035 @@
    "to": "w_4a27f6167d",
    "type": "relates_to",
    "weight": 0.4,
+   "since": null
+  },
+  {
+   "from": "x_0fa5e63607",
+   "to": "f_modern",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_48447b8621",
+   "to": "f_modern",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_9f1f50c5c3",
+   "to": "f_modern",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d216b166ad",
+   "to": "f_modern",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4fcd0f74ad",
+   "to": "f_modern",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_731979efa4",
+   "to": "f_modern",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d2d79b5000",
+   "to": "f_modern",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_7086c376ac",
+   "to": "f_theory_cs",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d67f72db97",
+   "to": "f_theory_cs",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_b20e0f4ede",
+   "to": "f_theory_cs",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_7ae9854f13",
+   "to": "f_theory_cs",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_9b10813e1b",
+   "to": "f_theory_cs",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_e784a4e45c",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_6cddbfe559",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_856412b136",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4a04b1e919",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_2d50357b7f",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d08c6cb5fa",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_8c725103a5",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_3ec4385544",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_6cddbfe559",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_04c95e8e9f",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_8092a8130c",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_26f140203f",
+   "to": "f_organic",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_bbd22f1037",
+   "to": "f_organic",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_9f1f50c5c3",
+   "to": "f_organic",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_784322580e",
+   "to": "f_organic",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_45b185f0ae",
+   "to": "f_algebra",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f4c4b83a58",
+   "to": "f_algebra",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_1184254b17",
+   "to": "f_algebra",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c650000ad1",
+   "to": "f_algebra",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c10c6b3c93",
+   "to": "f_algebra",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_2128ce92dc",
+   "to": "f_algebra",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_23939d649f",
+   "to": "f_algebra",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_cbb6c76a37",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_74d1862a40",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_25726c7bf2",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_bb7a6dc68f",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f71f91163d",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_7a27379460",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_49b874fa7b",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4c7a0697c7",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_04427be646",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f9c56b1fab",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_65c92fbdda",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4166f9cb36",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_7f55399534",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d63b2528b5",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_1cd7cd4ad5",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_aebb4128c0",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_ea75f86d46",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_a547471a3e",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_088e6d3cb1",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_43de635b94",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_891777dad3",
+   "to": "f_econ",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_53cd1acd0f",
+   "to": "f_econ",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_1c9d468e19",
+   "to": "f_pedagogy",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4c377441f4",
+   "to": "f_pedagogy",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_de36bc875c",
+   "to": "f_pedagogy",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c26c79f04c",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_9edef009c2",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_5a30d4d379",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_3ce9663af0",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c313cd1232",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_de36bc875c",
+   "to": "f_geology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_765ecab372",
+   "to": "f_geology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f61a18c8e3",
+   "to": "f_craft",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f847ec6ff0",
+   "to": "f_craft",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_0b83ff2aeb",
+   "to": "f_craft",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_205e276a72",
+   "to": "f_astro",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4f40e1e02f",
+   "to": "f_astro",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_372bebbed3",
+   "to": "f_astro",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_0a9bb16c0b",
+   "to": "f_astro",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4047e5f9fb",
+   "to": "f_astro",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_318fe2fbf1",
+   "to": "f_astro",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_021ee31c41",
+   "to": "f_optics",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c0c8b9298a",
+   "to": "f_optics",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d5dac639af",
+   "to": "f_particle",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_5b4ee9c7c6",
+   "to": "f_particle",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_3cec19c6f9",
+   "to": "f_particle",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_ccf8129eaa",
+   "to": "f_inorganic",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_fe036f9ad7",
+   "to": "f_inorganic",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_51f173802d",
+   "to": "f_inorganic",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_e3c44484f3",
+   "to": "f_inorganic",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_2fe9124f0c",
+   "to": "f_geology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d979e0353b",
+   "to": "f_climate",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_0a1e29d373",
+   "to": "f_climate",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_fdebf6de0e",
+   "to": "f_envir",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_39d8e0491b",
+   "to": "f_envir",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4c5ce91258",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_cc39a0862a",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_1738850215",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_cf76b399d9",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_9bbf6313bb",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_bb22025ac6",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_6b623f4fe8",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c8dbbc0c9e",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_3b13355012",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_40d41a2537",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c58d18c9b8",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_e35131964f",
+   "to": "f_molbio",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_804fe88e8b",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_bc829b4cfc",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_1d983f8879",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_502bff877f",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f49c2d7e5a",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_5aad55e921",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_e4f26271d8",
+   "to": "f_clinical",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_8f3cbe1afe",
+   "to": "f_crop",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d2509e3199",
+   "to": "f_crop",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_37c1eeaaa7",
+   "to": "f_crop",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_cf60d41b8e",
+   "to": "f_crop",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_1d91910f35",
+   "to": "f_crop",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_4e487fb2f4",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_6d5db68e7d",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d3c4434bb9",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_2c78490590",
+   "to": "f_sociology",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_b6886093fd",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f0488094ea",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_04de9cc704",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_efbe255fa1",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_05c52cd9c4",
+   "to": "f_history",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_dc8c3a84c4",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_6a62cd3287",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_b4186548d0",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_0a3f2b313d",
+   "to": "f_visual",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_9646f9b124",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_179bd0aaa8",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_74c2e59477",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_3f446fd728",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f2ccb527ad",
+   "to": "f_legaltheory",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_f2d9a98c5d",
+   "to": "f_finance",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_b11bd14dba",
+   "to": "f_finance",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_7f99c46ffb",
+   "to": "f_finance",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c13e179fd7",
+   "to": "f_finance",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_ecfc63978e",
+   "to": "f_finance",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_c30b449e3f",
+   "to": "f_pedagogy",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_171a5a7f2b",
+   "to": "f_pedagogy",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_277bafb555",
+   "to": "f_pedagogy",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_267487387d",
+   "to": "f_pedagogy",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_a480d91452",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_d2735e845b",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_ac87249108",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_8e719b7bfe",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_aa0b506d8f",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_cf1b2aa1d7",
+   "to": "f_arch",
+   "type": "part_of",
+   "weight": 1.0,
+   "since": null
+  },
+  {
+   "from": "x_62756acb39",
+   "to": "f_materials",
+   "type": "part_of",
+   "weight": 1.0,
    "since": null
   }
  ]

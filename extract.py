@@ -58,11 +58,12 @@ def main():
         if name in existing_names: skipped["dup"] += 1; continue
         if fld not in fields: skipped["badfield"] += 1; continue
         nid = "x_" + hashlib.md5(name.encode()).hexdigest()[:10]
-        dom = field_dom[fld]
+        real_fld = FIELD_MAP.get(fld, fld)
+        dom = field_dom[real_fld]
         born = int(year) if re.fullmatch(r"-?\d{1,5}", year or "") else None
-        one = desc or (name + "——" + fields[fld] + "的概念")
+        one = desc or (name + "——" + (fields.get(real_fld, "") or "") + "相关概念")
         new_nodes.append((nid, typ, name, None, dom, born, None, one, None, None, None, None, CONF))
-        new_edges.append((nid, fld, "part_of", 1.0, None))
+        new_edges.append((nid, real_fld, "part_of", 1.0, None))
         existing_names[name] = nid
         new_nodes and existing_names  # noqa
 
@@ -84,9 +85,23 @@ def main():
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""", new_nodes)
     cur.executemany("INSERT OR IGNORE INTO evidence VALUES (?,?,?)",
                     [(n[0], GRADE, SOURCE) for n in new_nodes])
+    node_ids_now = {r[0] for r in cur.execute("SELECT id FROM nodes")}
     cur.executemany("INSERT OR IGNORE INTO edges VALUES (?,?,?,?,?)", new_edges)
     cur.executemany("UPDATE nodes SET degree=degree+1 WHERE id IN (?,?)",
                     [(e[0], e[1]) for e in new_edges])
+    # 修复遍: 确保语料节点的隶属边存在(以语料 field 映射为准)
+    rep = 0
+    for fld, name, year, desc, typ in rows:
+        if fld not in fields: continue
+        real_fld = FIELD_MAP.get(fld, fld)
+        nid = "x_" + hashlib.md5(name.encode()).hexdigest()[:10]
+        if nid not in node_ids_now: continue
+        if not cur.execute("SELECT 1 FROM edges WHERE src=? AND dst=? AND type='part_of'",
+                           (nid, real_fld)).fetchone():
+            cur.execute("INSERT OR IGNORE INTO edges VALUES (?,?,?,?,?)", (nid, real_fld, "part_of", 1.0, None))
+            cur.execute("UPDATE nodes SET degree=degree+1 WHERE id IN (?,?)", (nid, real_fld))
+            rep += 1
+    print(f"  隶属边修复: {rep}")
     cur.executemany("INSERT OR REPLACE INTO meta VALUES (?,?)", [
         ("edition", "v0.4"), ("extract_source", "offline-LLM-corpus")])
     con.commit()

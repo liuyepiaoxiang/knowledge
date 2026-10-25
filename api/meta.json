@@ -1,10 +1,10 @@
 {
  "name": "知识大地 Terra Cognita · 人类知识与技术底图",
- "edition": "v0.5",
+ "edition": "v0.6",
  "generated": "2026-10-25",
  "counts": {
   "nodes": 5174,
-  "edges": 8189,
+  "edges": 8193,
   "domains": 16
  },
  "layers": {

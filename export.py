@@ -7,7 +7,7 @@ import json, os, sqlite3
 from collections import defaultdict
 from datetime import date
 
-EDITION = "v0.5"
+EDITION = "v0.6"
 
 def main():
     con = sqlite3.connect("file:atlas.db?mode=ro", uri=True)

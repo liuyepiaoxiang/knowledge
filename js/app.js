@@ -29,6 +29,20 @@ function mergeExt() {
     }
     CN_ALL_EDGES = E.concat(CN_TOPIC_EDGES);
     reheat(0.15);
+    if (simWorker && workerReady) {
+        /* 发送新增节点到 Worker */
+        const cnNew = ext.nodes;
+        const count = cnNew.length;
+        const px = new Float32Array(count), py = new Float32Array(count);
+        const isT = new Uint8Array(count), dI = new Uint8Array(count);
+        for (let i = 0; i < count; i++) {
+            const n = cnNew[i];
+            px[i] = P.x[n.idx] || 0; py[i] = P.y[n.idx] || 0;
+            isT[i] = 1; dI[i] = DOMAIN_IDS.indexOf(n.dom) & 0xFF;
+        }
+        simWorker.postMessage({ type: "add", count: count,
+            px: px, py: py, isTopic: isT, domIdx: dI });
+    }
     forceDraw = true;
   }).catch(() => {});
 }
@@ -119,7 +133,100 @@ const DOM_ANCHOR = {};
   function hash(s) { let h = 7; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return Math.abs(h); }
 })();
 let alpha = 1;
-function reheat(a) { alpha = Math.max(alpha, a); }
+function reheat(a) { alpha = Math.max(alpha, a); if (simWorker) simWorker.postMessage({ type: "reheat", alpha: a }); }
+
+/* ===== Web Worker: 力导向模拟 ===== */
+let simWorker = null;
+let dynIdx = [];       /* 全局→局部索引映射 */
+let workerReady = false;
+
+function createSimWorker() {
+    try {
+        simWorker = new Worker("sim_worker.js");
+        simWorker.onmessage = function(e) {
+            const m = e.data;
+            if (m.type === "pos") {
+                P.x.set(m.px); P.y.set(m.py);
+                forceDraw = true;
+            }
+        };
+        simWorker.onerror = function(e) {
+            console.warn("Worker error:", e.message);
+            simWorker = null;   /* 降级到主线程模拟 */
+        };
+        return true;
+    } catch (err) {
+        console.warn("Worker 创建失败, 降级到主线程:", err.message);
+        simWorker = null;
+        return false;
+    }
+}
+
+function sendSimInit() {
+    if (!simWorker) return;
+    /* 收集非 Topic 节点 */
+    dynIdx = [];
+    const isT = [], dIdx = [];
+    for (let i = 0; i < NODES_.length; i++) {
+        const n = NODES_[i];
+        if (shownIdx(i) && n.t !== "Topic") {
+            dynIdx.push(i);
+            isT.push(0);
+            dIdx.push(DOMAIN_IDS.indexOf(n.dom));
+        } else {
+            isT.push(1);
+            dIdx.push(0);
+        }
+    }
+    const count = dynIdx.length;
+    const px = new Float32Array(count), py = new Float32Array(count);
+    const fixed = new Uint8Array(count);
+    for (let li = 0; li < count; li++) {
+        const gi = dynIdx[li];
+        px[li] = P.x[gi]; py[li] = P.y[gi];
+        fixed[li] = P.fixed[gi] ? 1 : 0;
+    }
+    /* 边: 仅双端均为非 Topic */
+    const eS = [], eD = [], eR = [], eK = [];
+    for (const e of E) {
+        const a = byId[e.from], b = byId[e.to];
+        if (a.t === "Topic" || b.t === "Topic") continue;
+        const li1 = dynIdx.indexOf(a.idx), li2 = dynIdx.indexOf(b.idx);
+        if (li1 == null || li2 == null) continue;
+        eS.push(li1); eD.push(li2);
+        eR.push(e.type === "part_of" ? 105 : (e.type === "marks" || e.type === "did" ? 95 : 175));
+        eK.push(e.type === "part_of" ? 0.014 : (e.type === "marks" || e.type === "did" ? 0.016 : 0.03));
+    }
+    /* 域锚点 */
+    const aX = [], aY = [];
+    for (const d of DOMAIN_IDS) {
+        aX.push(DOM_ANCHOR[d].x); aY.push(DOM_ANCHOR[d].y);
+    }
+    simWorker.postMessage({ type: "init", count: count,
+        px: px, py: py, fixed: fixed,
+        isTopic: new Uint8Array(NODES_.length).map((_, i) => NODES_[i].t === "Topic" ? 1 : 0),
+        domIdx: new Uint8Array(dIdx), nDomains: DOMAIN_IDS.length,
+        ancX: new Float32Array(aX), ancY: new Float32Array(aY),
+        edgeSrc: new Uint32Array(eS), edgeDst: new Uint32Array(eD),
+        edgeRest: new Float32Array(eR), edgeK: new Float32Array(eK) });
+    workerReady = true;
+}
+
+function sendPin(idx) {
+    if (simWorker && workerReady) {
+        const li = dynIdx.indexOf(idx);
+        if (li >= 0) simWorker.postMessage({ type: "pin", idx: li, x: P.x[idx], y: P.y[idx] });
+    }
+}
+function sendUnpin(idx) {
+    if (simWorker && workerReady) {
+        const li = dynIdx.indexOf(idx);
+        if (li >= 0) simWorker.postMessage({ type: "unpin", idx: li });
+    }
+}
+function sendReheat(a) {
+    if (simWorker && workerReady) simWorker.postMessage({ type: "reheat", alpha: a });
+}
 function step() {
   const nodes = NODES_;
   const shown = [];
@@ -469,7 +576,7 @@ function tick() {
   }
   const active = alpha > 0.025 || S.cam || S.playing;
   if (S.hov !== lastHov || S.sel !== lastSel) { lastHov = S.hov; lastSel = S.sel; forceDraw = true; }
-  if (active) step();
+  if (!simWorker && active) step();   /* Worker 不可用时降级到主线程 */
   if (active || forceDraw) { draw(); forceDraw = false; }
 }
 
@@ -518,7 +625,7 @@ cv.addEventListener("pointerdown", ev => {
   const mx = ev.clientX - rect.left, my = ev.clientY - rect.top;
   const n = pickNode(mx, my);
   cv.setPointerCapture(ev.pointerId);
-  if (n) { drag = { mode: "node", idx: n.idx, moved: false }; P.fixed[n.idx] = true; }
+  if (n) { drag = { mode: "node", idx: n.idx, moved: false }; P.fixed[n.idx] = true; sendPin(n.idx); }
   else drag = { mode: "pan", mx, my, tx: S.tx, ty: S.ty, moved: false };
   cv.classList.add("dragging");
 });
@@ -531,6 +638,7 @@ cv.addEventListener("pointermove", ev => {
       P.x[drag.idx] = (mx - S.tx) / S.k; P.y[drag.idx] = (my - S.ty) / S.k;
       P.vx[drag.idx] = 0; P.vy[drag.idx] = 0;
       drag.moved = true; reheat(0.05);
+    if (simWorker && workerReady) sendPin(drag.idx);
     } else {
       S.tx = drag.tx + (mx - drag.mx); S.ty = drag.ty + (my - drag.my);
       if (Math.abs(mx - drag.mx) + Math.abs(my - drag.my) > 3) drag.moved = true;
@@ -554,7 +662,7 @@ cv.addEventListener("pointermove", ev => {
 });
 cv.addEventListener("pointerup", ev => {
   if (!drag) return;
-  if (drag.mode === "node") P.fixed[drag.idx] = false;
+  if (drag.mode === "node") { P.fixed[drag.idx] = false; sendUnpin(drag.idx); }
   const wasClick = !drag.moved;
   if (wasClick && drag.mode === "node") {
     select(NODES_[drag.idx].id);
@@ -1531,6 +1639,7 @@ function boot() {
   document.getElementById("stampDate").textContent = "绘于 2026 年 10 月";
   S.k = 0.13; S.tx = W / 2; S.ty = H / 2;
   buildMetrics();
+  if (createSimWorker()) sendSimInit();
   const warm = NODES_.length > 800 ? 80 : 240;   /* 大图降预热, 避免启动长阻塞 */
   for (let i = 0; i < warm; i++) step();   /* 预热布局, 防止 rAF 节流时开幕松散 */
   const h0 = location.hash.replace(/^#\/?/, "");

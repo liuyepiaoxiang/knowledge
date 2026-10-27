@@ -21,6 +21,7 @@ export const S = {
   heat: false as boolean,            /* 生长热力层开关 (js/app.js:1464) */
   userMoved: false as boolean,       /* 用户已手动平移/缩放 (js/app.js:551/623) */
   needFly: null as string | null,    /* 相机飞行推迟到画布尺寸就绪 (js/app.js:553/1192) */
+  domainId: null as string | null,   /* 当前领域门户 (js/app.js:1178-1179 switchView 写入) */
   /* 相机动画状态 (js/app.js:597-604 flyTo 写入, tick 插值读取) */
   cam: null as { k0: number, k1: number, tx0: number, ty0: number, tx1: number, ty1: number, t0: number, dur: number } | null,
 };

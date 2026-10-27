@@ -1,9 +1,18 @@
-import { ANCIENT, S, YEAR_MAX, byId } from "./state";
+import { ANCIENT, NODES_, S, YEAR_MAX, byId } from "./state";
 import type { GraphNode } from "./types";
 
 /** 年代可见性 (js/app.js:300 原样, 含远古层子句) */
 export function yearOK(n: GraphNode, year: number = S.year): boolean {
   return n.born == null || n.born <= year || n.born < ANCIENT;
+}
+
+/** 综合可见性 (js/app.js:301-307 原样): 年代 + 类型开关 + 域开关 */
+export function shownIdx(i: number): boolean {
+  const n = NODES_[i];
+  if (!yearOK(n)) return false;
+  if (S.typeOff.has(n.t)) return false;
+  if (S.domOff.has(n.dom)) return false;
+  return true;
 }
 
 /** 化石判定 (js/app.js:308 原样) */

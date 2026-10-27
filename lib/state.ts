@@ -17,7 +17,12 @@ export const S = {
   k: 0.13, tx: 0, ty: 0,
   typeOff: new Set<string>(), domOff: new Set<string>(),
   story: null as number | null, storyTimer: null as ReturnType<typeof setTimeout> | null,
-  cam: null as { x1: number, y1: number, k1: number, x2: number, y2: number, k2: number, t0: number, dur: number } | null,
+  /* 源码 JS 里动态挂载的字段(js/app.js:551/556/1192/1464), 显式声明 */
+  heat: false as boolean,            /* 生长热力层开关 (js/app.js:1464) */
+  userMoved: false as boolean,       /* 用户已手动平移/缩放 (js/app.js:551/623) */
+  needFly: null as string | null,    /* 相机飞行推迟到画布尺寸就绪 (js/app.js:553/1192) */
+  /* 相机动画状态 (js/app.js:597-604 flyTo 写入, tick 插值读取) */
+  cam: null as { k0: number, k1: number, tx0: number, ty0: number, tx1: number, ty1: number, t0: number, dur: number } | null,
 };
 
 /** 力导向位置池 (js/app.js:93) */

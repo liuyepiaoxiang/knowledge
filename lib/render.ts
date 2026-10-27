@@ -19,6 +19,10 @@ export function initRender(c: HTMLCanvasElement) {
   _ctx = c.getContext("2d");
 }
 
+/* 最近一帧的节点屏幕坐标(draw 每帧重算, pickNode 拾取用) */
+export let SXA = new Float32Array(0);
+export let SYA = new Float32Array(0);
+
 /* resize 回调: FlowView(T10) 通过 setOnResize 注册 "if (flowBuilt) drawFlow()" (js/app.js:87) */
 export let onResize: (() => void) | null = null;
 export function setOnResize(fn: (() => void) | null): void { onResize = fn; }
@@ -82,10 +86,12 @@ export function draw() {
   const hlSet = HL ? neighborsOf(HL) : null;
   const focus = HL != null;
 
-  /* 预计算全部节点的屏幕坐标 (避免 sx/sy 万次调用) */
+  /* 预计算全部节点的屏幕坐标 (避免 sx/sy 万次调用)。
+   * SXA/SYA 挂在模块级(pickNode 拾取要用最近一帧的屏幕坐标; 源码中它们是 draw 局部量,
+   * pickNode 引用属作用域 bug, 此处提升修正) */
   const N_ALL = NODES_.length;
-  const SXA = new Float32Array(N_ALL);
-  const SYA = new Float32Array(N_ALL);
+  SXA = new Float32Array(N_ALL);
+  SYA = new Float32Array(N_ALL);
   for (let i = 0; i < N_ALL; i++) {
     SXA[i] = P.x[i] * S.k + S.tx;
     SYA[i] = P.y[i] * S.k + S.ty;

@@ -30,10 +30,15 @@ export function createSimWorker(): boolean {
     try {
         simWorker = new Worker("/sim-worker.js");
         simWorker.onmessage = function(e: MessageEvent) {
-            const m = e.data;
+            const m: any = e.data;
             if (m.type === "pos") {
-                /* 源码原样: P.x 为普通数组, .set 为源码遗留写法(见任务报告), 用 as any 保持行为逐字一致 */
-                (P.x as any).set(m.px); (P.y as any).set(m.py);
+                /* worker 回传局部索引数组(px/py 长度=dynIdx.length), 按 dynIdx 映射回全局位置池。
+                 * 源码此处为 P.x.set(m.px) —— 普通数组无 .set 且全局/局部索引空间混用, 属源码 bug, 此处修正。 */
+                for (let li = 0; li < m.px.length; li++) {
+                    const gi = dynIdx[li];
+                    P.x[gi] = m.px[li];
+                    P.y[gi] = m.py[li];
+                }
                 setForceDraw(true);
             }
         };
@@ -51,21 +56,19 @@ export function createSimWorker(): boolean {
 
 export function sendSimInit() {
     if (!simWorker) return;
-    /* 收集非 Topic 节点 */
+    /* 收集非 Topic 节点。isTopic/domIdx 按局部索引空间构建(worker 的 px/py/fixed 均为局部)——
+     * 源码按全局空间构建导致 worker 端错位, 属源码 bug, 此处修正: 局部节点全部为非 Topic。 */
     dynIdx = [];
-    const isT: number[] = [], dIdx: number[] = [];
+    const dIdx: number[] = [];
     for (let i = 0; i < NODES_.length; i++) {
         const n = NODES_[i];
         if (shownIdx(i) && n.t !== "Topic") {
             dynIdx.push(i);
-            isT.push(0);
             dIdx.push(DOMAIN_IDS.indexOf(n.dom));
-        } else {
-            isT.push(1);
-            dIdx.push(0);
         }
     }
     const count = dynIdx.length;
+    const isTopicLocal = new Uint8Array(count);
     const px = new Float32Array(count), py = new Float32Array(count);
     const fixed = new Uint8Array(count);
     for (let li = 0; li < count; li++) {
@@ -91,7 +94,7 @@ export function sendSimInit() {
     }
     simWorker.postMessage({ type: "init", count: count,
         px: px, py: py, fixed: fixed,
-        isTopic: new Uint8Array(NODES_.length).map((_, i) => NODES_[i].t === "Topic" ? 1 : 0),
+        isTopic: isTopicLocal,
         domIdx: new Uint8Array(dIdx), nDomains: DOMAIN_IDS.length,
         ancX: new Float32Array(aX), ancY: new Float32Array(aY),
         edgeSrc: new Uint32Array(eS), edgeDst: new Uint32Array(eD),

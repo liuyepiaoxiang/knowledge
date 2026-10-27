@@ -7,3 +7,6 @@ atlas.db-shm
 __pycache__/
 *.pyc
 .video_agent/
+node_modules/
+.next/
+out/

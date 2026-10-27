@@ -1,0 +1,102 @@
+{
+ "name": "知识大地 Terra Cognita · 人类知识与技术底图",
+ "edition": "v0.9",
+ "generated": "2026-10-26",
+ "counts": {
+  "nodes": 23035,
+  "edges": 92902,
+  "domains": 17
+ },
+ "layers": {
+  "B": 389,
+  "C": 25932
+ },
+ "license": "来源数据遵循其原始许可(Wikipedia 内容 CC BY-SA, 需署名+相同方式共享); 请保留证据溯源字段",
+ "domains": [
+  {
+   "id": "dom_form",
+   "zh": "形式科学",
+   "en": "Formal Sciences"
+  },
+  {
+   "id": "dom_physics",
+   "zh": "物理学",
+   "en": "Physics"
+  },
+  {
+   "id": "dom_chem",
+   "zh": "化学",
+   "en": "Chemistry"
+  },
+  {
+   "id": "dom_earth",
+   "zh": "地球与气候科学",
+   "en": "Earth & Climate"
+  },
+  {
+   "id": "dom_cs",
+   "zh": "计算机科学与技术",
+   "en": "Computing"
+  },
+  {
+   "id": "dom_eng",
+   "zh": "工程与技术",
+   "en": "Engineering"
+  },
+  {
+   "id": "dom_bio",
+   "zh": "生物技术",
+   "en": "Biotechnology"
+  },
+  {
+   "id": "dom_med",
+   "zh": "医学与健康",
+   "en": "Medicine & Health"
+  },
+  {
+   "id": "dom_agri",
+   "zh": "农业与食品",
+   "en": "Agriculture & Food"
+  },
+  {
+   "id": "dom_soc",
+   "zh": "社会科学",
+   "en": "Social Sciences"
+  },
+  {
+   "id": "dom_hum",
+   "zh": "人文学科",
+   "en": "Humanities"
+  },
+  {
+   "id": "dom_art",
+   "zh": "艺术与设计",
+   "en": "Arts & Design"
+  },
+  {
+   "id": "dom_law",
+   "zh": "法律与治理",
+   "en": "Law & Governance"
+  },
+  {
+   "id": "dom_econ",
+   "zh": "经济与商业",
+   "en": "Economy & Business"
+  },
+  {
+   "id": "dom_edu",
+   "zh": "教育与传播",
+   "en": "Education & Media"
+  },
+  {
+   "id": "dom_prac",
+   "zh": "实践技艺与生活",
+   "en": "Crafts & Life"
+  },
+  {
+   "id": "dom_extern",
+   "zh": "开放图谱导入层",
+   "en": "Open KG import"
+  }
+ ]
+}

@@ -85,7 +85,10 @@ export function sendSimInit() {
         const a = byId[e.from], b = byId[e.to];
         if (a.t === "Topic" || b.t === "Topic") continue;
         const li1 = dynIdx.indexOf(a.idx!), li2 = dynIdx.indexOf(b.idx!);
-        if (li1 == null || li2 == null) continue;
+        /* 源码为 `li1 == null` —— indexOf 未命中返回 -1 而非 null, 恒假放行;
+         * -1 经 Uint32Array 变成 4294967295, worker 弹簧力取 px[4e9]=undefined → NaN
+         * 坐标回传 → 渐变/画布异常。属源码潜在 bug(worker 从未真正跑过), 此处修正 */
+        if (li1 < 0 || li2 < 0) continue;
         eS.push(li1); eD.push(li2);
         eR.push(e.type === "part_of" ? 105 : (e.type === "marks" || e.type === "did" ? 95 : 175));
         eK.push(e.type === "part_of" ? 0.014 : (e.type === "marks" || e.type === "did" ? 0.016 : 0.03));

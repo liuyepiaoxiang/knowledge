@@ -48,11 +48,19 @@ export function resize() {
 
 /* ---------- 高亮集合 ---------- */
 export let HL: string | null = null;       /* 当前高亮节点 id 或 null */
-export function refreshHL() { HL = S.hov || S.sel; }
+/* 故事导览期间悬停不抢占焦点(鼠标滑过画布会随机选中沿途节点, 导致故事节点"有时不高亮") */
+export function refreshHL() { HL = (S.story ? null : S.hov) || S.sel; }
 
 /* ---------- 绘制 ---------- */
 export function sx(x: number) { return x * S.k + S.tx; }
 export function sy(y: number) { return y * S.k + S.ty; }
+
+/** #rrggbb → rgba(r,g,b,a)。TYPES/heatColor 均输出 hex, 渐变到同色透明避免边缘发暗 */
+function hexA(hex: string, a: number): string {
+  const h = hex.replace("#", "");
+  return "rgba(" + parseInt(h.slice(0, 2), 16) + "," + parseInt(h.slice(2, 4), 16) + "," +
+    parseInt(h.slice(4, 6), 16) + "," + a + ")";
+}
 
 /* ---------- 可见节点索引缓存 ----------
  * shownIdx 依赖 year/typeOff/domOff/节点集, 以签名串检测失效:
@@ -237,16 +245,20 @@ export function draw() {
     if (n.t === "Topic") r *= 0.78;
     r = Math.max(r * Math.min(S.k * 1.5, 1), 2.2);
     const x = SXA[i], y = SYA[i];
-    if (x < -60 || x > W + 60 || y < -60 || y > H + 60) continue;
+    /* NaN 防御: NaN 与任何比较皆为 false, 用正逻辑排除(个别异常坐标不至于中断整帧绘制) */
+    if (!(x > -60 && x < W + 60 && y > -60 && y < H + 60)) continue;
     const involved = HL === n.id || (hlSet && hlSet.has(n.id));
     let base = S.heat && !fossil ? heatColor(n) : (fossil ? "#4a5468" : T.color);
     let a = focus ? (involved ? 1 : (n.t === "Topic" ? 0.08 : 0.10)) : (n.t === "Topic" ? 0.55 : 0.92);
 
-    /* 光晕: 高连接节点 */
+    /* 光晕: 高连接节点(径向渐变, 中心亮缘透明) */
     if (!fossil && n.deg! >= 9 && n.t !== "Domain") {
-      ctx.globalAlpha = a * 0.13;
-      ctx.fillStyle = base;
-      ctx.beginPath(); ctx.arc(x, y, r * 1.8, 0, 7); ctx.fill();
+      const hg = ctx.createRadialGradient(x, y, r * 0.6, x, y, r * 2.6);
+      hg.addColorStop(0, hexA(base, 0.9));
+      hg.addColorStop(1, hexA(base, 0));
+      ctx.globalAlpha = a * 0.28;
+      ctx.fillStyle = hg;
+      ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, 7); ctx.fill();
     }
     ctx.globalAlpha = a;
     if (n.t === "Event" || n.t === "Domain") {
@@ -257,15 +269,34 @@ export function draw() {
         ctx.moveTo(x, y - r * 1.15); ctx.lineTo(x + r * 1.15, y);
         ctx.lineTo(x, y + r * 1.15); ctx.lineTo(x - r * 1.15, y);
         ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = "rgba(9,14,23,0.5)"; ctx.lineWidth = 1; ctx.stroke();
       } else {
-        ctx.fillStyle = base;
+        /* 域: 暖亮核渐变 + 双层外环 */
+        const dg = ctx.createRadialGradient(x - r * 0.25, y - r * 0.25, r * 0.1, x, y, r);
+        dg.addColorStop(0, "#ffe3a3");
+        dg.addColorStop(1, base);
+        ctx.fillStyle = fossil ? base : dg;
         ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
         ctx.strokeStyle = base; ctx.globalAlpha = a * 0.5;
         ctx.beginPath(); ctx.arc(x, y, r + 4.5, 0, 7); ctx.stroke();
+        ctx.globalAlpha = a * 0.22;
+        ctx.beginPath(); ctx.arc(x, y, r + 9, 0, 7); ctx.stroke();
+        ctx.globalAlpha = a;
       }
     } else {
-      ctx.fillStyle = base;
+      /* 普通节点: 高连接者径向渐变(亮核→色缘), 其余平涂; 统一细描边勾轮廓 */
+      if (!fossil && n.deg! >= 9) {
+        const ng = ctx.createRadialGradient(x - r * 0.28, y - r * 0.28, r * 0.08, x, y, r);
+        ng.addColorStop(0, "#f0ead8");
+        ng.addColorStop(0.42, base);
+        ng.addColorStop(1, base);
+        ctx.fillStyle = ng;
+      } else {
+        ctx.fillStyle = base;
+      }
       ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
+      ctx.strokeStyle = "rgba(9,14,23,0.5)";
+      ctx.lineWidth = 1; ctx.stroke();
     }
     if (fossil) {
       ctx.strokeStyle = "#6b7688"; ctx.setLineDash([3, 3]);
@@ -273,8 +304,17 @@ export function draw() {
       ctx.setLineDash([]);
     }
     if (S.sel === n.id) {
+      /* 选中: 柔光晕 + 双环 */
+      const sg = ctx.createRadialGradient(x, y, r * 0.8, x, y, r * 3.4);
+      sg.addColorStop(0, "rgba(217,179,108,0.30)");
+      sg.addColorStop(1, "rgba(217,179,108,0)");
+      ctx.fillStyle = sg;
+      ctx.beginPath(); ctx.arc(x, y, r * 3.4, 0, 7); ctx.fill();
       ctx.strokeStyle = "#d9b36c"; ctx.lineWidth = 1.6;
       ctx.beginPath(); ctx.arc(x, y, r + 5.5, 0, 7); ctx.stroke();
+      ctx.globalAlpha = 0.5;
+      ctx.beginPath(); ctx.arc(x, y, r + 9, 0, 7); ctx.stroke();
+      ctx.globalAlpha = a;
       ctx.lineWidth = 1;
     }
     /* 标签 */
@@ -288,7 +328,14 @@ export function draw() {
       ctx.globalAlpha = focus && !involved ? 0.15 : (fossil ? 0.55 : 0.9);
       ctx.fillStyle = fossil ? "#8b97a8" : (n.t === "Domain" ? "#ffd166" : n.t === "Topic" ? "#8d99ac" : "#cfd6e0");
       ctx.font = n.t === "Domain" ? 'bold 15px "Segoe UI","Microsoft YaHei",sans-serif' : '11px "Segoe UI","Microsoft YaHei",sans-serif';
-      ctx.fillText(n.zh, x, y + r + 13);
+      /* 域名与选中节点标签加投影增可读性(数量少, 无性能压力) */
+      if (n.t === "Domain" || S.sel === n.id || S.hov === n.id) {
+        ctx.shadowColor = "rgba(8,12,20,0.95)"; ctx.shadowBlur = 4;
+        ctx.fillText(n.zh, x, y + r + 13);
+        ctx.shadowBlur = 0;
+      } else {
+        ctx.fillText(n.zh, x, y + r + 13);
+      }
       ctx.font = '11px "Segoe UI","Microsoft YaHei",sans-serif';
     }
     ctx.globalAlpha = 1;

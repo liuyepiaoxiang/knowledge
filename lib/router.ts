@@ -1,4 +1,5 @@
 import { S, byId, setForceDraw } from "./state";
+import { refreshHL } from "./render";
 
 /* ---------- 视图切换与哈希路由 (js/app.js:1162-1211 搬运) ---------- */
 export const VIEW_SECTIONS: Record<string, string> = { map: "view-map", flow: "view-flow", frontier: "view-frontier", timeline: "view-timeline", about: "view-about", api: "view-api", domain: "view-domain", curate: "view-curate" };
@@ -19,6 +20,9 @@ export function setHash(h: string): void {
 export function switchView(v: string, opts?: { silent?: boolean; domain?: string }): void {
   opts = opts || {};
   S.view = v;
+  /* 离开星图时清掉悬停: 隐藏画布上的 pointermove 不再触发, 陈旧 hover 会
+   * 压住故事/选中节点的焦点(切回星图后"节点都不高亮"的根因) */
+  if (v !== "map" && S.hov != null) { S.hov = null; refreshHL(); }
   setForceDraw(true);
   document.body.dataset.view = v;
   document.querySelectorAll<HTMLElement>(".tab").forEach(t => t.classList.toggle("active", t.dataset.view === v));

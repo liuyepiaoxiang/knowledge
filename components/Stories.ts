@@ -17,8 +17,8 @@ export function buildStories() {
     b.onclick = () => startStory(+b.dataset.i!);
   });
   document.getElementById("storyClose")!.onclick = endStory;
-  document.getElementById("storyNext")!.onclick = () => storyStep(S.story!.i + 1);
-  document.getElementById("storyPrev")!.onclick = () => storyStep(S.story!.i - 1);
+  document.getElementById("storyNext")!.onclick = () => storyStep((S.story?.i ?? -2) + 1);
+  document.getElementById("storyPrev")!.onclick = () => storyStep((S.story?.i ?? 1) - 1);
 }
 function startStory(i: number) {
   const panel = document.getElementById("panel") as HTMLElement;

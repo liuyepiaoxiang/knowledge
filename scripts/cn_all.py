@@ -10,9 +10,14 @@ from urllib.parse import unquote
 
 import pyarrow.parquet as pq
 
+import os
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
+
 BASE = "https://hf-mirror.com/datasets/conceptnet5/conceptnet5/resolve/main/conceptnet5/"
 SHARDS = [f"train-{i:05d}-of-00023.parquet" for i in range(23)]
-DONE = "corpus/dump/.cn_done"
+DONE = "data/corpus/dump/.cn_done"
 KEEP = True   # 分片保留本地 (wiki_extract/证据句可复用)
 
 # 谓词映射: ConceptNet relation -> 本体 type (None=跳过)
@@ -53,7 +58,7 @@ def main():
     done = set()
     if os.path.exists(DONE):
         done = {l.strip() for l in open(DONE, encoding="utf-8") if l.strip()}
-    os.makedirs("corpus/dump", exist_ok=True)
+    os.makedirs("data/corpus/dump", exist_ok=True)
 
     concepts = Counter()          # zh name -> degree
     edges = {}                    # (a,b) sorted -> (prio, rel, weight, sentence)
@@ -64,7 +69,7 @@ def main():
         if shard in done:
             print(f"[{i}/23] 已处理, 跳过 {shard}", flush=True)
             continue
-        dest = f"corpus/dump/cn-{shard}"
+        dest = f"data/corpus/dump/cn-{shard}"
         if not os.path.exists(dest) or os.path.getsize(dest) < 1_000_000:
             print(f"[{i}/23] 下载 {shard} …", flush=True)
             import subprocess

@@ -15,6 +15,11 @@ from collections import Counter, defaultdict
 import ahocorasick
 import pyarrow.parquet as pq
 
+import os
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
+
 DB = "atlas.db"
 GRADE, SOURCE, CONF = "C", "维基语料本地提取 v0.5 (CC BY-SA)", 0.55
 MAX_NEW = 600
@@ -40,7 +45,7 @@ def first_sentence(text):
     return t[:100]
 
 def main():
-    path = sys.argv[1] if len(sys.argv) > 1 else "corpus/dump/zh-part2.parquet"
+    path = sys.argv[1] if len(sys.argv) > 1 else "data/corpus/dump/zh-part2.parquet"
     if not os.path.exists(path):
         print("❌ 找不到分片:", path); sys.exit(1)
     import sqlite3

@@ -7,6 +7,10 @@
 运行: python extract.py
 """
 import glob, hashlib, os, sqlite3, sys, re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
 
 GRADE, SOURCE, CONF = "C", "LLM抽取语料 v0.4", 0.6
 SKIP_TYPES = ("part_of", "marks", "did")
@@ -42,7 +46,7 @@ def main():
         field_dom.setdefault(k, field_dom.get(v, "dom_form"))
 
     rows = []
-    for path in sorted(glob.glob("corpus/batch*.tsv")):
+    for path in sorted(glob.glob("data/corpus/batch*.tsv")):
         with open(path, encoding="utf-8") as f:
             head = f.readline().split("\t")
             for ln in f:
@@ -51,7 +55,7 @@ def main():
                 if not fld or not name: continue
                 if typ and typ not in TYPES: typ = "Topic"   # 语料误列(如 T L9) 归为 Topic
                 rows.append((fld, name, year, desc, typ or "Topic"))
-    print(f"语料行: {len(rows)} (来自 {len(glob.glob('corpus/batch*.tsv'))} 个批次)")
+    print(f"语料行: {len(rows)} (来自 {len(glob.glob('data/corpus/batch*.tsv'))} 个批次)")
 
     new_nodes, new_edges, skipped = [], [], {"dup": 0, "badfield": 0}
     for fld, name, year, desc, typ in rows:

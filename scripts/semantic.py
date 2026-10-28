@@ -11,19 +11,24 @@
 """
 import sys, datetime
 import sqlite3
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 def resolve(cur, zh):
     r = cur.execute("SELECT id FROM nodes WHERE zh=?", (zh,)).fetchone()
     return r[0] if r else None
 
 def main():
+    import os
+    os.chdir(ROOT)
     con = sqlite3.connect("atlas.db")
     cur = con.cursor()
     applied = dropped = cleaned = 0
     errs = []
 
     rows = []
-    with open("corpus/semantic.tsv", encoding="utf-8") as f:
+    with open("data/corpus/semantic.tsv", encoding="utf-8") as f:
         head = f.readline()
         for ln in f:
             cols = (ln.rstrip("\n").split("\t") + ["", ""])[:4]

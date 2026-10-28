@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """一次性修复 curate_batch.py 的解析问题并处理 tradition 行"""
 import io
+from pathlib import Path
 
-p = "curate_batch.py"
+p = str(Path(__file__).resolve().parent / "curate_batch.py")
 s = io.open(p, encoding="utf-8").read()
 
 # row_factory

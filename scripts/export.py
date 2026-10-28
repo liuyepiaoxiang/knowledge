@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
 """export.py — 从 SQLite 导出全量图
-atlas.db -> api/*.json + js/data_full.js (window.GRAPH_FULL, 前端优先加载)
-运行: python export.py
+atlas.db -> public/data/(core.json/ext.json/meta.json/manifest.js, 部署到前端)
+         + api/*.json (开放 API 大文件, 管线中间产物, 不部署)
+运行: python scripts/export.py
 """
-import json, os, sqlite3
+import json, os, sqlite3, sys
 from collections import defaultdict
 from datetime import date
+from pathlib import Path
+
+for _s in (sys.stdout, sys.stderr):
+    if hasattr(_s, "reconfigure"):   # Windows GBK 控制台容错
+        _s.reconfigure(errors="replace")
+
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
 
 EDITION = "v0.9"
 
@@ -60,15 +69,8 @@ def main():
         "domains": domains,
     }
 
-    os.makedirs("api", exist_ok=True)
-    def w(path, data):
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=1)
-    w("api/meta.json", meta)
-    w("api/nodes.json", nodes)
-    w("api/edges.json", edges)
-    w("api/graph.json", dict(meta, nodes=nodes, edges=edges))
-    w("api/stories.json", story_list)
+    OUT = ROOT / "public" / "data"
+    OUT.mkdir(parents=True, exist_ok=True)
 
     # 核心 = 非 cn_ 节点; 扩展 = cn_ 层 (ConceptNet 导入, 延迟合并)
     cn_ids = {n["id"] for n in nodes if n["id"].startswith("cn_")}
@@ -81,32 +83,41 @@ def main():
                 ([e["ctx"]] if e.get("ctx") else [])
                 for e in edges if e["from"] in cn_ids or e["to"] in cn_ids]
 
-    with open("js/data_full.js", "w", encoding="utf-8") as f:
-        f.write("/* 核心策展层(同步加载), 边为元组格式 */\n")
-        f.write("window.GRAPH_CORE = ")
-        f.write(json.dumps({"domains": domains, "nodes": core_nodes, "edges": core_edges,
-                            "stories": story_list}, ensure_ascii=False))
-        f.write(";\n")
-    with open("js/data_ext.json", "w", encoding="utf-8") as f:
-        json.dump({"nodes": cn_nodes, "edges": cn_edges}, f, ensure_ascii=False)
+    def wjson(p, data, indent=None):
+        with open(p, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=indent)
+
+    wjson(OUT / "core.json", {"domains": domains, "nodes": core_nodes,
+                              "edges": core_edges, "stories": story_list})
+    wjson(OUT / "ext.json", {"nodes": cn_nodes, "edges": cn_edges})
+    wjson(OUT / "meta.json", meta)
+
+    # 开放 API 大文件仍写本地 api/（管线中间产物, 不部署）
+    api_dir = ROOT / "api"
+    api_dir.mkdir(exist_ok=True)
+    wjson(api_dir / "meta.json", meta, indent=1)
+    wjson(api_dir / "nodes.json", nodes, indent=1)
+    wjson(api_dir / "edges.json", edges, indent=1)
+    wjson(api_dir / "graph.json", dict(meta, nodes=nodes, edges=edges), indent=1)
+    wjson(api_dir / "stories.json", story_list, indent=1)
 
     files = ["meta.json", "nodes.json", "edges.json", "graph.json", "stories.json"]
     manifest = {"generated": meta["generated"], "files": []}
     for fn in files:
-        kb = round(os.path.getsize(os.path.join("api", fn)) / 102.4) / 10
+        kb = round((api_dir / fn).stat().st_size / 102.4) / 10
         desc = {"meta.json": "版次/计数/许可/域清单", "nodes.json": "全部节点(含证据/置信度)",
                 "edges.json": "全部边", "graph.json": "全图一次拉取",
                 "stories.json": "故事导览脚本"}[fn]
         manifest["files"].append({"file": fn, "desc": desc, "kb": kb, "bytes": kb * 1024})
-    with open("api/manifest.js", "w", encoding="utf-8") as f:
+    with open(OUT / "manifest.js", "w", encoding="utf-8") as f:
         f.write("/* 由 export.py 生成 */\nwindow.API_MANIFEST = ")
         f.write(json.dumps(manifest, ensure_ascii=False, indent=1) + ";")
 
     by_type = defaultdict(int)
     for n in nodes: by_type[n["t"]] += 1
     print(f"✓ 导出完成: 版次 {EDITION} · {len(nodes)} 节点 / {len(edges)} 边 / {len(domains)} 域")
-    print("  类型分布:", ", ".join(f"{k}{v}" for k, v in sorted(by_type.items(), key=lambda x: -x[1])))
-    print(f"  api/graph.json {round(os.path.getsize('api/graph.json')/1024)} KB · js/data_full.js {round(os.path.getsize('js/data_full.js')/1024)} KB")
+    print(f"  public/data/core.json {round((OUT / 'core.json').stat().st_size / 1024)} KB · "
+          f"ext.json {round((OUT / 'ext.json').stat().st_size / 1024)} KB")
     con.close()
 
 if __name__ == "__main__":

@@ -9,12 +9,17 @@ from itertools import combinations
 
 import pyarrow.parquet as pq
 
-SHARD_FILES = ["corpus/dump/cn-train-00000-of-00023.parquet",
-               "corpus/dump/cn-train-00010-of-00023.parquet",
-               "corpus/dump/cn-train-00011-of-00023.parquet",
-               "corpus/dump/cn-train-00017-of-00023.parquet",
-               "corpus/dump/cn-train-00018-of-00023.parquet",
-               "corpus/dump/cn-train-00022-of-00023.parquet"]
+import os
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
+
+SHARD_FILES = ["data/corpus/dump/cn-train-00000-of-00023.parquet",
+               "data/corpus/dump/cn-train-00010-of-00023.parquet",
+               "data/corpus/dump/cn-train-00011-of-00023.parquet",
+               "data/corpus/dump/cn-train-00017-of-00023.parquet",
+               "data/corpus/dump/cn-train-00018-of-00023.parquet",
+               "data/corpus/dump/cn-train-00022-of-00023.parquet"]
 TYPE = {"HasPrerequisite": "depends_on", "Causes": "enables", "MadeOf": "composes_of",
         "PartOf": "part_of", "UsedFor": "applied_in", "Entails": "depends_on",
         "Antonym": "competes_with", "HasProperty": "relates_to", "CapableOf": "relates_to",

@@ -1,7 +1,7 @@
 # 知识大地 Terra Cognita
 
 节点的原始数据文件(维基分片)与大文件不入库:
-corpus/dump/
+data/corpus/dump/
 atlas.db-wal
 atlas.db-shm
 __pycache__/

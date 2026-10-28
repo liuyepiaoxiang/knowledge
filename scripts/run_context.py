@@ -3,19 +3,24 @@
 运行: python run_context.py   (可中断续跑: 已下载/已处理的分片自动跳过)
 """
 import os, subprocess, sys, time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = Path(__file__).resolve().parent
+os.chdir(ROOT)
 
 SHARDS = [f"train-0000{i}-of-00006.parquet" for i in range(6)]
 BASE = "https://hf-mirror.com/datasets/wikimedia/wikipedia/resolve/main/20231101.zh/"
-os.makedirs("corpus/dump", exist_ok=True)
+os.makedirs("data/corpus/dump", exist_ok=True)
 
-done_marker = "corpus/dump/.context_done"
+done_marker = "data/corpus/dump/.context_done"
 
 done = set()
 if os.path.exists(done_marker):
     done = {l.strip() for l in open(done_marker, encoding="utf-8") if l.strip()}
 
 for i, name in enumerate(SHARDS, 1):
-    dest = f"corpus/dump/{name}"
+    dest = f"data/corpus/dump/{name}"
     if name in done and os.path.exists(dest):
         print(f"[{i}/6] 已处理过, 跳过: {name}", flush=True)
         continue
@@ -29,7 +34,7 @@ for i, name in enumerate(SHARDS, 1):
             continue
         print(f"[{i}/6] 下载完成 {round(os.path.getsize(dest)/1048576)}MB / {round(time.time()-t0)}s", flush=True)
     print(f"[{i}/6] 提取证据句 …", flush=True)
-    r = subprocess.run([sys.executable, "context_extract.py", dest])
+    r = subprocess.run([sys.executable, str(SCRIPTS / "context_extract.py"), dest])
     print(f"[{i}/6] 提取退出码 {r.returncode}", flush=True)
     with open(done_marker, "a", encoding="utf-8") as f:
         f.write(name + "\n")

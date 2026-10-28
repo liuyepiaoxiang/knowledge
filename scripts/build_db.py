@@ -5,6 +5,10 @@ atlas.db 是查询与分析层(万级节点后前端切片也从这里导出); d
 运行: python build_db.py
 """
 import json, os, sqlite3, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
 
 def load(fn):
     with open(os.path.join("api", fn), encoding="utf-8") as f:

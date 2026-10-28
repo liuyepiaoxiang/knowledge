@@ -6,6 +6,11 @@
 每步带断言, 任何一步失败立即停止并报告。
 """
 import glob, os, sqlite3, subprocess, sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
+PY = f'"{sys.executable}"' if os.name == "nt" else sys.executable
 
 STEPS = []
 def step(name):
@@ -28,59 +33,61 @@ def assert_no_dangling(cur):
 
 FRESH = "--fresh" in sys.argv
 
-@step("1. 种子数据校验 (validate.js)")
+@step("1. 数据校验 (validate.mjs)")
 def s1():
-    assert sh("node validate.js"), "种子数据校验失败"
+    assert sh("node scripts/validate.mjs"), "数据校验失败"
 
-@step("2. 生成 API 种子 (build-api.js)")
+@step("2. 生成 API 种子 (build-api.mjs)")
 def s2():
-    assert sh("node build-api.js"), "build-api 失败"
+    assert sh("node scripts/build-api.mjs"), "build-api 失败"
 
 @step("3. 立库/重建 (build_db.py)")
 def s3():
     if os.path.exists("atlas.db") and not FRESH:
         print("   [跳过] atlas.db 已存在 (加 --fresh 全重建)")
         return
-    assert sh("python build_db.py"), "建库失败"
+    assert sh(f"{PY} scripts/build_db.py"), "建库失败"
 
 @step("4. 批量骨架导入 (ingest.py)")
 def s4():
-    assert sh("python ingest.py"), "ingest 失败"
+    assert sh(f"{PY} scripts/ingest.py"), "ingest 失败"
 
 @step("5. LLM 语料抽取 (extract.py)")
 def s5():
-    assert sh("python extract.py"), "extract 失败"
+    assert sh(f"{PY} scripts/extract.py"), "extract 失败"
 
 @step("6. 语义升级 (semantic.py)")
 def s6():
-    if not os.path.exists("corpus/semantic.tsv"):
+    if not os.path.exists("data/corpus/semantic.tsv"):
         print("   [跳过] 无 semantic.tsv"); return
-    assert sh("python semantic.py"), "semantic 失败"
+    assert sh(f"{PY} scripts/semantic.py"), "semantic 失败"
 
 @step("7. 维基分片提取 (wiki_extract.py)")
 def s7():
-    dumps = sorted(glob.glob("corpus/dump/*.parquet"))
+    dumps = sorted(glob.glob("data/corpus/dump/*.parquet"))
     if not dumps:
-        print("   [跳过] corpus/dump 无分片 (可运行 run_context.py 下载)")
+        print("   [跳过] data/corpus/dump 无分片 (可运行 run_context.py 下载)")
         return
     for d in dumps:
-        assert sh(f'python wiki_extract.py "{d}"'), f"维基提取失败: {d}"
+        assert sh(f'{PY} scripts/wiki_extract.py "{d}"'), f"维基提取失败: {d}"
 
 @step("8. 共现证据句 (context_extract.py)")
 def s8():
-    dumps = sorted(glob.glob("corpus/dump/*.parquet"))
+    dumps = sorted(glob.glob("data/corpus/dump/*.parquet"))
     if not dumps:
         print("   [跳过] 无分片"); return
     for d in dumps:
-        assert sh(f'python context_extract.py "{d}"'), f"取证失败: {d}"
+        assert sh(f'{PY} scripts/context_extract.py "{d}"'), f"取证失败: {d}"
 
 @step("9. 故事同步 (sync_stories.py)")
 def s9():
-    assert sh("python sync_stories.py"), "故事同步失败"
+    assert sh(f"{PY} scripts/sync_stories.py"), "故事同步失败"
 
 @step("10. 导出全量图 (export.py)")
 def s10():
-    assert sh("python export.py"), "导出失败"
+    assert sh(f"{PY} scripts/export.py"), "导出失败"
+    core = ROOT / "public" / "data" / "core.json"
+    assert core.exists() and core.stat().st_size > 0, "public/data/core.json 未生成"
 
 def main():
     print(f"=== 知识大地管线 ({'全重建' if FRESH else '增量'}) ===")

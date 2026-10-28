@@ -11,6 +11,10 @@ from itertools import combinations
 import ahocorasick
 import pyarrow.parquet as pq
 
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
+
 def split_sentences(text):
     text = re.sub(r"\s+", "", text)
     parts = re.split(r"(?<=[。！？；])", text)

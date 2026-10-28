@@ -4,6 +4,10 @@ bulk/nodes.tsv + bulk/edges.tsv -> atlas.db (证据等级 C, 置信度 0.7, 未�
 运行: python ingest.py
 """
 import csv, os, sqlite3, sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
 
 TYPES = {"Domain","Field","Topic","Concept","Theory","Proposition","Method","Skill",
          "Technology","Process","Material","Instrument","Product","Problem","Dataset",
@@ -23,7 +27,7 @@ def main():
     domains = {r[0] for r in cur.execute("SELECT id FROM domains")}
     node_ids = {r[0] for r in cur.execute("SELECT id FROM nodes")}
 
-    n_rows, n_head = read_tsv("bulk/nodes.tsv")
+    n_rows, n_head = read_tsv("data/bulk/nodes.tsv")
     errs, new_nodes = [], []
     bulk_ids = {cols[0] for cols in n_rows if cols}
     all_ids = node_ids | bulk_ids
@@ -39,7 +43,7 @@ def main():
                           None, None, status or None, tradition or None, CONF))
         node_ids.add(nid)
 
-    e_rows, _ = read_tsv("bulk/edges.tsv")
+    e_rows, _ = read_tsv("data/bulk/edges.tsv")
     existing = {tuple(r) for r in cur.execute("SELECT src,dst,type FROM edges")}
     new_edges, new_partof = [], []
     for cols in e_rows:

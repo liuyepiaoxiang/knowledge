@@ -11,7 +11,10 @@
   python db.py path 晶体管 mRNA疫苗
   python db.py node 熵
 """
-import sqlite3, sys
+import os, sqlite3, sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 SKIP_EDGE_TYPES = ("part_of", "marks", "did")   # 结构边, 路径查询忽略
 DB = "atlas.db"
@@ -111,6 +114,7 @@ def cmd_query(cur, sql):
         print(dict(r))
 
 def main():
+    os.chdir(ROOT)
     argv = sys.argv[1:]
     if not argv:
         print(__doc__); return

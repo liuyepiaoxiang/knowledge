@@ -1,9 +1,12 @@
-/* 生成静态开放 API: node build-api.js
+/* 生成静态开放 API: node scripts/build-api.mjs
  * 输出 api/meta.json, nodes.json, edges.json, graph.json, stories.json, manifest.js
  * 在 js/data.js 每次更新后重跑, 保证 API 与网站同源 */
-const fs = require("fs");
-const path = require("path");
-const vm = require("vm");
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+process.chdir(path.join(path.dirname(fileURLToPath(import.meta.url)), ".."));
+import fs from "node:fs";
+import vm from "node:vm";
+
 const ctx = {};
 vm.createContext(ctx);
 vm.runInContext(fs.readFileSync("js/data.js", "utf8") + "\n; this.__out = {TYPES, EDGE_TYPES, DOMAINS, NODES, EDGES, STORIES};", ctx);
@@ -37,5 +40,5 @@ const files = ["meta.json", "nodes.json", "edges.json", "graph.json", "stories.j
   const desc = { "meta.json": "版次/计数/许可/域清单", "nodes.json": "全部节点(含类型/名称/年代/状态/证据/置信度/度)", "edges.json": "全部边(含类型/权重/起始年/证据等级)", "graph.json": "全图 = meta + nodes + edges, 一次拉取", "stories.json": "故事导览脚本" }[f];
   return { file: f, desc, bytes, kb: Math.round(bytes / 102.4) / 10 };
 });
-w("manifest.js", "/* 由 build-api.js 生成 */\nwindow.API_MANIFEST = " + JSON.stringify({ generated: meta.generated, files }, null, 1) + ";");
+w("manifest.js", "/* 由 build-api.mjs 生成 */\nwindow.API_MANIFEST = " + JSON.stringify({ generated: meta.generated, files }, null, 1) + ";");
 console.log("✓ api/ 已生成:", files.map(f => f.file + " " + f.kb + "KB").join(", "));

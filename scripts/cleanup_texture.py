@@ -4,7 +4,11 @@
       连带: 清理后 degree=0 的 Topic 纹理节点一并移除
 运行: python cleanup_texture.py && python export.py
 """
-import sqlite3
+import os, sqlite3
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
 
 con = sqlite3.connect("atlas.db")
 cur = con.cursor()

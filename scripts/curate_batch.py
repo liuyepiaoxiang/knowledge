@@ -5,7 +5,11 @@
 3) tradition 补齐: 语料第6列的知识传统写入节点
 运行: python curate_batch.py
 """
-import glob, re, sqlite3
+import glob, os, re, sqlite3
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+os.chdir(ROOT)
 
 con = sqlite3.connect("atlas.db")
 con.row_factory = sqlite3.Row
@@ -13,7 +17,7 @@ cur = con.cursor()
 
 # ---------- 1. 读取语料中的类型标注行 ----------
 typed_rows = []
-for path in sorted(glob.glob("corpus/batch*.tsv")):
+for path in sorted(glob.glob("data/corpus/batch*.tsv")):
     with open(path, encoding="utf-8") as f:
         next(f)
         for ln in f:

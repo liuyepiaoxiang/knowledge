@@ -9,14 +9,16 @@
   POST /api2/reject   {id}         标记剔除候选
   POST /api2/semantic  {zh1,zh2,type,weight}  type=DROP 为删除
   POST /api2/export                重新导出全量图
-其余路径 = 静态文件 (index.html 等)
+其余路径 = 静态文件 (Next 构建产物 out/)
 """
-import json, os, sqlite3, subprocess, sys, threading
+import functools, json, os, sqlite3, subprocess, sys, threading
 from contextlib import closing
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 
-DB = "atlas.db"
+ROOT = Path(__file__).resolve().parents[1]
+DB = str(ROOT / "atlas.db")
 _WRITE_LOCK = threading.Lock()
 
 def db(path=DB):
@@ -157,8 +159,8 @@ class Handler(SimpleHTTPRequestHandler):
                 if u.path == "/api2/export":
                     with _WRITE_LOCK:
                         pass
-                    r = subprocess.run([sys.executable, "export.py"], capture_output=True, text=True,
-                                       encoding="utf-8")
+                    r = subprocess.run([sys.executable, str(ROOT / "scripts" / "export.py")],
+                                       capture_output=True, text=True, encoding="utf-8")
                     out = (r.stdout or "").strip().splitlines()
                     self._json({"ok": r.returncode == 0, "report": out[-2:] if out else []}); return
             self._json({"error": "unknown endpoint"}, 404)
@@ -167,6 +169,11 @@ class Handler(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8123
-    os.chdir(os.path.dirname(os.path.abspath(__file__)) or ".")
-    print(f"知识大地本地服务: http://127.0.0.1:{port}/  (策展台: #/curate)")
-    ThreadingHTTPServer(("127.0.0.1", port), Handler).serve_forever()
+    os.chdir(ROOT)
+    out_dir = ROOT / "out"
+    if not out_dir.is_dir():
+        print("❌ 未找到 out/ (Next 构建产物), 请先 npm run build")
+        sys.exit(1)
+    print(f"知识大地本地服务: http://127.0.0.1:{port}/  (静态目录: out/ · 策展台: #/curate)")
+    handler = functools.partial(Handler, directory=str(out_dir))
+    ThreadingHTTPServer(("127.0.0.1", port), handler).serve_forever()

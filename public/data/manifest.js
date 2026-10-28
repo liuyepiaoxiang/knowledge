@@ -1,6 +1,6 @@
 /* 由 export.py 生成 */
 window.API_MANIFEST = {
- "generated": "2026-10-26",
+ "generated": "2026-10-28",
  "files": [
   {
    "file": "meta.json",

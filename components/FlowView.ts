@@ -15,7 +15,7 @@
  */
 import { E, NODES_, byId } from "../lib/state";
 import type { GraphEdge, GraphNode } from "../lib/types";
-import { flyTo, setOnResize } from "../lib/render";
+import { flyTo, setOnResize, drawStars, drawVignette } from "../lib/render";
 import { viewBuilders } from "../lib/router";
 import { select } from "./ConceptPanel";
 
@@ -85,28 +85,33 @@ function drawFlow() {
   const fctx = _fctx!;
   const rect = flowCv.parentElement!.getBoundingClientRect();
   const cw = rect.width, ch = rect.height;
-  const DPR2 = window.devicePixelRatio || 1;
+  const DPR2 = Math.min(window.devicePixelRatio || 1, 2);
   flowCv.width = cw * DPR2; flowCv.height = ch * DPR2;
   const k = Math.min(cw / FLOW.W, ch / FLOW.H);
   fctx.setTransform(DPR2, 0, 0, DPR2, 0, 0);
-  fctx.fillStyle = "#0d1420";
-  fctx.fillRect(0, 0, cw, ch);
+  /* 深空底幕: 与星图共用星野层 */
+  drawStars(fctx, cw, ch);
   fctx.translate((cw - FLOW.W * k) / 2, (ch - FLOW.H * k) / 2);
   fctx.scale(k, k);
   const g = FLOW.geom!;
-  /* 彩带 */
+  /* 彩带: 起讫阶段色沿程渐变(知识如何"流向"技术); 悬停时聚焦辉光 */
   for (const L of FLOW.links) {
     const a = L.a, b = L.b;
     const x1 = g.X0 + a.si * g.XGAP + g.BAND, x2 = g.X0 + b.si * g.XGAP;
     const y1 = a.y0 + a.h / 2, y2 = b.y0 + b.h / 2;
     const hot = flowHover && (a.n.id === flowHover || b.n.id === flowHover);
-    fctx.strokeStyle = STAGES[a.si].color;
-    fctx.globalAlpha = flowHover ? (hot ? 0.9 : 0.06) : 0.3;
+    const rg = fctx.createLinearGradient(x1, 0, x2, 0);
+    rg.addColorStop(0, STAGES[a.si].color);
+    rg.addColorStop(1, STAGES[b.si].color);
+    fctx.strokeStyle = rg;
+    if (hot) { fctx.shadowColor = STAGES[a.si].color; fctx.shadowBlur = 6; }
+    fctx.globalAlpha = flowHover ? (hot ? 0.9 : 0.06) : 0.26;
     fctx.lineWidth = 1.2 + L.e.w * 4.5;
     fctx.beginPath();
     fctx.moveTo(x1, y1);
     fctx.bezierCurveTo((x1 + x2) / 2, y1, (x1 + x2) / 2, y2, x2, y2);
     fctx.stroke();
+    fctx.shadowBlur = 0;
   }
   fctx.globalAlpha = 1;
   /* 阶段列与节点段 */
@@ -114,24 +119,45 @@ function drawFlow() {
   fctx.textAlign = "center";
   FLOW.cols.forEach((col, si) => {
     const x = g.X0 + si * g.XGAP;
+    const colH = g.BOT - g.TOP + 16;
+    /* 列身: 阶段色薄雾纵渐变 */
+    const colBg = fctx.createLinearGradient(0, g.TOP - 8, 0, g.BOT + 8);
+    colBg.addColorStop(0, "rgba(96,132,184,0.07)");
+    colBg.addColorStop(1, "rgba(96,132,184,0.02)");
+    fctx.fillStyle = colBg;
+    fctx.fillRect(x, g.TOP - 8, g.BAND, colH);
     fctx.fillStyle = STAGES[si].color;
     fctx.globalAlpha = 0.95;
+    fctx.shadowColor = "rgba(8,12,20,0.9)"; fctx.shadowBlur = 4;
     fctx.fillText(STAGES[si].zh, x + g.BAND / 2, g.TOP - 34);
+    fctx.shadowBlur = 0;
     fctx.globalAlpha = 0.5;
     fctx.font = '11px "Segoe UI","Microsoft YaHei",sans-serif';
     fctx.fillText(col.length + " 个在管道中的节点", x + g.BAND / 2, g.TOP - 16);
     fctx.font = '14px Georgia,"Songti SC","SimSun",serif';
     fctx.globalAlpha = 1;
     fctx.strokeStyle = "rgba(60,80,110,0.35)";
-    fctx.strokeRect(x, g.TOP - 8, g.BAND, g.BOT - g.TOP + 16);
+    fctx.strokeRect(x, g.TOP - 8, g.BAND, colH);
+    /* 顶/底黄铜刻度帽 */
+    fctx.strokeStyle = "rgba(217,179,108,0.55)";
+    fctx.beginPath();
+    fctx.moveTo(x, g.TOP - 8); fctx.lineTo(x + g.BAND, g.TOP - 8);
+    fctx.moveTo(x, g.BOT + 8); fctx.lineTo(x + g.BAND, g.BOT + 8);
+    fctx.stroke();
     for (const b of col) {
       const hot = flowHover === b.n.id;
-      fctx.fillStyle = STAGES[si].color;
-      fctx.globalAlpha = flowHover && !hot ? 0.25 : 0.9;
+      /* 节点段: 阶段色纵渐变(上亮下暗, 玉带质感) */
+      const bandGrad = fctx.createLinearGradient(0, b.y0, 0, b.y0 + b.h);
+      bandGrad.addColorStop(0, STAGES[si].color);
+      bandGrad.addColorStop(1, "rgba(30,42,62,0.9)");
+      fctx.fillStyle = bandGrad;
+      fctx.globalAlpha = flowHover && !hot ? 0.25 : 0.92;
       fctx.fillRect(x, b.y0, g.BAND, b.h);
       if (hot) {
+        fctx.shadowColor = STAGES[si].color; fctx.shadowBlur = 8;
         fctx.strokeStyle = "#d9b36c"; fctx.lineWidth = 1.5;
         fctx.strokeRect(x - 2, b.y0 - 2, g.BAND + 4, b.h + 4);
+        fctx.shadowBlur = 0;
         fctx.lineWidth = 1;
         fctx.fillStyle = "#e8e3d5";
         fctx.font = '12px "Segoe UI","Microsoft YaHei",sans-serif';
@@ -143,6 +169,9 @@ function drawFlow() {
     }
   });
   fctx.globalAlpha = 1;
+  /* 暗角收束(屏幕空间) */
+  fctx.setTransform(DPR2, 0, 0, DPR2, 0, 0);
+  drawVignette(fctx, cw, ch);
 }
 
 let inited = false;

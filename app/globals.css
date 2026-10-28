@@ -371,8 +371,14 @@ body {
 .fr-item {
   border: 1px solid var(--line); border-radius: 4px; padding: 9px 12px;
   background: rgba(17,26,41,.55); cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
 }
-.fr-item:hover { border-color: var(--brass-dim); }
+.fr-item:hover {
+  border-color: var(--brass-dim); border-left-color: var(--brass);
+  background: rgba(23,34,54,.72);
+  transform: translateY(-1px);
+}
 .fr-item .fr-names { font-size: 13px; color: var(--ink); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .fr-item .fr-names .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
 .fr-item .fr-names .x { color: var(--brass); font-family: var(--serif); }

@@ -18,6 +18,7 @@ import { TYPES } from "../lib/theme";
 import { select } from "./ConceptPanel";
 import { setOnTlCursor } from "./TimeBar";
 import { viewBuilders } from "../lib/router";
+import { mulberry32, nebulaTint } from "../lib/render";
 
 type TlCanvas = HTMLCanvasElement & { _dpr?: number };
 type TlNode = GraphNode & { born: number };
@@ -46,6 +47,25 @@ function xToYear(x: number): number {
 }
 let tlBuilt = false, tlData: { lanes: TlLane[] } | null = null, tlQueued = false;
 const TL = { W: 4260, LANE_H: 72, BIN: 20 };
+
+/* 长卷星野: 一次性离屏预渲染(与星图同一深空语言), 每次重绘仅 1 次 drawImage */
+let tlStarCv: HTMLCanvasElement | null = null;
+function ensureTlStars(W: number, H: number): HTMLCanvasElement {
+  if (tlStarCv && tlStarCv.width === W && tlStarCv.height === H) return tlStarCv;
+  tlStarCv = document.createElement("canvas");
+  tlStarCv.width = W; tlStarCv.height = H;
+  const c = tlStarCv.getContext("2d")!;
+  const rnd = mulberry32(18891028);   /* 稳定种子: 长卷与星图各自独立星空 */
+  const n = Math.round(W * H / 2600);
+  for (let i = 0; i < n; i++) {
+    const x = rnd() * W, y = rnd() * H, r = 0.3 + rnd() * 0.7;
+    const roll = rnd();
+    const col = roll > 0.86 ? "232,217,176" : roll > 0.76 ? "159,192,255" : "205,216,230";
+    c.fillStyle = "rgba(" + col + "," + (0.06 + rnd() * 0.28).toFixed(2) + ")";
+    c.beginPath(); c.arc(x, y, r, 0, 7); c.fill();
+  }
+  return tlStarCv;
+}
 
 function gradeOf(n: GraphNode) { return (n.ev && n.ev[0]) || "C"; }
 
@@ -91,18 +111,33 @@ function drawTimeline() {
   const H = lanes.length * TL.LANE_H + 46;
   const scroll = (document.getElementById("tlScroll") as HTMLElement).scrollLeft;
   tctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  tctx.fillStyle = "#0d1420"; tctx.fillRect(0, 0, TL.W + 60, H);
+  /* 深空底幕 + 长卷星野(离屏一次) */
+  tctx.fillStyle = "#0b111c"; tctx.fillRect(0, 0, TL.W, H);
+  tctx.drawImage(ensureTlStars(TL.W, H), 0, 0);
   const cursorX = xFor(S.year);
+  /* 年代刻度竖参考线(贯穿全高, 海图经线) */
+  const TICKS = [-8000, -4000, -2000, -500, 0, 500, 1000, 1500, 1700, 1800, 1900, 1950, 2000, 2026];
+  tctx.strokeStyle = "rgba(96,132,184,0.10)"; tctx.lineWidth = 1;
+  tctx.beginPath();
+  TICKS.forEach(t => { const x = xFor(t); tctx.moveTo(x, 0); tctx.lineTo(x, lanes.length * TL.LANE_H + 8); });
+  tctx.stroke();
   lanes.forEach((L, li) => {
     const y0 = 6 + li * TL.LANE_H;
-    tctx.fillStyle = li % 2 ? "rgba(23,33,52,0.55)" : "rgba(19,28,45,0.55)";
+    const tint = nebulaTint(L.d.id);   /* 泳道色调 = 星图同域大陆星云色 */
+    tctx.fillStyle = li % 2 ? "rgba(23,33,52,0.5)" : "rgba(19,28,45,0.5)";
     tctx.fillRect(0, y0, TL.W, TL.LANE_H);
+    tctx.fillStyle = "rgba(" + tint + ",0.045)";
+    tctx.fillRect(0, y0, TL.W, TL.LANE_H);
+    /* 密度直方: 域色调纵渐变, 顶亮底隐 */
     for (let b = 0; b < L.bins.length; b++) {
       if (!L.bins[b]) continue;
       const bx = b * TL.BIN;
-      tctx.globalAlpha = bx > cursorX ? 0.12 : 0.5;
-      tctx.fillStyle = "rgba(96,132,184,0.85)";
       const h = Math.min(TL.LANE_H - 12, L.bins[b] / L.maxBin * (TL.LANE_H - 16));
+      const grad = tctx.createLinearGradient(0, y0 + TL.LANE_H - 4 - h, 0, y0 + TL.LANE_H - 4);
+      grad.addColorStop(0, "rgba(" + tint + ",0.78)");
+      grad.addColorStop(1, "rgba(" + tint + ",0.12)");
+      tctx.globalAlpha = bx > cursorX ? 0.14 : 0.6;
+      tctx.fillStyle = grad;
       tctx.fillRect(bx + 2, y0 + TL.LANE_H - 4 - h, TL.BIN - 4, h);
     }
     tctx.globalAlpha = 1;
@@ -111,37 +146,57 @@ function drawTimeline() {
       const x = xFor(n.born), y = y0 + TL.LANE_H * 0.42;
       const future = n.born > S.year, fossil = isFossil(n);
       tctx.globalAlpha = future ? 0.15 : 1;
-      tctx.fillStyle = fossil ? "#57627a" : TYPES[n.t].color;
+      const col = fossil ? "#57627a" : TYPES[n.t].color;
+      /* 高连接亮星: 微光晕 + 十字微芒(星图语言) */
+      if (!future && !fossil && n.deg! >= 9 && n.t !== "Event") {
+        const gl = tctx.createRadialGradient(x, y, 0.5, x, y, 7);
+        gl.addColorStop(0, "rgba(232,217,176,0.5)");
+        gl.addColorStop(1, "rgba(232,217,176,0)");
+        tctx.fillStyle = gl;
+        tctx.beginPath(); tctx.arc(x, y, 7, 0, 7); tctx.fill();
+      }
+      tctx.fillStyle = col;
       if (n.t === "Event") {
         tctx.save(); tctx.translate(x, y); tctx.rotate(Math.PI / 4);
-        tctx.fillRect(-3.6, -3.6, 7.2, 7.2); tctx.restore();
+        tctx.fillRect(-3.6, -3.6, 7.2, 7.2);
+        tctx.strokeStyle = "rgba(9,14,23,0.6)"; tctx.lineWidth = 1; tctx.strokeRect(-3.6, -3.6, 7.2, 7.2);
+        tctx.restore();
       } else {
         tctx.beginPath(); tctx.arc(x, y, 3.8, 0, 7); tctx.fill();
+        tctx.strokeStyle = "rgba(9,14,23,0.6)"; tctx.lineWidth = 1; tctx.stroke();
       }
       if ((n.t === "Event" || n.t === "Person" || n.deg! >= 9) && x - lastLabel > 66 && !future) {
         tctx.font = "10px 'Segoe UI','Microsoft YaHei',sans-serif";
         tctx.textAlign = "center";
-        tctx.fillStyle = fossil ? "#71809a" : "#b6c0d0";
+        tctx.shadowColor = "rgba(8,12,20,0.9)"; tctx.shadowBlur = 3;
+        tctx.fillStyle = fossil ? "#71809a" : "#c2cbd9";
         tctx.fillText(n.zh, x, y - 9);
+        tctx.shadowBlur = 0;
         lastLabel = x + n.zh.length * 10.5;
       }
       tctx.globalAlpha = 1;
     }
   });
+  /* 年代游标: 黄铜辉光竖线 + 顶端年份标 */
   const cx = xFor(S.year);
-  tctx.strokeStyle = "#d9b36c"; tctx.globalAlpha = 0.75; tctx.lineWidth = 1;
+  tctx.shadowColor = "rgba(217,179,108,0.8)"; tctx.shadowBlur = 6;
+  tctx.strokeStyle = "#d9b36c"; tctx.globalAlpha = 0.8; tctx.lineWidth = 1;
   tctx.beginPath(); tctx.moveTo(cx, 0); tctx.lineTo(cx, lanes.length * TL.LANE_H + 8); tctx.stroke();
+  tctx.shadowBlur = 0;
   tctx.globalAlpha = 1; tctx.lineWidth = 1;
   tctx.font = "12px Georgia,'Songti SC','SimSun',serif"; tctx.textAlign = "left";
   lanes.forEach((L, li) => {
-    tctx.fillStyle = "rgba(13,20,32,0.85)";
+    /* 域名签: 黄铜左规 + 半透明底, 与星图域注记同语言 */
+    tctx.fillStyle = "rgba(11,17,28,0.88)";
     tctx.fillRect(scroll + 2, 6 + li * TL.LANE_H, 96, TL.LANE_H - 4);
+    tctx.fillStyle = "rgba(217,179,108,0.7)";
+    tctx.fillRect(scroll + 2, 6 + li * TL.LANE_H + 8, 2, TL.LANE_H - 20);
     tctx.fillStyle = "#d9b36c";
-    tctx.fillText(L.d.zh, scroll + 8, 6 + li * TL.LANE_H + TL.LANE_H / 2 + 4);
+    tctx.fillText(L.d.zh, scroll + 10, 6 + li * TL.LANE_H + TL.LANE_H / 2 + 4);
   });
-  tctx.font = "11px Georgia,serif"; tctx.textAlign = "center"; tctx.fillStyle = "#5a6678";
+  tctx.font = "11px Georgia,serif"; tctx.textAlign = "center"; tctx.fillStyle = "#7a8698";
   const ay = lanes.length * TL.LANE_H + 30;
-  [-8000, -4000, -2000, -500, 0, 500, 1000, 1500, 1700, 1800, 1900, 1950, 2000, 2026].forEach(t => {
+  TICKS.forEach(t => {
     const x = xFor(t);
     tctx.fillText(t < 0 ? "前" + (-t) : (t === 0 ? "元年" : "" + t), x, ay);
     tctx.fillRect(x - 0.5, ay - 16, 1, 6);

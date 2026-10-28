@@ -81,15 +81,6 @@ function rebuildVis(): void {
 /* ---------- 深空底幕: 预渲染星野(离屏一次, 帧内 4 次 drawImage, 视差缓移) ---------- */
 let starCv: HTMLCanvasElement | null = null;
 let starW = 0, starH = 0;
-function mulberry32(seed: number): () => number {
-  let a = seed >>> 0;
-  return function () {
-    a |= 0; a = (a + 0x6D2B79F5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
 function ensureStarfield(W: number, H: number): void {
   if (starCv && starW === W && starH === H) return;
   starW = W; starH = H;
@@ -141,10 +132,36 @@ function drawStarfield(ctx: CanvasRenderingContext2D, W: number, H: number): voi
 
 /* ---------- 大陆星云: 每域独立色调(深空青/靛/紫灰系), 双层弥散 ---------- */
 const NEBULA_TINTS = ["96,132,184", "104,152,158", "128,140,192", "148,138,182", "100,158,168"];
-function nebulaTint(id: string): string {
+export function nebulaTint(id: string): string {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
   return NEBULA_TINTS[Math.abs(h) % NEBULA_TINTS.length];
+}
+
+/* ---------- 深空底幕辅助(其它视图复用: 河流图/时间轴等) ---------- */
+export function mulberry32(seed: number): () => number {
+  let a = seed >>> 0;
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+/** 深空底色 + 视口星野(与星图同一离屏层, 视差中心对齐) */
+export function drawStars(ctx: CanvasRenderingContext2D, W: number, H: number): void {
+  ctx.fillStyle = "#0b111c";
+  ctx.fillRect(0, 0, W, H);
+  ensureStarfield(W, H);
+  drawStarfield(ctx, W, H);
+}
+/** 径向暗角(内容之上绘制, 聚拢视线) */
+export function drawVignette(ctx: CanvasRenderingContext2D, W: number, H: number): void {
+  const vg = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.36, W / 2, H / 2, Math.max(W, H) * 0.74);
+  vg.addColorStop(0, "rgba(4,7,13,0)");
+  vg.addColorStop(1, "rgba(3,6,11,0.46)");
+  ctx.fillStyle = vg;
+  ctx.fillRect(0, 0, W, H);
 }
 
 export function draw() {
@@ -152,10 +169,7 @@ export function draw() {
   const DPR = canvasSize.DPR, W = canvasSize.W, H = canvasSize.H;
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   /* 背景: 深空底色 → 星野(视差) → 微弱经纬线(海图质感) */
-  ctx.fillStyle = "#0b111c";
-  ctx.fillRect(0, 0, W, H);
-  ensureStarfield(W, H);
-  drawStarfield(ctx, W, H);
+  drawStars(ctx, W, H);
   const wx0 = (0 - S.tx) / S.k, wy0 = (0 - S.ty) / S.k;
   const wx1 = (W - S.tx) / S.k, wy1 = (H - S.ty) / S.k;
   ctx.strokeStyle = "rgba(60,80,110,0.07)";
@@ -186,11 +200,7 @@ export function draw() {
   }
 
   /* 暗角: 视线聚拢画心, 星图如悬于深空被一束光照亮 */
-  const vg = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.36, W / 2, H / 2, Math.max(W, H) * 0.74);
-  vg.addColorStop(0, "rgba(4,7,13,0)");
-  vg.addColorStop(1, "rgba(3,6,11,0.46)");
-  ctx.fillStyle = vg;
-  ctx.fillRect(0, 0, W, H);
+  drawVignette(ctx, W, H);
 
   const hlSet = HL ? neighborsOf(HL) : null;
   const focus = HL != null;

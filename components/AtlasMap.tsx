@@ -24,6 +24,8 @@ import { initSearch } from "./SearchBox";
 import { initTimeline } from "./TimelineView";
 import { initFlow } from "./FlowView";
 import { initFrontier } from "./FrontierView";
+import { initApi } from "./ApiView";
+import { buildMetrics } from "./MetricsBox";
 
 /* dev StrictMode 下 effect 双调用守卫: boot/rAF 循环/Worker 只启动一次 */
 let started = false;
@@ -110,6 +112,7 @@ export default function AtlasMap() {
       initTimeline();     /* 时间轴画布事件 + viewBuilders.timeline 注册 (T9) */
       initFlow();         /* 河流图画布事件 + onResize 回调 + viewBuilders.flow 注册 (T10) */
       initFrontier();     /* 前沿榜单与领域门户 + viewBuilders.frontier/domain 注册 (T10) */
+      initApi();          /* 开放 API 视图 + viewBuilders.api 注册 (T11) */
       buildLegend();
       buildStories();
       const stamp = document.getElementById("stats");
@@ -119,7 +122,7 @@ export default function AtlasMap() {
       const stampDate = document.getElementById("stampDate");
       if (stampDate) stampDate.textContent = "绘于 2026 年 10 月";
       S.k = 0.13; S.tx = canvasSize.W / 2; S.ty = canvasSize.H / 2;
-      // buildMetrics();   // TODO(T8/T11): 接入
+      buildMetrics();     /* js/app.js:1641 (T11 接回) */
       if (createSimWorker()) sendSimInit();
       const warm = NODES_.length > 800 ? 80 : 240;   /* 大图降预热, 避免启动长阻塞 */
       for (let i = 0; i < warm; i++) step();   /* 预热布局, 防止 rAF 节流时开幕松散 */

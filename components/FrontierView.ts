@@ -16,7 +16,9 @@ import { flyTo } from "../lib/render";
 import { select } from "./ConceptPanel";
 
 /* ---------- 前沿视图 ---------- */
-const TYPED_EDGE_TYPES = new Set(["depends_on", "enables", "applied_in", "explains",
+/* 源码 js/app.js:1363 的全局 Set(唯一一处定义, jaccardPairs 与 buildMetrics 共用)——
+ * MetricsBox.ts 相对路径 import 复用, 故 export。 */
+export const TYPED_EDGE_TYPES = new Set(["depends_on", "enables", "applied_in", "explains",
   "inspired_by", "composes_of", "solves", "transfers_to", "supersedes", "refines",
   "feeds_back", "formalizes", "engineers", "productizes", "accelerated"]);
 

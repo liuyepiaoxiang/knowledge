@@ -16,7 +16,8 @@ export const S = {
   sel: null as string | null, hov: null as string | null,
   k: 0.13, tx: 0, ty: 0,
   typeOff: new Set<string>(), domOff: new Set<string>(),
-  story: null as number | null, storyTimer: null as ReturnType<typeof setTimeout> | null,
+  /* 源码 JS 里 S.story 是 { i, s } 对象(js/app.js:951 startStory 写入, 957-969 storyStep 读取) */
+  story: null as { i: number, s: Story } | null, storyTimer: null as ReturnType<typeof setTimeout> | null,
   /* 源码 JS 里动态挂载的字段(js/app.js:551/556/1192/1464), 显式声明 */
   heat: false as boolean,            /* 生长热力层开关 (js/app.js:1464) */
   userMoved: false as boolean,       /* 用户已手动平移/缩放 (js/app.js:551/623) */

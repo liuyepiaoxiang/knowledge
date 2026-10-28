@@ -11,11 +11,16 @@ import {
   byId, canvasSize, initGraph, setCNAll, setForceDraw,
 } from "@/lib/state";
 import type { GraphEdge } from "@/lib/types";
-import { SXA, SYA, flyTo, initRender, refreshHL, resize, tick, zoomAt } from "@/lib/render";
+import { SXA, SYA, flyTo, initRender, refreshHL, resize, setPanelEl, tick, zoomAt } from "@/lib/render";
 import { createSimWorker, reheat, sendPin, sendSimAdd, sendSimInit, sendUnpin, step } from "@/lib/sim";
-import { route, routeSelect, setHash, switchView } from "@/lib/router";
+import { route, routeSelect, switchView } from "@/lib/router";
 import { isFossil, shownIdx } from "@/lib/graph";
 import { TYPES } from "@/lib/theme";
+import { select } from "./ConceptPanel";
+import { initTimeBar, startPlay, syncTimeUI } from "./TimeBar";
+import { buildLegend } from "./Legend";
+import { buildStories } from "./Stories";
+import { initSearch } from "./SearchBox";
 
 /* dev StrictMode 下 effect 双调用守卫: boot/rAF 循环/Worker 只启动一次 */
 let started = false;
@@ -89,24 +94,18 @@ export default function AtlasMap() {
       host.prepend(errDiv);
     }
 
-    /* ---------- 概念卡选中 (临时版, js/app.js:737-745 的非面板部分; TODO(T8): ConceptPanel 接入) ---------- */
-    function select(id: string | null) {
-      S.sel = id;
-      refreshHL();
-      setForceDraw(true);
-      if (!id && location.hash.indexOf("#/node/") === 0) setHash("#/atlas");
-    }
+    /* 概念卡选中: ConceptPanel.select (js/app.js:737-829, T8 搬入 components/ConceptPanel.ts) */
     routeSelect.fn = select;
-
-    /* 年代尺 UI 同步占位 (js/app.js:853 syncTimeUI; TODO(T8): TimeBar 接入) */
-    function syncTimeUI() { /* TODO(T8): TimeBar 接入 */ }
 
     /* ---------- boot (js/app.js:1632-1653 原样改造) ---------- */
     function boot() {
       initRender(cv);
       resize();
-      // buildLegend();    // TODO(T8/T11): 接入
-      // buildStories();   // TODO(T8/T11): 接入
+      setPanelEl(document.getElementById("panel") as HTMLElement);   /* render.flyTo 据面板可见性偏移居中 */
+      initTimeBar();      /* 年代尺事件 + render.tick 的 onTimeSync/onStopPlay 回调 */
+      initSearch();       /* 搜索输入/下拉 + 全局 Escape 按键 */
+      buildLegend();
+      buildStories();
       const stamp = document.getElementById("stats");
       if (stamp) stamp.textContent = "第一版次 · " + NODES_.length + " 节点 · " + E.length + " 边";
       const stampNo = document.getElementById("stampNo");
@@ -121,7 +120,7 @@ export default function AtlasMap() {
       const h0 = location.hash.replace(/^#\/?/, "");
       const deepLink = h0 && h0 !== "atlas";
       if (REDUCED || deepLink) { S.year = YEAR_MAX; syncTimeUI(); }
-      else { S.year = YEAR_MIN; syncTimeUI(); /* startPlay(6500); TODO(T8): 恢复开幕生长动画 */ }
+      else { S.year = YEAR_MIN; syncTimeUI(); startPlay(6500); }   /* 开幕: 地图按年代生长 */
       if (deepLink) route(); else switchView("map", { silent: true });
       tick();
       extTimer = setTimeout(mergeExt, 1500);

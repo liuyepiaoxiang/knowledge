@@ -25,6 +25,7 @@ import { initTimeline } from "./TimelineView";
 import { initFlow } from "./FlowView";
 import { initFrontier } from "./FrontierView";
 import { initApi } from "./ApiView";
+import { initCurate } from "./CurateView";
 import { buildMetrics } from "./MetricsBox";
 
 /* dev StrictMode 下 effect 双调用守卫: boot/rAF 循环/Worker 只启动一次 */
@@ -113,6 +114,7 @@ export default function AtlasMap() {
       initFlow();         /* 河流图画布事件 + onResize 回调 + viewBuilders.flow 注册 (T10) */
       initFrontier();     /* 前沿榜单与领域门户 + viewBuilders.frontier/domain 注册 (T10) */
       initApi();          /* 开放 API 视图 + viewBuilders.api 注册 (T11) */
+      initCurate();       /* 策展台视图 + viewBuilders.curate 注册 (T12) */
       buildLegend();
       buildStories();
       const stamp = document.getElementById("stats");

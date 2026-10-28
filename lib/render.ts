@@ -78,16 +78,87 @@ function rebuildVis(): void {
   visIdx = Int32Array.from(idx);
 }
 
+/* ---------- 深空底幕: 预渲染星野(离屏一次, 帧内 4 次 drawImage, 视差缓移) ---------- */
+let starCv: HTMLCanvasElement | null = null;
+let starW = 0, starH = 0;
+function mulberry32(seed: number): () => number {
+  let a = seed >>> 0;
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function ensureStarfield(W: number, H: number): void {
+  if (starCv && starW === W && starH === H) return;
+  starW = W; starH = H;
+  starCv = document.createElement("canvas");
+  starCv.width = Math.max(W, 1); starCv.height = Math.max(H, 1);
+  const c = starCv.getContext("2d")!;
+  const rnd = mulberry32(20261028);
+  /* 远景薄雾: 2-3 片超淡星云带, 建立纵深 */
+  for (let i = 0; i < 3; i++) {
+    const hx = rnd() * W, hy = rnd() * H, hr = Math.min(W, H) * (0.35 + rnd() * 0.3);
+    const haze = c.createRadialGradient(hx, hy, 0, hx, hy, hr);
+    const warm = rnd() < 0.5;
+    haze.addColorStop(0, warm ? "rgba(120,130,170,0.045)" : "rgba(90,120,150,0.05)");
+    haze.addColorStop(1, "rgba(0,0,0,0)");
+    c.fillStyle = haze;
+    c.fillRect(hx - hr, hy - hr, hr * 2, hr * 2);
+  }
+  /* 星野: 大多为针尖冷白, 少量暖色/微蓝与亮星 */
+  const n = Math.round(W * H / 2300);
+  for (let i = 0; i < n; i++) {
+    const x = rnd() * W, y = rnd() * H, r = 0.35 + rnd() * 0.75;
+    const roll = rnd();
+    let col = "205,216,230";              /* 冷白 */
+    if (roll > 0.86) col = "232,217,176"; /* 暖 */
+    else if (roll > 0.76) col = "159,192,255"; /* 微蓝 */
+    c.fillStyle = "rgba(" + col + "," + (0.10 + rnd() * 0.5).toFixed(2) + ")";
+    c.beginPath(); c.arc(x, y, r, 0, 7); c.fill();
+    if (rnd() > 0.965) {                  /* 少数亮星加十字微芒 */
+      c.strokeStyle = "rgba(" + col + ",0.35)";
+      c.lineWidth = 0.6;
+      c.beginPath();
+      c.moveTo(x - r * 4, y); c.lineTo(x + r * 4, y);
+      c.moveTo(x, y - r * 4); c.lineTo(x, y + r * 4);
+      c.stroke();
+    }
+  }
+}
+function drawStarfield(ctx: CanvasRenderingContext2D, W: number, H: number): void {
+  if (!starCv) return;
+  /* 视差: 星野比星图慢移(3%), 平移时产生纵深; 取模平铺覆盖全屏 */
+  const px = ((-S.tx * 0.03) % W + W) % W;
+  const py = ((-S.ty * 0.03) % H + H) % H;
+  for (const dx of [px - W, px]) {
+    for (const dy of [py - H, py]) {
+      ctx.drawImage(starCv, dx, dy, W, H);
+    }
+  }
+}
+
+/* ---------- 大陆星云: 每域独立色调(深空青/靛/紫灰系), 双层弥散 ---------- */
+const NEBULA_TINTS = ["96,132,184", "104,152,158", "128,140,192", "148,138,182", "100,158,168"];
+function nebulaTint(id: string): string {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return NEBULA_TINTS[Math.abs(h) % NEBULA_TINTS.length];
+}
+
 export function draw() {
   const ctx = _ctx!;
   const DPR = canvasSize.DPR, W = canvasSize.W, H = canvasSize.H;
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  /* 背景 + 微弱经纬线(海图质感) */
-  ctx.fillStyle = "#0d1420";
+  /* 背景: 深空底色 → 星野(视差) → 微弱经纬线(海图质感) */
+  ctx.fillStyle = "#0b111c";
   ctx.fillRect(0, 0, W, H);
+  ensureStarfield(W, H);
+  drawStarfield(ctx, W, H);
   const wx0 = (0 - S.tx) / S.k, wy0 = (0 - S.ty) / S.k;
   const wx1 = (W - S.tx) / S.k, wy1 = (H - S.ty) / S.k;
-  ctx.strokeStyle = "rgba(60,80,110,0.09)";
+  ctx.strokeStyle = "rgba(60,80,110,0.07)";
   ctx.lineWidth = 1;
   ctx.beginPath();
   const GRID = 240;
@@ -95,18 +166,31 @@ export function draw() {
   for (let gy = Math.floor(wy0 / GRID) * GRID; gy <= wy1; gy += GRID) { ctx.moveTo(0, sy(gy)); ctx.lineTo(W, sy(gy)); }
   ctx.stroke();
 
-  /* 大陆底色光斑 */
+  /* 大陆星云: 内层浓 + 外层弥散, 各域色调随 id 稳定 */
   for (const d of DOMAINS_) {
     const anc = DOM_ANCHOR[d.id];
     const gx = sx(anc.x), gy = sy(anc.y), gr = 470 * S.k;
     if (gx > -gr && gx < W + gr && gy > -gr && gy < H + gr) {
-      const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
-      g.addColorStop(0, "rgba(96,132,184,0.10)");
-      g.addColorStop(1, "rgba(96,132,184,0)");
-      ctx.fillStyle = g;
+      const tint = nebulaTint(d.id);
+      const outer = ctx.createRadialGradient(gx, gy, gr * 0.3, gx, gy, gr * 1.55);
+      outer.addColorStop(0, "rgba(" + tint + ",0.05)");
+      outer.addColorStop(1, "rgba(" + tint + ",0)");
+      ctx.fillStyle = outer;
+      ctx.fillRect(gx - gr * 1.6, gy - gr * 1.6, gr * 3.2, gr * 3.2);
+      const inner = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
+      inner.addColorStop(0, "rgba(" + tint + ",0.11)");
+      inner.addColorStop(1, "rgba(" + tint + ",0)");
+      ctx.fillStyle = inner;
       ctx.fillRect(gx - gr, gy - gr, gr * 2, gr * 2);
     }
   }
+
+  /* 暗角: 视线聚拢画心, 星图如悬于深空被一束光照亮 */
+  const vg = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.36, W / 2, H / 2, Math.max(W, H) * 0.74);
+  vg.addColorStop(0, "rgba(4,7,13,0)");
+  vg.addColorStop(1, "rgba(3,6,11,0.46)");
+  ctx.fillStyle = vg;
+  ctx.fillRect(0, 0, W, H);
 
   const hlSet = HL ? neighborsOf(HL) : null;
   const focus = HL != null;
@@ -180,10 +264,12 @@ export function draw() {
     }
     ctx.stroke();
   }
-  /* 高亮边最后绘制 */
+  /* 高亮边最后绘制: 柔光辉晕强化"关系通路"(仅聚焦邻域的少量边, shadow 开销可承受) */
   ctx.lineWidth = 1.5;
+  ctx.shadowBlur = 7;
   for (let i = 0; i < hiEdges.length; i += 7) {
     const et = hiEdges[i + 6] as EdgeTypeStyle;
+    ctx.shadowColor = et.color;
     ctx.strokeStyle = et.color;
     ctx.globalAlpha = 0.85;
     ctx.setLineDash(et.dashed ? [4, 4] : []);
@@ -192,6 +278,7 @@ export function draw() {
     ctx.quadraticCurveTo(hiEdges[i + 2] as number, hiEdges[i + 3] as number, hiEdges[i + 4] as number, hiEdges[i + 5] as number);
     ctx.stroke();
   }
+  ctx.shadowBlur = 0;
   ctx.setLineDash([]);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 1;
@@ -317,6 +404,31 @@ export function draw() {
       ctx.globalAlpha = a;
       ctx.lineWidth = 1;
     }
+    /* 星芒衍射: 域节点与高连接"亮星"的十字微芒(天文图语言; 仅放大到一定尺寸才画,
+     * 控制每帧渐变数量; 选中节点恒有) */
+    const spiked =
+      (n.t === "Domain" || (!fossil && n.t !== "Topic" && n.deg! >= 12)) && r > 4.5;
+    if (spiked || S.sel === n.id) {
+      const L = r * (S.sel === n.id ? 3.4 : 2.5);
+      const fade = (a0: number) => {
+        const lg = ctx.createLinearGradient(x - L, y, x + L, y);
+        lg.addColorStop(0, hexA(base, 0));
+        lg.addColorStop(0.5, hexA(base, a0));
+        lg.addColorStop(1, hexA(base, 0));
+        return lg;
+      };
+      ctx.globalAlpha = a;
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = fade(focus && !involved ? 0.10 : 0.55);
+      ctx.beginPath(); ctx.moveTo(x - L, y); ctx.lineTo(x + L, y); ctx.stroke();
+      const vg2 = ctx.createLinearGradient(x, y - L, x, y + L);
+      vg2.addColorStop(0, hexA(base, 0));
+      vg2.addColorStop(0.5, hexA(base, focus && !involved ? 0.10 : 0.55));
+      vg2.addColorStop(1, hexA(base, 0));
+      ctx.strokeStyle = vg2;
+      ctx.beginPath(); ctx.moveTo(x, y - L); ctx.lineTo(x, y + L); ctx.stroke();
+    }
+
     /* 标签 */
     const wantLabel =
       S.sel === n.id || S.hov === n.id ||
@@ -327,7 +439,7 @@ export function draw() {
     if (wantLabel) {
       ctx.globalAlpha = focus && !involved ? 0.15 : (fossil ? 0.55 : 0.9);
       ctx.fillStyle = fossil ? "#8b97a8" : (n.t === "Domain" ? "#ffd166" : n.t === "Topic" ? "#8d99ac" : "#cfd6e0");
-      ctx.font = n.t === "Domain" ? 'bold 15px "Segoe UI","Microsoft YaHei",sans-serif' : '11px "Segoe UI","Microsoft YaHei",sans-serif';
+      ctx.font = n.t === "Domain" ? 'bold 15px Georgia,"Songti SC",serif' : '11px "Segoe UI","Microsoft YaHei",sans-serif';
       /* 域名与选中节点标签加投影增可读性(数量少, 无性能压力) */
       if (n.t === "Domain" || S.sel === n.id || S.hov === n.id) {
         ctx.shadowColor = "rgba(8,12,20,0.95)"; ctx.shadowBlur = 4;
@@ -335,6 +447,15 @@ export function draw() {
         ctx.shadowBlur = 0;
       } else {
         ctx.fillText(n.zh, x, y + r + 13);
+      }
+      /* 域名: 衬线中文 + 英文小字副题(测绘图注记语言) */
+      if (n.t === "Domain" && (!focus || involved)) {
+        try { (ctx as any).letterSpacing = "1.5px"; } catch { /* 无 letterSpacing 支持则跳过 */ }
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = "#8b97a8";
+        ctx.font = '9.5px Georgia,"Segoe UI",serif';
+        if (n.en) ctx.fillText(n.en.toUpperCase(), x, y + r + 27);
+        try { (ctx as any).letterSpacing = "0px"; } catch { /* noop */ }
       }
       ctx.font = '11px "Segoe UI","Microsoft YaHei",sans-serif';
     }

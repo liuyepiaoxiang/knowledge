@@ -2,6 +2,8 @@
 
 节点的原始数据文件(维基分片)与大文件不入库:
 data/corpus/dump/
+# api/ 为管线中间产物(build-api.mjs 输出), 本地保留
+api/
 atlas.db-wal
 atlas.db-shm
 __pycache__/

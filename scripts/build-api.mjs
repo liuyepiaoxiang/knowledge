@@ -1,6 +1,6 @@
 /* 生成静态开放 API: node scripts/build-api.mjs
  * 输出 api/meta.json, nodes.json, edges.json, graph.json, stories.json, manifest.js
- * 在 js/data.js 每次更新后重跑, 保证 API 与网站同源 */
+ * 在 data/seed.js 每次更新后重跑, 保证 API 与网站同源 */
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 process.chdir(path.join(path.dirname(fileURLToPath(import.meta.url)), ".."));
@@ -9,7 +9,7 @@ import vm from "node:vm";
 
 const ctx = {};
 vm.createContext(ctx);
-vm.runInContext(fs.readFileSync("js/data.js", "utf8") + "\n; this.__out = {TYPES, EDGE_TYPES, DOMAINS, NODES, EDGES, STORIES};", ctx);
+vm.runInContext(fs.readFileSync("data/seed.js", "utf8") + "\n; this.__out = {TYPES, EDGE_TYPES, DOMAINS, NODES, EDGES, STORIES};", ctx);
 const { TYPES, EDGE_TYPES, DOMAINS, NODES, EDGES, STORIES } = ctx.__out;
 
 const deg = {};

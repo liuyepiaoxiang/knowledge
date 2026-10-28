@@ -8,14 +8,34 @@
 
 ## 打开方式
 
-**方式一（最简单）**：直接双击 `index.html`——无构建、无外部依赖、离线可用。
-
-**方式二（本地服务器，开放 API / SQLite 可用）**：
+**本地开发**：
 
 ```bash
-cd D:\03-write\projects\knowledge
-python -m http.server 8123
-# 浏览器打开 http://127.0.0.1:8123/
+npm install
+npm run dev
+# 浏览器打开 http://localhost:3000/
+```
+
+**线上版**：仓库导入 Vercel 后自动部署（见下方「技术栈与部署」），推送即更新。
+
+> 旧静态站（双击 index.html）已随 Next.js 迁移移除；如需纯静态预览，`npm run build` 生成 `out/` 后任意静态服务器可托管。
+
+## 技术栈与部署
+
+- **Next.js 15（App Router）+ TypeScript strict**，`next build` 静态导出到 `out/`（零服务端运行时，纯静态托管）
+- **部署**：Vercel 导入本仓库即自动识别——Framework: Next.js、Root: 仓库根目录，零配置；推送即部署
+- **数据文件**：由 `python scripts/export.py` 从 atlas.db 导出到 `public/data/`（core.json / ext.json / manifest.js / meta.json），随仓库提交，部署时一并上线
+- 模拟在 Web Worker（`public/sim-worker.js`）中运行，主线程回退兜底
+
+## 工程结构
+
+```
+app/            Next.js App Router 页面(全部视图)
+components/     React 组件(AtlasMap 星图主组件等)
+lib/            图状态单例/纯函数/模拟协议/主题
+public/data/    前端数据(export.py 导出: core/ext/manifest/meta)
+scripts/        数据管线(build-api.mjs, build_db.py, ingest.py, export.py, serve.py …)
+data/           种子与语料(seed.js, bulk/, corpus/)
 ```
 
 ## 16 个学科域
@@ -43,35 +63,35 @@ python -m http.server 8123
 ## 数据管线（v0.3 架构）
 
 ```
-js/data.js(种子策展层,B级) ──node build-api.js──> api/*.json ──python build_db.py──┐
-                                                                                    ▼
-bulk/*.tsv(批量骨架层,C级) ──────python ingest.py──────────────────────────────> atlas.db (SQLite, 规范存储)
-corpus/batch*.tsv(LLM抽取,C级) ───python extract.py──────────────────────────────↗
-corpus/dump/zh-*.parquet(维基CC BY-SA) ──python wiki_extract.py(Aho-Corasick扫23万篇)──↗
-                                                                                    │
-js/data_full.js(前端全量层) <──python export.py────────────────────────────────────┘
+data/seed.js(种子策展层,B级) ──node scripts/build-api.mjs──> api/*.json ──python scripts/build_db.py──┐
+                                                                                                      ▼
+data/bulk/*.tsv(批量骨架层,C级) ────python scripts/ingest.py────────────────────────────────────> atlas.db (SQLite, 规范存储)
+data/corpus/batch*.tsv(LLM抽取,C级) ──python scripts/extract.py──────────────────────────────────↗
+data/corpus/dump/zh-*.parquet(维基CC BY-SA) ──python scripts/wiki_extract.py(Aho-Corasick扫23万篇)──↗
+                                                                                                      │
+public/data/{core.json,ext.json}(前端全量层) <──python scripts/export.py─────────────────────────────┘
         ↓ 网站优先加载
 ```
 
-- **三层信任模型**：种子层 B（人工校订）→ 批量层 C（`bulk/*.tsv`，conf 0.7）→ 抽取层 C（`corpus/*.tsv` LLM 语料经 `extract.py` 规范化：按名去重、年份提取、共现自动连边，conf 0.6）
-- **策展队列**：`python curate.py stats|pending|promote|promote-domain|reject` —— 把 C 逐条/批量复核为 B（已演示复核 52 条），复核后 `export.py` 同步全站
-- **策展工作台（v0.7 新增）**：`python serve.py` 启动本地服务后，访问 `#/curate` —— 网页界面批量复核节点（通过/剔除）、依据**维基原文证据句**判读共现边（奠基/使能/应用/解释/启发/保留/删除），写回 SQLite 后一键重新导出。概念卡的"关联"边下方会直接显示原文共现引文
-- **构建一体化（v0.7 新增）**：`python make_all.py` 一条命令编排全部管线（含每步断言与终检），`--fresh` 全重建
-- **共现边语义升级（v0.6 新增）**：`corpus/pending_semantic.tsv`（待判读对导出）→ 人工/LLM 判读 `corpus/semantic.tsv`（升级为带方向类型边 或 判噪声删除）→ `python semantic.py` 应用 → `export.py` 同步。首轮：560 对判读，88 条升级（半导体→使能集成电路/微处理器/智能手机/激光器…），295 条同域垃圾边清理
-- **维基开放数据本地管线（v0.5 新增）**：`wiki_extract.py` —— 下载→本地解析→三类提取（既有节点年份补全 / 文本共现边按计数取优 / 高关联新概念），全部 C 级标注溯源"维基语料本地提取 (CC BY-SA)"；可用 `curate.py reject` 剔除质量差的列表页混入项
-- **扩数据只需**：往 `corpus/` 加批次或再下载一个 parquet 分片 → `python wiki_extract.py corpus/dump/zh-part4.parquet` → `python export.py`
-- SQLite schema：`nodes/edges/evidence/story_steps/domains/meta` + 域/类型/年代/边端点索引；`ingest.py` 幂等可重跑、建库时自动完整性校验
-- **改数据后的重跑顺序**：`node validate.js` → `node build-api.js` → `python build_db.py` → `python ingest.py` → `python export.py`
+- **三层信任模型**：种子层 B（人工校订）→ 批量层 C（`data/bulk/*.tsv`，conf 0.7）→ 抽取层 C（`data/corpus/*.tsv` LLM 语料经 `scripts/extract.py` 规范化：按名去重、年份提取、共现自动连边，conf 0.6）
+- **策展队列**：`python scripts/curate.py stats|pending|promote|promote-domain|reject` —— 把 C 逐条/批量复核为 B（已演示复核 52 条），复核后 `scripts/export.py` 同步全站
+- **策展工作台（v0.7 新增）**：`python scripts/serve.py` 启动本地服务后，访问 `#/curate` —— 网页界面批量复核节点（通过/剔除）、依据**维基原文证据句**判读共现边（奠基/使能/应用/解释/启发/保留/删除），写回 SQLite 后一键重新导出。概念卡的"关联"边下方会直接显示原文共现引文。需先 `npm run build` 生成 `out/`（策展服务托管静态导出产物）；线上版 `#/curate` 无后端，会显示本地模式提示
+- **构建一体化（v0.7 新增）**：`python scripts/make_all.py` 一条命令编排全部管线（含每步断言与终检），`--fresh` 全重建
+- **共现边语义升级（v0.6 新增）**：`data/corpus/pending_semantic.tsv`（待判读对导出）→ 人工/LLM 判读 `data/corpus/semantic.tsv`（升级为带方向类型边 或 判噪声删除）→ `python scripts/semantic.py` 应用 → `scripts/export.py` 同步。首轮：560 对判读，88 条升级（半导体→使能集成电路/微处理器/智能手机/激光器…），295 条同域垃圾边清理
+- **维基开放数据本地管线（v0.5 新增）**：`scripts/wiki_extract.py` —— 下载→本地解析→三类提取（既有节点年份补全 / 文本共现边按计数取优 / 高关联新概念），全部 C 级标注溯源"维基语料本地提取 (CC BY-SA)"；可用 `scripts/curate.py reject` 剔除质量差的列表页混入项
+- **扩数据只需**：往 `data/corpus/` 加批次或再下载一个 parquet 分片 → `python scripts/wiki_extract.py data/corpus/dump/zh-part4.parquet` → `python scripts/export.py`
+- SQLite schema：`nodes/edges/evidence/story_steps/domains/meta` + 域/类型/年代/边端点索引；`scripts/ingest.py` 幂等可重跑、建库时自动完整性校验
+- **改数据后的重跑顺序**：`node scripts/build-api.mjs` → `python scripts/build_db.py` → `python scripts/ingest.py` → `python scripts/export.py` → `npm run validate`
 
 ### SQLite 查询 CLI
 
 ```bash
-python db.py stats                      # 版次/域分布/类型分布
-python db.py node 熵                    # 概念卡: 定义/证据/邻居
-python db.py path 火的使用 ChatGPT      # 跨域最短奠基路径(实测12跳)
-python db.py domain 医学与健康          # 域概况: 子领域+里程碑
-python db.py search 印刷                # 模糊检索
-python db.py query "SELECT ..."        # 只读 SQL
+python scripts/db.py stats                      # 版次/域分布/类型分布
+python scripts/db.py node 熵                    # 概念卡: 定义/证据/邻居
+python scripts/db.py path 火的使用 ChatGPT      # 跨域最短奠基路径(实测12跳)
+python scripts/db.py domain 医学与健康          # 域概况: 子领域+里程碑
+python scripts/db.py search 印刷                # 模糊检索
+python scripts/db.py query "SELECT ..."        # 只读 SQL
 ```
 
 ## 六大视图
@@ -89,11 +109,11 @@ python db.py query "SELECT ..."        # 只读 SQL
 
 ## 已验证（浏览器 + 数据库实测）
 
-- 497 节点全量加载（data_full.js 优先层）与 16 域渲染
+- 497 节点全量加载（public/data/core.json 优先层）与 16 域渲染
 - 批量层概念卡诚实标注（都江堰：C 级证据·置信度 70%·归属正确）
 - 跨域路径 `火的使用→…→ChatGPT` 12 跳、`晶体管→mRNA疫苗` 9 跳
 - 前沿三榜单/热力层/时间轴远古层/故事导览回归通过
-- `validate.js`（种子层）+ `build_db.py`/`ingest.py` 完整性检查全部通过
+- `npm run validate`（导出产物）+ `scripts/build_db.py`/`scripts/ingest.py` 完整性检查全部通过
 
 ## 覆盖度现状（诚实标尺）
 

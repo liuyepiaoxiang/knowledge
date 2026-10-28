@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """build_db.py — 知识大地 SQLite 存储层
-管线: js/data.js --(node build-api.js)--> api/*.json --(python build_db.py)--> atlas.db
+管线: data/seed.js --(node scripts/build-api.mjs)--> api/*.json --(python build_db.py)--> atlas.db
 atlas.db 是查询与分析层(万级节点后前端切片也从这里导出); data.js 仍是人工策展的源。
 运行: python build_db.py
 """

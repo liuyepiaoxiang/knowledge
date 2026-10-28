@@ -8,7 +8,7 @@ import {
 } from "./state";
 import { hashStr, isFossil, neighborsOf, shownIdx, sliderToYear } from "./graph";
 import { EDGE_TYPES, TYPES, heatColor, type EdgeTypeStyle } from "./theme";
-import { reheat, simAlpha, simWorkerActive, step } from "./sim";
+import { reheat, sendSimStop, simAlpha, simWorkerActive, step } from "./sim";
 
 /* ---------- Canvas ---------- */
 /* 模块级画布引用(命名加下划线, 供函数体内 const ctx = _ctx! 一行别名后逐字使用源码函数体) */
@@ -38,7 +38,8 @@ export function setPanelEl(p: HTMLElement | null): void { panelEl = p; }
 /* resize() —— 搬运自 js/app.js:83-89; W/H/DPR 改为 canvasSize, drawFlow 经 onResize 解耦 */
 export function resize() {
   const cv = _cv!;
-  canvasSize.DPR = window.devicePixelRatio || 1;
+  /* DPR 上限 2: 4K+ 高分屏填充率减半, 视觉几乎无损 */
+  canvasSize.DPR = Math.min(window.devicePixelRatio || 1, 2);
   canvasSize.W = cv.clientWidth; canvasSize.H = cv.clientHeight;
   cv.width = canvasSize.W * canvasSize.DPR; cv.height = canvasSize.H * canvasSize.DPR;
   if (onResize) onResize();
@@ -52,6 +53,22 @@ export function refreshHL() { HL = S.hov || S.sel; }
 /* ---------- 绘制 ---------- */
 export function sx(x: number) { return x * S.k + S.tx; }
 export function sy(y: number) { return y * S.k + S.ty; }
+
+/* ---------- 可见节点索引缓存 ----------
+ * shownIdx 依赖 year/typeOff/domOff/节点集, 以签名串检测失效:
+ * 命中时 draw 的节点遍历与边端点判定均走 visIdx/visMask (O(可见数) 代替 O(全表)) */
+let visIdx = new Int32Array(0);
+let visMask = new Uint8Array(0);
+let visSig = "";
+function rebuildVis(): void {
+  const N = NODES_.length;
+  visMask = new Uint8Array(N);
+  const idx: number[] = [];
+  for (let i = 0; i < N; i++) {
+    if (shownIdx(i)) { visMask[i] = 1; idx.push(i); }
+  }
+  visIdx = Int32Array.from(idx);
+}
 
 export function draw() {
   const ctx = _ctx!;
@@ -97,6 +114,10 @@ export function draw() {
     SYA[i] = P.y[i] * S.k + S.ty;
   }
 
+  /* 可见索引: year/图例开关/节点集变化时重建(播放期间每帧重建, 与原先逐节点 shownIdx 同阶) */
+  const sig = S.year + "|" + [...S.typeOff].join(",") + "|" + [...S.domOff].join(",") + "|" + N_ALL;
+  if (sig !== visSig) { visSig = sig; rebuildVis(); }
+
   /* 边合批: 按样式分组 → 每组一次 stroke */
   const vl = -80, vr = W + 80, vt = -80, vb = H + 80;
   const buckets = new Map<string, { color: string; dashed?: boolean; al: number; paths: number[] }>();
@@ -107,7 +128,7 @@ export function draw() {
 
   for (const e of edgeList) {
     const a = byId[e.from], b = byId[e.to];
-    if (!shownIdx(a.idx!) || !shownIdx(b.idx!)) continue;
+    if (!visMask[a.idx!] || !visMask[b.idx!]) continue;
     const et = EDGE_TYPES[e.type];
     if (S.k < 0.45 && (a.t === "Topic" || b.t === "Topic")) continue;
     const involved = HL === e.from || HL === e.to;
@@ -167,49 +188,55 @@ export function draw() {
   ctx.globalAlpha = 1;
   ctx.lineWidth = 1;
 
-  /* 节点(两遍: 先提取层纹理, 再策展/结构层) */
+  /* 节点(两遍: 先提取层纹理, 再策展/结构层)。
+   * 性能修正: 源码把 Topic 纹理层嵌在节点循环内(每个可见 Topic 都全量重画一遍纹理,
+   * O(T²)≈4.4亿次操作/帧), 此处重构为单次批量路径——视觉输出等价 */
   ctx.font = '11px "Segoe UI","Microsoft YaHei",sans-serif';
   ctx.textAlign = "center";
-  for (const topicPass of [true, false]) {
-  for (const n of NODES_) {
-    if ((n.t === "Topic") !== topicPass) continue;
-    if (!shownIdx(n.idx!)) continue;
-    /* 批量背景纹理: 无高亮时万级 Topic 单路径一次填充 */
-    if (topicPass && !focus) {
-      ctx.globalAlpha = 0.55;
-      ctx.fillStyle = "#d9c79a";
-      ctx.beginPath();
-      for (const m of NODES_) {
-        if (m.t !== "Topic" || !shownIdx(m.idx!)) continue;
-        const bx = SXA[m.idx!], by = SYA[m.idx!];
-        if (bx < -30 || bx > W + 30 || by < -30 || by > H + 30) continue;
-        const br = Math.max(TYPES.Topic.r * 0.6 * Math.min(S.k * 1.5, 1), 1.4);
-        ctx.moveTo(bx + br, by); ctx.arc(bx, by, br, 0, 7);
-      }
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      for (const m of NODES_) {
-        if (m.t !== "Topic" || !shownIdx(m.idx!)) continue;
-        if (S.sel !== m.id && S.hov !== m.id) continue;
-        const bx = SXA[m.idx!], by = SYA[m.idx!];
-        const br = Math.max(TYPES.Topic.r * 0.6 * Math.min(S.k * 1.5, 1), 2.5);
-        ctx.globalAlpha = 1; ctx.fillStyle = "#d9c79a";
-        ctx.beginPath(); ctx.arc(bx, by, br, 0, 7); ctx.fill();
-        ctx.strokeStyle = "#d9b36c"; ctx.lineWidth = 1.4;
-        ctx.beginPath(); ctx.arc(bx, by, br + 3, 0, 7); ctx.stroke();
-        ctx.font = '11px "Segoe UI","Microsoft YaHei",sans-serif';
-        ctx.fillStyle = "#cfd6e0"; ctx.fillText(m.zh, bx, by + br + 13);
-        ctx.lineWidth = 1;
-      }
-      continue;
+  /* 批量背景纹理: 无高亮时万级 Topic 单路径一次填充 */
+  if (!focus) {
+    ctx.globalAlpha = 0.55;
+    ctx.fillStyle = "#d9c79a";
+    ctx.beginPath();
+    for (let vi = 0; vi < visIdx.length; vi++) {
+      const i = visIdx[vi];
+      const m = NODES_[i];
+      if (m.t !== "Topic") continue;
+      const bx = SXA[i], by = SYA[i];
+      if (bx < -30 || bx > W + 30 || by < -30 || by > H + 30) continue;
+      const br = Math.max(TYPES.Topic.r * 0.6 * Math.min(S.k * 1.5, 1), 1.4);
+      ctx.moveTo(bx + br, by); ctx.arc(bx, by, br, 0, 7);
     }
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    for (let vi = 0; vi < visIdx.length; vi++) {
+      const i = visIdx[vi];
+      const m = NODES_[i];
+      if (m.t !== "Topic") continue;
+      if (S.sel !== m.id && S.hov !== m.id) continue;
+      const bx = SXA[i], by = SYA[i];
+      const br = Math.max(TYPES.Topic.r * 0.6 * Math.min(S.k * 1.5, 1), 2.5);
+      ctx.globalAlpha = 1; ctx.fillStyle = "#d9c79a";
+      ctx.beginPath(); ctx.arc(bx, by, br, 0, 7); ctx.fill();
+      ctx.strokeStyle = "#d9b36c"; ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.arc(bx, by, br + 3, 0, 7); ctx.stroke();
+      ctx.font = '11px "Segoe UI","Microsoft YaHei",sans-serif';
+      ctx.fillStyle = "#cfd6e0"; ctx.fillText(m.zh, bx, by + br + 13);
+      ctx.lineWidth = 1;
+    }
+  }
+  /* 策展/结构层(聚焦时 Topic 也走此路径, 与源码一致) */
+  for (let vi = 0; vi < visIdx.length; vi++) {
+    const i = visIdx[vi];
+    const n = NODES_[i];
+    if (n.t === "Topic" && !focus) continue;   /* 非聚焦时 Topic 已在纹理层处理 */
     const fossil = isFossil(n);
     const T = TYPES[n.t];
     const deg = Math.min(n.deg!, 14);
     let r = T.r * (0.78 + 0.30 * Math.log2(1 + deg)) * (n.t === "Domain" ? 1 : 1);
     if (n.t === "Topic") r *= 0.78;
     r = Math.max(r * Math.min(S.k * 1.5, 1), 2.2);
-    const x = SXA[n.idx!], y = SYA[n.idx!];
+    const x = SXA[i], y = SYA[i];
     if (x < -60 || x > W + 60 || y < -60 || y > H + 60) continue;
     const involved = HL === n.id || (hlSet && hlSet.has(n.id));
     let base = S.heat && !fossil ? heatColor(n) : (fossil ? "#4a5468" : T.color);
@@ -266,7 +293,6 @@ export function draw() {
     }
     ctx.globalAlpha = 1;
   }
-  }
 }
 
 /* ---------- 主循环 ---------- */
@@ -278,7 +304,7 @@ export function tick() {
   _fpsN++;
   const now = performance.now();
   if (now - _fpsT > 2000) {
-    if (_fpsT) console.log("FPS:", Math.round(_fpsN / (now - _fpsT) * 1000), "nodes:", NODES_.length);
+    if (process.env.NODE_ENV !== "production" && _fpsT) console.log("FPS:", Math.round(_fpsN / (now - _fpsT) * 1000), "nodes:", NODES_.length);
     _fpsN = 0; _fpsT = now;
   }
   /* 自愈: 布局尺寸与记录不符时重测(启动时序/窗口变化) */
@@ -313,6 +339,7 @@ export function tick() {
     }
   }
   const active = simAlpha() > 0.025 || S.cam || S.playing;
+  if (!active) sendSimStop();   /* 空闲: 挂起 Worker(停 pos 心跳→不再触发重绘); reheat 等消息自动唤醒 */
   if (S.hov !== lastHov || S.sel !== lastSel) { lastHov = S.hov; lastSel = S.sel; setForceDraw(true); }
   if (!simWorkerActive() && active) step();   /* Worker 不可用时降级到主线程 */
   if (active || getForceDraw()) { draw(); setForceDraw(false); }

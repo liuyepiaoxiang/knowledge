@@ -19,7 +19,7 @@ export type SimMsg = SimInitMsg | { type: "reheat"; alpha: number }
   | { type: "stop" };
 
 let alpha = 1;
-export function reheat(a: number) { alpha = Math.max(alpha, a); if (simWorker) simWorker.postMessage({ type: "reheat", alpha: a }); }
+export function reheat(a: number) { alpha = Math.max(alpha, a); wakeWorker(); if (simWorker) simWorker.postMessage({ type: "reheat", alpha: a }); }
 
 /* ===== Web Worker: 力导向模拟 ===== */
 let simWorker: Worker | null = null;
@@ -39,6 +39,9 @@ export function createSimWorker(): boolean {
                     P.x[gi] = m.px[li];
                     P.y[gi] = m.py[li];
                 }
+                /* alpha 同步: Worker 模式下主线程 step() 不跑, 主线程 alpha 需跟随 Worker 衰减,
+                 * 否则 tick() 的 active 判定恒真 → 60fps 永续重绘(浏览器假死根因) */
+                if (typeof m.alpha === "number") alpha = m.alpha;
                 setForceDraw(true);
             }
         };
@@ -104,12 +107,14 @@ export function sendSimInit() {
 
 export function sendPin(idx: number) {
     if (simWorker && workerReady) {
+        wakeWorker();
         const li = dynIdx.indexOf(idx);
         if (li >= 0) simWorker.postMessage({ type: "pin", idx: li, x: P.x[idx], y: P.y[idx] });
     }
 }
 export function sendUnpin(idx: number) {
     if (simWorker && workerReady) {
+        wakeWorker();
         const li = dynIdx.indexOf(idx);
         if (li >= 0) simWorker.postMessage({ type: "unpin", idx: li });
     }
@@ -119,8 +124,10 @@ export function sendReheat(a: number) {
 }
 /** mergeExt 新增节点推送 (js/app.js:33-45 的 worker add 消息; 数组由 AtlasMap 按源码构建, 此处统一守卫) */
 export function sendSimAdd(count: number, px: Float32Array, py: Float32Array, isTopic: Uint8Array, domIdx: Uint8Array): void {
-    if (simWorker && workerReady)
+    if (simWorker && workerReady) {
+        wakeWorker();
         simWorker.postMessage({ type: "add", count: count, px: px, py: py, isTopic: isTopic, domIdx: domIdx });
+    }
 }
 export function step() {
   const nodes = NODES_;
@@ -194,3 +201,14 @@ export function step() {
 /* render.tick 的查询接口 (模块内部可变量不直接导出可变绑定) */
 export function simAlpha(): number { return alpha; }
 export function simWorkerActive(): boolean { return simWorker != null; }
+
+/* 停机/唤醒协议: 空闲时主线程发 stop 让 Worker 挂起(停 pos 心跳→停重绘);
+ * reheat/pin/unpin/add 任一消息 Worker 侧自动唤醒, 此处只跟踪状态防重复发 stop */
+let workerPaused = false;
+export function sendSimStop(): void {
+    if (simWorker && workerReady && !workerPaused) {
+        simWorker.postMessage({ type: "stop" });
+        workerPaused = true;
+    }
+}
+function wakeWorker(): void { workerPaused = false; }

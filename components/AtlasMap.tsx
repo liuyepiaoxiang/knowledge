@@ -125,8 +125,10 @@ export default function AtlasMap() {
       if (stampDate) stampDate.textContent = "绘于 2026 年 10 月";
       S.k = 0.13; S.tx = canvasSize.W / 2; S.ty = canvasSize.H / 2;
       buildMetrics();     /* js/app.js:1641 (T11 接回) */
-      if (createSimWorker()) sendSimInit();
-      const warm = NODES_.length > 800 ? 80 : 240;   /* 大图降预热, 避免启动长阻塞 */
+      /* Worker 模式下模拟在 Worker 侧预热, 主线程预热降载(避免启动同步阻塞) */
+      const workerOn = createSimWorker();
+      if (workerOn) sendSimInit();
+      const warm = workerOn ? 20 : (NODES_.length > 800 ? 80 : 240);   /* 大图降预热, 避免启动长阻塞 */
       for (let i = 0; i < warm; i++) step();   /* 预热布局, 防止 rAF 节流时开幕松散 */
       const h0 = location.hash.replace(/^#\/?/, "");
       const deepLink = h0 && h0 !== "atlas";

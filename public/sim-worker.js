@@ -35,7 +35,8 @@ self.onmessage = function(e) {
         running = true;
         tick();
     } else if (m.type === "add") {
-        /* mergeExt 追加节点 */
+        /* mergeExt 追加节点; 任何驱动消息都唤醒模拟 */
+        running = true;
         const addN = m.count;
         const oldN = N;
         const newN = oldN + addN;
@@ -54,12 +55,15 @@ self.onmessage = function(e) {
         }
         N = newN;
     } else if (m.type === "reheat") {
+        running = true;
         alpha = Math.max(alpha, m.alpha);
     } else if (m.type === "pin") {
+        running = true;
         fixed[m.idx] = 1;
         px[m.idx] = m.x;
         py[m.idx] = m.y;
     } else if (m.type === "unpin") {
+        running = true;
         fixed[m.idx] = 0;
     } else if (m.type === "stop") {
         running = false;
@@ -69,8 +73,9 @@ self.onmessage = function(e) {
 function tick() {
     if (!running) { setTimeout(tick, 200); return; }
     step();
-    self.postMessage({ type: "pos", px: px.slice(0), py: py.slice(0) });
-    setTimeout(tick, 16);
+    /* alpha 随帧回传: 主线程据此判定布局是否稳定(停绘); 触底后降频省电 */
+    self.postMessage({ type: "pos", px: px.slice(0), py: py.slice(0), alpha: alpha });
+    setTimeout(tick, alpha <= 0.021 ? 100 : 16);
 }
 
 function step() {

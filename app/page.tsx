@@ -1,3 +1,5 @@
+import AtlasMap from "@/components/AtlasMap";
+
 export default function Home() {
   return (
     <>
@@ -37,7 +39,7 @@ export default function Home() {
           <div id="timebar">
             <button id="playBtn" title="从最早年代重放整张地图的生长">▷ 重放生长</button>
             <div id="sliderWrap">
-              <input id="yearRange" type="range" min={0} max={1000} value={1000} step={1} aria-label="年代尺(分段线性)" />
+              <input id="yearRange" type="range" min={0} max={1000} defaultValue={1000} step={1} aria-label="年代尺(分段线性)" />
               <div id="ticks">
                 <span style={{ left: "0%" }}>前8000</span><span style={{ left: "25%" }}>前4000</span><span style={{ left: "40%" }}>前2000</span><span style={{ left: "50%" }}>前500</span><span style={{ left: "62%" }}>1000</span><span style={{ left: "72%" }}>1600</span><span style={{ left: "88%" }}>1900</span><span style={{ left: "100%" }}>2026</span>
               </div>
@@ -150,10 +152,12 @@ export default function Home() {
                 <p>图上沿着绿色系"工程化/产品化"的边走，就是这条管道；沿着黄铜色虚线"反哺"的边回流，是闭环。每条边自带<b>起始年份</b>——知识变成技术的时滞本身是被测量的。</p>
                 <h2>诚实性是一等公民</h2>
                 <table className="grades">
-                  <tr><td className="g gA">A</td><td>权威文献直接支持（论文、教科书、专利原文）</td></tr>
-                  <tr><td className="g gB">B</td><td>专家共识 / 权威分类体系</td></tr>
-                  <tr><td className="g gC">C</td><td>模型自动抽取，未经人工复核（后续版本开放显示）</td></tr>
-                  <tr><td className="g gD">D</td><td>推测与用户贡献，仅作探索线索</td></tr>
+                  <tbody>
+                    <tr><td className="g gA">A</td><td>权威文献直接支持（论文、教科书、专利原文）</td></tr>
+                    <tr><td className="g gB">B</td><td>专家共识 / 权威分类体系</td></tr>
+                    <tr><td className="g gC">C</td><td>模型自动抽取，未经人工复核（后续版本开放显示）</td></tr>
+                    <tr><td className="g gD">D</td><td>推测与用户贡献，仅作探索线索</td></tr>
+                  </tbody>
                 </table>
                 <p>红色"未解问题"与紫红色"争议"节点不是地图的缺陷，而是地图最亮的部分：<b>未知之地（terra incognita）。</b></p>
               </div>
@@ -200,6 +204,8 @@ export default function Home() {
 
       <aside id="panel" hidden></aside>
       <div id="tooltip" hidden></div>
+
+      <AtlasMap />
     </>
   );
 }

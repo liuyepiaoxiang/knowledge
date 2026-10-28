@@ -117,6 +117,11 @@ export function sendUnpin(idx: number) {
 export function sendReheat(a: number) {
     if (simWorker && workerReady) simWorker.postMessage({ type: "reheat", alpha: a });
 }
+/** mergeExt 新增节点推送 (js/app.js:33-45 的 worker add 消息; 数组由 AtlasMap 按源码构建, 此处统一守卫) */
+export function sendSimAdd(count: number, px: Float32Array, py: Float32Array, isTopic: Uint8Array, domIdx: Uint8Array): void {
+    if (simWorker && workerReady)
+        simWorker.postMessage({ type: "add", count: count, px: px, py: py, isTopic: isTopic, domIdx: domIdx });
+}
 export function step() {
   const nodes = NODES_;
   const shown: number[] = [];

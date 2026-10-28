@@ -110,6 +110,9 @@ export function initGraph(core: GraphCore): void {
 
 /** 画布尺寸（AtlasMap 的 resize() 写入, js/app.js:82） */
 export const canvasSize = { W: 0, H: 0, DPR: 1 };
+/** mergeExt 重算全量边表 (js/app.js:46 的 CN_ALL_EDGES 赋值; export let 的只读绑定需经此写入) */
+export function setCNAll(v: GraphEdge[]): void { CN_ALL_EDGES = v; }
+
 /** 脏标记: 无变化不重绘 (js/app.js:608) */
 export let forceDraw = true;
 export function setForceDraw(v: boolean): void { forceDraw = v; }

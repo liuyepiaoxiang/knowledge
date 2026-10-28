@@ -21,6 +21,7 @@ import { initTimeBar, startPlay, syncTimeUI } from "./TimeBar";
 import { buildLegend } from "./Legend";
 import { buildStories } from "./Stories";
 import { initSearch } from "./SearchBox";
+import { initTimeline } from "./TimelineView";
 
 /* dev StrictMode 下 effect 双调用守卫: boot/rAF 循环/Worker 只启动一次 */
 let started = false;
@@ -104,6 +105,7 @@ export default function AtlasMap() {
       setPanelEl(document.getElementById("panel") as HTMLElement);   /* render.flyTo 据面板可见性偏移居中 */
       initTimeBar();      /* 年代尺事件 + render.tick 的 onTimeSync/onStopPlay 回调 */
       initSearch();       /* 搜索输入/下拉 + 全局 Escape 按键 */
+      initTimeline();     /* 时间轴画布事件 + viewBuilders.timeline 注册 (T9) */
       buildLegend();
       buildStories();
       const stamp = document.getElementById("stats");

@@ -192,7 +192,7 @@ export default function Home() {
               <pre className="pipe">
                 {"# 全图(节点+边): 约 "}
                 <span id="apiSize"></span>
-                {"\ncurl -s http://127.0.0.1:8123/api/graph.json | head -c 400\n\n# 只要节点清单 / 只要边清单 / 元信息 / 故事\ncurl -s http://127.0.0.1:8123/api/nodes.json\ncurl -s http://127.0.0.1:8123/api/edges.json\ncurl -s http://127.0.0.1:8123/api/meta.json\ncurl -s http://127.0.0.1:8123/api/stories.json"}
+                {"\n# 本站数据(部署即取): 核心层 + 扩展层\ncurl -s https://你的域名/data/core.json | head -c 400\ncurl -s https://你的域名/data/meta.json\n\n# 全量大文件(nodes/edges/graph.json, 50MB+): 本地管线生成后自取\npython scripts/export.py && head -c 400 api/graph.json"}
               </pre>
               <p>graph.json 的节点与边即 <code>data/seed.js</code> 的解码结果：节点含类型/中英名/出生年/状态/证据/置信度，边含类型/权重/起始年份。生成脚本 <code>scripts/build-api.mjs</code> 在每次数据更新后重跑，保证 API 与网站所见永远同源。</p>
               <p>许可：数据遵循其来源的许可（Wikipedia 内容 CC BY-SA，需署名并以相同方式共享）；使用时请保留节点中的证据溯源字段。</p>

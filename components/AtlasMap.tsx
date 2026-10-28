@@ -22,6 +22,8 @@ import { buildLegend } from "./Legend";
 import { buildStories } from "./Stories";
 import { initSearch } from "./SearchBox";
 import { initTimeline } from "./TimelineView";
+import { initFlow } from "./FlowView";
+import { initFrontier } from "./FrontierView";
 
 /* dev StrictMode 下 effect 双调用守卫: boot/rAF 循环/Worker 只启动一次 */
 let started = false;
@@ -106,6 +108,8 @@ export default function AtlasMap() {
       initTimeBar();      /* 年代尺事件 + render.tick 的 onTimeSync/onStopPlay 回调 */
       initSearch();       /* 搜索输入/下拉 + 全局 Escape 按键 */
       initTimeline();     /* 时间轴画布事件 + viewBuilders.timeline 注册 (T9) */
+      initFlow();         /* 河流图画布事件 + onResize 回调 + viewBuilders.flow 注册 (T10) */
+      initFrontier();     /* 前沿榜单与领域门户 + viewBuilders.frontier/domain 注册 (T10) */
       buildLegend();
       buildStories();
       const stamp = document.getElementById("stats");

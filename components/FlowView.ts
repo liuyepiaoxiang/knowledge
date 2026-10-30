@@ -16,7 +16,7 @@
 import { E, NODES_, byId } from "../lib/state";
 import type { GraphEdge, GraphNode } from "../lib/types";
 import { flyTo, setOnResize, drawStars, drawVignette } from "../lib/render";
-import { viewBuilders } from "../lib/router";
+import { switchView, viewBuilders } from "../lib/router";
 import { select } from "./ConceptPanel";
 
 /* heatColor(生长热力着色)见 lib/theme.ts —— 源码 1212-1219, T5 已搬入 */
@@ -35,6 +35,15 @@ STAGES.forEach((s, i) => s.types.forEach(t => { stageOf[t] = i; }));
 let _flowCv: HTMLCanvasElement | null = null;
 let _fctx: CanvasRenderingContext2D | null = null;
 let flowBuilt = false, flowHover: string | null = null;
+/* 用户视口变换: 适配缩放(滚轮) + 平移(拖拽), 双击复位。
+ * 修复: 源码 drawFlow 用父容器 rect(含标题区)而命中测试用画布 rect, 两套坐标系
+ * 不一致导致图形底部画出画布外(看不见也点不到)——统一改用画布自身 rect。 */
+let flowZoom = 1, flowPanX = 0, flowPanY = 0;
+let flowDragged = false;   /* 拖拽后抑制 click, 防止平移结束误开概念卡 */
+function flowXform(cw: number, ch: number): { k: number; tx: number; ty: number } {
+  const k = Math.min(cw / FLOW.W, ch / FLOW.H) * flowZoom;
+  return { k, tx: (cw - FLOW.W * k) / 2 + flowPanX, ty: (ch - FLOW.H * k) / 2 + flowPanY };
+}
 interface FlowBand { n: GraphNode; si: number; w: number; y0: number; h: number; mean: number[] }
 interface FlowLink { e: GraphEdge; a: FlowBand; b: FlowBand }
 interface FlowGeom { X0: number; XGAP: number; BAND: number; TOP: number; BOT: number }
@@ -83,16 +92,16 @@ function buildFlow() {
 function drawFlow() {
   const flowCv = _flowCv!;
   const fctx = _fctx!;
-  const rect = flowCv.parentElement!.getBoundingClientRect();
+  const rect = flowCv.getBoundingClientRect();   /* 画布自身 rect, 与命中测试同源 */
   const cw = rect.width, ch = rect.height;
   const DPR2 = Math.min(window.devicePixelRatio || 1, 2);
   flowCv.width = cw * DPR2; flowCv.height = ch * DPR2;
-  const k = Math.min(cw / FLOW.W, ch / FLOW.H);
+  const xf = flowXform(cw, ch);
   fctx.setTransform(DPR2, 0, 0, DPR2, 0, 0);
   /* 深空底幕: 与星图共用星野层 */
   drawStars(fctx, cw, ch);
-  fctx.translate((cw - FLOW.W * k) / 2, (ch - FLOW.H * k) / 2);
-  fctx.scale(k, k);
+  fctx.translate(xf.tx, xf.ty);
+  fctx.scale(xf.k, xf.k);
   const g = FLOW.geom!;
   /* 彩带: 起讫阶段色沿程渐变(知识如何"流向"技术); 悬停时聚焦辉光 */
   for (const L of FLOW.links) {
@@ -184,9 +193,9 @@ export function initFlow() {
   flowCv.addEventListener("mousemove", ev => {
     if (!flowBuilt) return;
     const rect = flowCv.getBoundingClientRect();
-    const k = Math.min(rect.width / FLOW.W, rect.height / FLOW.H);
-    const wx = (ev.clientX - rect.left - (rect.width - FLOW.W * k) / 2) / k;
-    const wy = (ev.clientY - rect.top - (rect.height - FLOW.H * k) / 2) / k;
+    const xf = flowXform(rect.width, rect.height);
+    const wx = (ev.clientX - rect.left - xf.tx) / xf.k;
+    const wy = (ev.clientY - rect.top - xf.ty) / xf.k;
     const g = FLOW.geom!;
     let hit: GraphNode | null = null;
     for (const col of FLOW.cols) for (const b of col) {
@@ -202,7 +211,39 @@ export function initFlow() {
     } else tip.hidden = true;
   });
   flowCv.addEventListener("mouseleave", () => { flowHover = null; (document.getElementById("tooltip") as HTMLElement).hidden = true; if (flowBuilt) drawFlow(); });
-  flowCv.addEventListener("click", () => { if (flowHover) { select(flowHover); flyTo(flowHover); } });
+  /* 点击条带 → 跳星图并居中开卡(与前沿/时间轴一致; 源码行为是原地开面板, 易被误解为无响应) */
+  flowCv.addEventListener("click", () => {
+    if (flowHover && !flowDragged) { switchView("map"); select(flowHover); flyTo(flowHover); }
+  });
+  /* 滚轮缩放(以光标为锚) + 拖拽平移 + 双击复位 */
+  let dragging = false, dragX = 0, dragY = 0;
+  flowCv.addEventListener("wheel", ev => {
+    if (!flowBuilt) return;
+    ev.preventDefault();
+    const rect = flowCv.getBoundingClientRect();
+    const mx = ev.clientX - rect.left, my = ev.clientY - rect.top;
+    flowZoom = Math.min(4, Math.max(0.6, flowZoom * Math.exp(-ev.deltaY * 0.0012)));
+    /* 保持光标下的图形点不动 */
+    const xf0 = flowXform(rect.width, rect.height);
+    const wx = (mx - xf0.tx) / xf0.k, wy = (my - xf0.ty) / xf0.k;
+    const xf1 = flowXform(rect.width, rect.height);
+    flowPanX += mx - (xf1.tx + wx * xf1.k);
+    flowPanY += my - (xf1.ty + wy * xf1.k);
+    drawFlow();
+  }, { passive: false });
+  flowCv.addEventListener("pointerdown", ev => {
+    dragging = true; flowDragged = false; dragX = ev.clientX; dragY = ev.clientY;
+    flowCv.setPointerCapture(ev.pointerId);
+  });
+  flowCv.addEventListener("pointermove", ev => {
+    if (!dragging) return;
+    const dx = ev.clientX - dragX, dy = ev.clientY - dragY;
+    if (Math.abs(dx) + Math.abs(dy) > 3) flowDragged = true;
+    flowPanX += dx; flowPanY += dy; dragX = ev.clientX; dragY = ev.clientY;
+    if (flowBuilt) drawFlow();
+  });
+  flowCv.addEventListener("pointerup", () => { dragging = false; });
+  flowCv.addEventListener("dblclick", () => { flowZoom = 1; flowPanX = 0; flowPanY = 0; if (flowBuilt) drawFlow(); });
   setOnResize(() => { if (flowBuilt) drawFlow(); });   /* T5 遗留接线 (js/app.js:87) */
   viewBuilders.flow = () => { initFlow(); buildFlow(); };   /* js/app.js:1090 */
 }

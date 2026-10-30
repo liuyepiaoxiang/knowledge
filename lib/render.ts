@@ -485,6 +485,9 @@ export function tick() {
     if (process.env.NODE_ENV !== "production" && _fpsT) console.log("FPS:", Math.round(_fpsN / (now - _fpsT) * 1000), "nodes:", NODES_.length);
     _fpsN = 0; _fpsT = now;
   }
+  /* 非 map 视图: 星图画布 display:none, clientWidth=0 —— 必须在尺寸自愈之前返回,
+   * 否则 canvasSize 被清零, 跳回星图时 flyTo 居中计算错位、拾取坐标错乱(点到A飞到B) */
+  if (S.view !== "map") { setForceDraw(true); return; }
   /* 自愈: 布局尺寸与记录不符时重测(启动时序/窗口变化) */
   const cv = _cv!;
   if (cv.clientWidth !== canvasSize.W || cv.clientHeight !== canvasSize.H) {
@@ -496,7 +499,6 @@ export function tick() {
     }
   }
   if (S.needFly && canvasSize.W > 0) { const fid = S.needFly; S.needFly = null; flyTo(fid); }
-  if (S.view !== "map") { setForceDraw(true); return; }
   if (S.playing) {
     /* 基于真实时间沿分段年代尺重放, 不受 rAF 节流影响 */
     const done = Math.min(1, (performance.now() - S.playT0) / S.playDur);

@@ -17,14 +17,14 @@ window.API_MANIFEST = {
   {
    "file": "edges.json",
    "desc": "全部边",
-   "kb": 14431.4,
-   "bytes": 14777753.6
+   "kb": 14437.2,
+   "bytes": 14783692.8
   },
   {
    "file": "graph.json",
    "desc": "全图一次拉取",
-   "kb": 22605.0,
-   "bytes": 23147520.0
+   "kb": 22611.2,
+   "bytes": 23153868.8
   },
   {
    "file": "stories.json",
